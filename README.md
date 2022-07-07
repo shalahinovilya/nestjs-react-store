@@ -21,4 +21,14 @@ $ npm run start:prod
 
 ```bash
 $ npm run start
+```
 
+## Run the fully containerized application instance
+
+```bash
+$ docker-compose up --build
+
+# Client route: http://localhost:3000
+# Server route: http://localhost:5000
+# Adminer route: http://localhost:8000
+```
