@@ -1,0 +1,159 @@
+.auth-block {
+    width: 400px;
+    left: 35%;
+    margin-top: 200px;
+    position: fixed;
+    padding: 20px;
+    border: 1px solid rgba(0, 1, 0, 0.3);
+}
+
+.submit-login-button {
+    margin: 10px;
+
+}
+
+.create-product-card, .updateProductCard {
+    left: 35%;
+    margin-top: 100px;
+    padding: 20px;
+}
+
+.no-products-h1 {
+    height: 400px;
+    width: 1300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.characteristic-desc {
+    font-size: 30px;
+}
+
+.category, .price, .description {
+    font-size: 20px;
+    color: rgba(0,0,0,0.5)
+}
+
+.category-content, .price-content {
+    font-size: 20px;
+    color: rgba(0,0,0,0.8)
+}
+
+.control-buttons {
+    margin-top: 10px;
+}
+
+.outer {
+    background-color: gainsboro;
+    text-align: center;
+    display: table;
+    height: 100%;
+    width: 100%;
+
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    font-size: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    /* Whatever width you want */
+}
+
+.description-content {
+
+    width: 100%;
+    margin-top: 20px;
+    word-wrap: break-word;
+    max-width: 350px;
+}
+
+
+.pagination-block {
+
+    margin-top: 50px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.loading-block {
+    display: flex;
+    justify-content: center;
+    padding-top: 18rem;
+}
+
+.loading-spinner {
+    width: 7rem;
+    height: 7rem;
+}
+
+.cart-title-col, .cart-description-col, .cart-price-col, .cart-category-col, .cart-quantity-col {
+    display: flex;
+    border: 1px solid gainsboro;
+}
+
+.create-order-block-final-price {
+    display: flex;
+    font-size: 20px;
+}
+
+.create-order-block-final-price p {
+    margin: auto;
+}
+
+
+.cart-title-col p, .cart-description-col p, .cart-price-col p, .cart-category-col p, .cart-quantity-col p {
+    margin: auto;
+    font-size: 20px;
+}
+
+.cart-img {
+    margin: auto;
+}
+
+.cart-img-container {
+    padding-left: 55px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.go-to-order-btn {
+    display: block;
+    font-size: 30px;
+    width: 200px;
+    margin: 30px auto;
+    background-color: #E0FFFF;
+    color: black;
+}
+
+.delete-from-cart-btn {
+    display: block;
+    font-size: 20px;
+    width: 200px;
+    margin: 0 auto;
+}
+
+.final-price-content {
+    font-size: 50px;
+}
+
+.order-img-row, .order-title-row, .order-description-row, .order-price-row, .order-category-row, .order-quantity-row {
+    font-size: 30px;
+    text-align: center;
+}
+
+.cart-data-info {
+    display: flex;
+    justify-content: center;
+    padding-top: 18rem;
+    font-size: 50px;
+}

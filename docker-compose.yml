@@ -1,0 +1,70 @@
+version: '2.6.0'
+
+x-common-variables: &common-variables
+  PORT: 5000
+  POSTGRES_HOST: db
+  POSTGRES_PORT: 5432
+  POSTGRES_USER: postgres
+  POSTGRES_DB_PASSWORD: password
+  POSTGRES_DB: node-react-store
+
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=node-react-store
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3050:80"
+
+  api:
+    restart: unless-stopped
+    build:
+      dockerfile: Dockerfile
+      context: "./server"
+    depends_on:
+      - db
+    volumes:
+      - /app/node_modules
+    environment:
+      <<: *common-variables
+    ports:
+      - 5000:5000
+
+
+  client:
+    stdin_open: true
+    environment:
+      - REACT_APP_GET_IMG=http://localhost:5000
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    depends_on:
+      - api
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - 3000:3000
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - 8000:8080
+    depends_on:
+      - db
+    environment:
+      ADMINER_DEFAULT_SERVER: db

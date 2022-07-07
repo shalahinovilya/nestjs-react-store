@@ -1,0 +1,100 @@
+import axios from "axios";
+
+
+export const createProduct = async (productCreateData) => {
+    try {
+        const res = await axios({
+            method: 'post',
+            url: '/product/create-product/',
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            data: productCreateData
+            })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getProduct = async (productId) => {
+    try {
+        const res = await axios({
+            method: 'get',
+            url: `/product/get-product/${productId}/`,
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const updateProduct = async (productId, productUpdateData) => {
+    try {
+        const res = await axios({
+            method: 'put',
+            url: `/product/update-product/${productId}/`,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            data: productUpdateData
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const deleteProduct = async (productId) => {
+    try {
+        const res = await axios({
+            method: 'delete',
+            url: `/product/delete-product/${productId}/`,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getAllProducts = async () => {
+    try {
+        const res = await axios({
+            method: 'get',
+            url: `/product/get-all-products/`,
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+
+export const getTotalProductsNum = async () => {
+    try {
+        const res = await axios({
+            method: 'get',
+            url: `/product/get-total-products-num/`,
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const getProducts = async (limit, offset ) => {
+    try {
+        const res = await axios({
+            method: 'get',
+            url: `/product/get-products/`,
+            params: {limit, offset}
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}

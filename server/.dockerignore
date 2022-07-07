@@ -1,0 +1,7 @@
+.git
+.gitignore
+.dockerignore
+
+# Build dependencies
+dist
+node_modules
