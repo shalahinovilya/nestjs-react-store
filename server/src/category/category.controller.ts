@@ -25,9 +25,4 @@ export class CategoryController {
         return await this.categoryService.getAllCategories()
     }
 
-    @Get('get-all-by-category')
-    async getAllByCategory(): Promise<Category[]> {
-        return await this.categoryService.getAllCategories()
-    }
-
 }

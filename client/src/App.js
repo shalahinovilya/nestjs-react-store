@@ -6,6 +6,8 @@ import {observer} from "mobx-react-lite";
 import {useContext, useEffect, useState} from "react";
 import {Context} from "./index";
 import './static/AuthPath.css'
+import './static/SideBar.css'
+import './static/CatalogSettings.css'
 import {checkAuth} from "./http/userHttp";
 import {Spinner} from "react-bootstrap";
 
@@ -27,9 +29,9 @@ const App = observer(() => {
 
 
     if (isLoading) {
-        return <div className="loading-block">
+        return (<div className="loading-block">
             <Spinner className="loading-spinner" animation="grow" variant="primary" />
-            </div>
+            </div>)
     }
 
     return (

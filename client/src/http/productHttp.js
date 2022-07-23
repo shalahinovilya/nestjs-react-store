@@ -61,19 +61,6 @@ export const deleteProduct = async (productId) => {
     }
 }
 
-export const getAllProducts = async () => {
-    try {
-        const res = await axios({
-            method: 'get',
-            url: `/product/get-all-products/`,
-        })
-        return res.data
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-
 export const getTotalProductsNum = async () => {
     try {
         const res = await axios({
@@ -86,12 +73,12 @@ export const getTotalProductsNum = async () => {
     }
 }
 
-export const getProducts = async (limit, offset ) => {
+export const getProducts = async (limit, offset, categoryId, sortOrder) => {
     try {
         const res = await axios({
             method: 'get',
             url: `/product/get-products/`,
-            params: {limit, offset}
+            params: {limit, offset, categoryId, sortOrder}
         })
         return res.data
     } catch (e) {

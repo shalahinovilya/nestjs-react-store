@@ -8,7 +8,9 @@ import {
     Param,
     Query,
     UseInterceptors,
-    UploadedFile, UseGuards
+    UploadedFile,
+    UseGuards,
+    Req
 } from '@nestjs/common';
 import {FileInterceptor} from "@nestjs/platform-express";
 import {ProductService} from "./product.service";
@@ -16,6 +18,7 @@ import {CreateProductDto} from "./dto/create-product.dto";
 import {Product} from "./product.entity";
 import {UpdateProductDto} from "./dto/update-product.dto";
 import {AuthGuard} from "../auth/auth-jwt.guard";
+import {Category} from "../category/category.entity";
 
 @Controller('product')
 export class ProductController {
@@ -64,10 +67,9 @@ export class ProductController {
     }
 
     @Get('get-products')
-    async getProducts(@Query('limit') limit, @Query('offset') offset ){
-        return await this.productService.getProducts(limit, offset)
+    async getProducts(@Req() req){
+        return await this.productService.getProducts(req)
     }
-
 
 }
 

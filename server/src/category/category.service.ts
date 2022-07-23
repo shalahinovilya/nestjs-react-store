@@ -19,4 +19,5 @@ export class CategoryService {
     async getAllCategories(): Promise<Category[]> {
         return await this.categoryRepository.findAll()
     }
+
 }

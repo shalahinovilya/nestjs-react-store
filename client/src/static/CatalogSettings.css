@@ -1,0 +1,13 @@
+.setting-block {
+    display: flex;
+    margin: 40px 500px 30px 30px;
+    font-size: 20px;
+}
+
+.selected-product-count {
+    margin-right: 15px;
+}
+
+.select-order {
+    margin-left: auto;
+}

@@ -25,7 +25,4 @@ export class CreateOrderDto {
 
     @IsNumber()
     userId: number
-
-    // @IsNumber()
-    // cartId: number
 }

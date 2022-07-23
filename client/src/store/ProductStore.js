@@ -4,38 +4,89 @@ import {makeAutoObservable} from "mobx";
 export class ProductStore {
 
     constructor() {
-        this.products = []
-        this.categories = []
-        this.limit = 3
-        this.offset = 0
+        this._products = []
+        this._categories = []
+        this._page = 1
+        this._selectedCategory = {}
+        // this._selectedOrder = ['updatedAt', 'ASC']
+        this._sortOrderVars = {
+            'From new to old': ['updatedAt', 'DESC'],
+            'From old to new': ['updatedAt', 'ASC'],
+            'From cheap to expensive': ['price', 'ASC'],
+            'From expensive to cheap': ['price', 'DESC'],
+        }
+        this._selectedSortOrder = 'From new to old'
+        this._limit = 6
+        this._offset = 0
+        this._totalRecords = 0
         makeAutoObservable(this)
     }
 
-    setProducts(products) {
-        this.products = products
+    setProducts (products) {
+        this._products = products
     }
 
-    setCategories(categories) {
-        this.categories = categories
+    setCategories (categories) {
+        this._categories = categories
     }
 
-    setOffset(offset) {
-        this.offset = offset
+    setPage (page) {
+        this._page = page
     }
 
-    getProducts() {
-        return this.products
+    setOffset (offset) {
+        this._offset = offset
     }
 
-    getCategories() {
-        return this.categories
+    setTotalRecords (totalRecords) {
+        this._totalRecords = totalRecords
     }
 
-    getLimit() {
-        return this.limit
+    setSelectedCategory (selectedCategory) {
+        this._selectedCategory = selectedCategory
     }
 
-    getOffset() {
-        return this.offset
+    setSelectedSortOrder (selectedSortOrder) {
+        if (!selectedSortOrder) {
+            this._selectedSortOrder = 'From new to old'
+            return;
+        }
+        this._selectedSortOrder = selectedSortOrder
+    }
+
+    get products () {
+        return this._products
+    }
+
+    get categories () {
+        return this._categories
+    }
+
+    get limit () {
+        return this._limit
+    }
+
+    get page () {
+        return this._page
+    }
+
+    get totalRecords () {
+        return this._totalRecords
+    }
+
+    get offset () {
+        return this._offset
+    }
+
+    get selectedCategory () {
+        return this._selectedCategory
+    }
+
+    get selectedSortOrder () {
+        return this._selectedSortOrder
+    }
+
+    get sortOrderVars () {
+        return this._sortOrderVars
     }
 }

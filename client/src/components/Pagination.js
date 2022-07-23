@@ -1,48 +1,38 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {Pagination} from "react-bootstrap";
-import {CreatePagination} from "../utils/PaginationParams";
-import {getProducts, getTotalProductsNum} from "../http/productHttp";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
+import {createPages} from "../utils/CreatePages";
 
 const PaginationBasic = observer(() => {
 
-    const [currentPage, setCurrentPage] = useState(1)
-    const [totalRecords, setTotalRecords] = useState(null)
-    const {products} = useContext(Context)
-    getTotalProductsNum().then((data) => setTotalRecords(data))
-    const {
-        pages,
-        pageLimit,
-        firstIndex,
-    } = CreatePagination({currentPage: currentPage, totalRecords: totalRecords, pageLimit: products.getLimit() })
+    const {product} = useContext(Context)
 
+    const pageCount = Math.ceil(product.totalRecords / product.limit)
+    const pages = []
+    product.setOffset(product.page * product.limit - product.limit)
 
-    useEffect(() => {
-        getProducts(pageLimit, firstIndex).then(data => {
-            products.setProducts(data)
-        })
-    }, [currentPage])
+    createPages(pages, product.page, pageCount)
 
     return (
-        <div>
-            <Pagination size="lg" className="pagination-block" >
-                <Pagination.First onClick={e => setCurrentPage(1)} />
-                <Pagination.Prev onClick={e => setCurrentPage(pages[0] < currentPage ? currentPage - 1 : 1 )} />
+        <div className="pagination-block">
+            <Pagination size="lg">
+                <Pagination.First onClick={e => product.setPage(1)}/>
+                <Pagination.Prev onClick={e => product.setPage(pages[0] < product.page ? product.page - 1 : 1)}/>
                 {pages.map(pageNum =>
-                     (<Pagination.Item
-                         onClick={e => {
-                            pageNum !== currentPage && setCurrentPage(+e.target.text)
+                    (<Pagination.Item
+                        onClick={e => {
+                            pageNum !== product.page && product.setPage(pageNum)
                         }}
                         key={pageNum}
-                        active={pageNum === currentPage}
+                        active={pageNum === product.page}
                     >
                         {pageNum}
                     </Pagination.Item>)
                 )}
-                <Pagination.Next onClick={e => setCurrentPage(pages[pages.length - 1] > currentPage ?
-                    currentPage + 1 : pages[pages.length - 1] )} />
-                <Pagination.Last onClick={e => setCurrentPage(pages[pages.length - 1])}/>
+                <Pagination.Next onClick={e => product.setPage(pages[pages.length - 1] > product.page ?
+                    product.page + 1 : pages[pages.length - 1])}/>
+                <Pagination.Last onClick={e => product.setPage(pages[pages.length - 1])}/>
             </Pagination>
         </div>
     );

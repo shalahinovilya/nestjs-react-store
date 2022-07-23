@@ -7,7 +7,6 @@ import {updateProduct} from "../http/productHttp";
 import {observer} from "mobx-react-lite";
 
 
-
 const UpdatePage = observer(() => {
 
     const location = useLocation();
@@ -34,49 +33,49 @@ const UpdatePage = observer(() => {
 
 
     return (
-        <Card className="updateProductCard"  style={{ width: '30rem', left: '35%', marginTop: 150 }}>
+        <Card className="updateProductCard" style={{width: '30rem', left: '35%', marginTop: 150}}>
             <Form>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <FloatingLabel controlId="floatingInput"
                                    label="Title"
                                    className="mb-3">
-                    <Form.Control
-                        type="text"
-                        placeholder="Title"
-                        value={title}
-                        onChange={e => setTitle(e.target.value)}
-                    />
-                </FloatingLabel>
+                        <Form.Control
+                            type="text"
+                            placeholder="Title"
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                        />
+                    </FloatingLabel>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicDescription">
                     <FloatingLabel controlId="floatingInput"
                                    label="Description"
                                    className="mb-3">
-                    <Form.Control
-                        type="text"
-                        placeholder="Description"
-                        value={description}
-                        onChange={e => setDescription(e.target.value)}
-                    />
+                        <Form.Control
+                            type="text"
+                            placeholder="Description"
+                            value={description}
+                            onChange={e => setDescription(e.target.value)}
+                        />
                     </FloatingLabel>
                 </Form.Group>
 
-                <Form.Group className="mb-3"  controlId="formBasicPrice">
+                <Form.Group className="mb-3" controlId="formBasicPrice">
                     <FloatingLabel controlId="floatingInput"
                                    label="Price"
                                    className="mb-3">
-                    <Form.Control
-                        type="number"
-                        placeholder="Price"
-                        value={price}
-                        onChange={e => setPrice(e.target.value)}
-                    />
+                        <Form.Control
+                            type="number"
+                            placeholder="Price"
+                            value={price}
+                            onChange={e => setPrice(e.target.value)}
+                        />
                     </FloatingLabel>
                 </Form.Group>
 
-                <Form.Group className="mb-3"  controlId="formBasicImage">
+                <Form.Group className="mb-3" controlId="formBasicImage">
                     <Form.Label>Image</Form.Label>
                     <Form.Control
                         type="file"
@@ -95,7 +94,6 @@ const UpdatePage = observer(() => {
         </Card>
     );
 });
-
 
 
 export default UpdatePage;

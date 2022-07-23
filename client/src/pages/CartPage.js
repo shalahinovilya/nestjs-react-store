@@ -51,14 +51,14 @@ const CartPage = observer(() => {
             <Container>
                 <ProductRowDesc/>
                 <Row md={1}>
-                {cart.getCartProducts().map(product => (
-                            <ProductCart
-                                increaseTotalProducts={increaseTotalProducts}
-                                decreaseTotalProducts={decreaseTotalProducts}
-                                counterHandler={counterHandler}
-                                cartProduct={product}
-                            />
-                ))}
+                    {cart.getCartProducts().map(product => (
+                        <ProductCart
+                            increaseTotalProducts={increaseTotalProducts}
+                            decreaseTotalProducts={decreaseTotalProducts}
+                            counterHandler={counterHandler}
+                            cartProduct={product}
+                        />
+                    ))}
                 </Row>
                 <Link
                     to="/order/"

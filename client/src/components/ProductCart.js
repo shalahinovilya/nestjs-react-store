@@ -28,7 +28,7 @@ const ProductCart = observer(({cartProduct, counterHandler, increaseTotalProduct
     }
 
     const decreaseQty = async () => {
-        if(qty > 1) await changeCartProductQuantity(cartProduct.id, qty - 1, product.price)
+        if (qty > 1) await changeCartProductQuantity(cartProduct.id, qty - 1, product.price)
             .then(data => {
                 setQty(data.quantity)
                 decreaseTotalProducts()
@@ -64,7 +64,7 @@ const ProductCart = observer(({cartProduct, counterHandler, increaseTotalProduct
                                 style={{width: 30}}
                                 size="sm"
                                 className="btn-success"
-                                onClick = {increaseQty}
+                                onClick={increaseQty}
                             >
                                 +
                             </Button>

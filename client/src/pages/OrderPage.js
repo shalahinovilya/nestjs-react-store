@@ -39,7 +39,8 @@ const OrderPage = observer(() => {
             address,
             comment,
             buyingType,
-            userId: user.getUser().userId})
+            userId: user.getUser().userId
+        })
         navigate(`/`)
     }
 
@@ -54,88 +55,88 @@ const OrderPage = observer(() => {
 
     return (
         <div>
-        <Card className="create-product-card" style={{ width: '30rem' }}>
-            <Form>
-                <Form.Group className="mb-3" controlId="formBasicFirstName">
-                    <FloatingLabel controlId="floatingFirstName" label="First name">
-                    <Form.Control
-                        type="text"
-                        placeholder="First name"
-                        value={firstName}
-                        onChange={e => setFirstName(e.target.value)}
-                    />
-                    </FloatingLabel>
-                </Form.Group>
+            <Card className="create-product-card" style={{width: '30rem'}}>
+                <Form>
+                    <Form.Group className="mb-3" controlId="formBasicFirstName">
+                        <FloatingLabel controlId="floatingFirstName" label="First name">
+                            <Form.Control
+                                type="text"
+                                placeholder="First name"
+                                value={firstName}
+                                onChange={e => setFirstName(e.target.value)}
+                            />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicDescription">
-                    <FloatingLabel controlId="floatingLastName" label="Last name">
-                    <Form.Control
-                        type="text"
-                        placeholder="Last name"
-                        value={lastName}
-                        onChange={e => setLastName(e.target.value)}
-                    />
-                    </FloatingLabel>
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicDescription">
+                        <FloatingLabel controlId="floatingLastName" label="Last name">
+                            <Form.Control
+                                type="text"
+                                placeholder="Last name"
+                                value={lastName}
+                                onChange={e => setLastName(e.target.value)}
+                            />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                <Form.Group className="mb-3"  controlId="formBasicPhone">
-                    <FloatingLabel controlId="floatingPhone" label="Phone">
-                    <Form.Control
-                        type="text"
-                        placeholder="Phone"
-                        value={phone}
-                        onChange={e => setPhone(e.target.value)}
-                    />
-                    </FloatingLabel>
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPhone">
+                        <FloatingLabel controlId="floatingPhone" label="Phone">
+                            <Form.Control
+                                type="text"
+                                placeholder="Phone"
+                                value={phone}
+                                onChange={e => setPhone(e.target.value)}
+                            />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                <Form.Group className="mb-3"  controlId="formBasicAddress">
-                    <FloatingLabel controlId="floatingAddress" label="Address">
-                        <Form.Control
-                            type="text"
-                            placeholder="Address"
-                            value={address}
-                            onChange={e => setAddress(e.target.value)}
-                        />
-                    </FloatingLabel>
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicAddress">
+                        <FloatingLabel controlId="floatingAddress" label="Address">
+                            <Form.Control
+                                type="text"
+                                placeholder="Address"
+                                value={address}
+                                onChange={e => setAddress(e.target.value)}
+                            />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                <Form.Group className="mb-3"  controlId="formBasicComment">
-                    <FloatingLabel controlId="floatingComment" label="Comment">
-                    <Form.Control
-                        type="text"
-                        placeholder="Comment"
-                        value={comment}
-                        onChange={e => setComment(e.target.value)}
-                    />
-                    </FloatingLabel>
-                </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicComment">
+                        <FloatingLabel controlId="floatingComment" label="Comment">
+                            <Form.Control
+                                type="text"
+                                placeholder="Comment"
+                                value={comment}
+                                onChange={e => setComment(e.target.value)}
+                            />
+                        </FloatingLabel>
+                    </Form.Group>
 
-                <Form.Select aria-label="Default select example" onChange={e => setBuyingType(e.target.value)}>
-                    {DELIVERY_TYPES.map((type) => (
-                        <option value={type}>{type}</option>
-                    ))}
-                </Form.Select>
-                <Row style={{marginTop: 20}} md={2}>
-                    <Col  md={{span: 4}}>
-                        <Button
-                            variant="primary"
-                            onClick={sendCreateData}
-                        >
-                            Create Order
-                        </Button>
-                    </Col>
-                    <Col className="create-order-block-final-price" md={{span: 6}}>
-                        <p>Итого: <b>{finalPrice}$</b></p>
-                    </Col>
-                </Row>
-            </Form>
-        </Card>
+                    <Form.Select aria-label="Default select example" onChange={e => setBuyingType(e.target.value)}>
+                        {DELIVERY_TYPES.map((type) => (
+                            <option value={type}>{type}</option>
+                        ))}
+                    </Form.Select>
+                    <Row style={{marginTop: 20}} md={2}>
+                        <Col md={{span: 4}}>
+                            <Button
+                                variant="primary"
+                                onClick={sendCreateData}
+                            >
+                                Create Order
+                            </Button>
+                        </Col>
+                        <Col className="create-order-block-final-price" md={{span: 6}}>
+                            <p>Итого: <b>{finalPrice}$</b></p>
+                        </Col>
+                    </Row>
+                </Form>
+            </Card>
             <Container style={{marginTop: 35, marginBottom: 50}}>
-            <ProductRowDesc/>
-            {products.map(product => (
-                <OrderProductCart cartProduct={product}/>
-            ))}
+                <ProductRowDesc/>
+                {products.map(product => (
+                    <OrderProductCart cartProduct={product}/>
+                ))}
             </Container>
         </div>
     );

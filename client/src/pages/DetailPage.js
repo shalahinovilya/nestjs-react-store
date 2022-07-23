@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {deleteProduct, getProduct} from "../http/productHttp";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {Button, Card, Col, Container, Image, Nav, Row} from "react-bootstrap";
+import {Button, Col, Container, Image, Nav, Row} from "react-bootstrap";
 import {Context} from "../index";
 import {getOneCategory} from "../http/CategoryHttp";
 import {addToCart} from "../http/cartHttp";
@@ -34,19 +34,20 @@ const DetailPage = observer(() => {
 
     return (
         <Container style={{marginTop: 50}}>
-            <Row md={2} >
-                <Col md={{span: 7}}  style={{background: 'gainsboro'}}>
-                    <Card style={{ width: '30rem' }}>
-                        <Image width={745} height={550} variant="top" src={process.env.REACT_APP_GET_IMG + '/' + product.img}/>
-                    </Card>
+            <Row md={2}>
+                <Col md={{span: 5}}>
+                    <div>
+                        <Image width={400} height={440} variant="top"
+                               src={process.env.REACT_APP_GET_IMG + '/' + product.img}/>
+                    </div>
                 </Col>
                 <Col md={{span: 4}}>
-                    <div className="outer">
-                        <div className="middle">
-                            <div className="inner">
-                                {product.title}<br/>
-                                <Button onClick={addToCartHandler} variant="outline-dark" size="lg">Add to cart</Button>
-                            </div>
+                    <div className="title-box">
+                        <div>
+                            <strong>{product.title}</strong>
+                        </div>
+                        <div>
+                            <Button onClick={addToCartHandler} variant="outline-dark" size="lg">Add to cart</Button>
                         </div>
                     </div>
                 </Col>
@@ -64,7 +65,7 @@ const DetailPage = observer(() => {
                         Категория
                     </div>
                 </Col>
-                <Col>
+                <Col md={{span: 6}}>
                     <div className="category-content">
                         {category.value}
                     </div>
@@ -77,7 +78,7 @@ const DetailPage = observer(() => {
                         Цена
                     </div>
                 </Col>
-                <Col>
+                <Col md={{span: 6}}>
                     <div className="price-content">
                         {product.price}$
                     </div>

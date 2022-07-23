@@ -1,0 +1,11 @@
+
+
+.sidebar {
+    width: 250px;
+    float: left;
+    margin-left: 30px;
+}
+
+.category-list {
+    font-size: 20px;
+}

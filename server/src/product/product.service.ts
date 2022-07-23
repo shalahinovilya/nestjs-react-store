@@ -2,6 +2,7 @@ import {Injectable, Inject} from '@nestjs/common';
 import {Product} from "./product.entity";
 import {CreateProductDto} from "./dto/create-product.dto";
 import {FileService} from "../file/file.service";
+import {Op} from "sequelize";
 
 
 @Injectable()
@@ -72,7 +73,27 @@ export class ProductService {
         return await this.productRepository.count();
     }
 
-    async getProducts(limit, offset) {
-        return await this.productRepository.findAll({offset, limit})
+    async getProducts(req) {
+        const {limit, offset, categoryId, sortOrder, searchInput} = req.query
+
+        if (searchInput) {
+            return await this.productRepository.findAndCountAll( {
+                where: {title: {[Op.like]: `%${searchInput}%`}},
+                order: [sortOrder],
+                offset,
+                limit
+            })
+        }
+
+        if (categoryId) {
+            return await this.productRepository.findAndCountAll({
+                order: [sortOrder],
+                where: {categoryId, title: {[Op.like]: '%d%'}}, offset, limit},
+
+
+            )}
+
+        return await this.productRepository.findAndCountAll( {order: [sortOrder], offset, limit})
     }
+
 }
