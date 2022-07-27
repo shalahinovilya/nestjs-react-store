@@ -65,10 +65,6 @@ export class ProductService {
         return product;
     }
 
-    async findAll(): Promise<Product[]> {
-        return this.productRepository.findAll<Product>();
-    }
-
     async getTotalProductsNum() {
         return await this.productRepository.count();
     }

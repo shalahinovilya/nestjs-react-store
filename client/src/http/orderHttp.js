@@ -38,8 +38,7 @@ export const getUserOrders = async (userId) => {
     try {
         const res = await axios({
             method: 'get',
-            url: `/order/get-user-orders/`,
-            params: userId
+            url: `/order/get-user-orders/${userId}`,
         })
         return res.data
     } catch (e) {
