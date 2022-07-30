@@ -14,6 +14,6 @@ export class CreateUserDto {
 
     @IsString({message: 'must be a string'})
     @Length(6, 20, {message: 'must be longer than or equal to 6 characters'})
-    @ApiProperty({minLength: 6, maxLength: 20})
+    @ApiProperty({minLength: 6})
     password: string;
 }

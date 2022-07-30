@@ -22,7 +22,7 @@ export class UserService {
     }
 
     async getUserByEmail(email): Promise<User> {
-        return  await this.userRepository.findOne({where: {email} });
+        return await this.userRepository.findOne({where: {email} });
     }
 
     async findAllUsers(): Promise<User[]> {

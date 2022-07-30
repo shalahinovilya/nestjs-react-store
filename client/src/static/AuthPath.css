@@ -29,20 +29,6 @@
     font-size: 70px;
 }
 
-.characteristic-desc {
-    font-size: 30px;
-}
-
-.category, .price, .description {
-    font-size: 20px;
-    color: rgba(0,0,0,0.5)
-}
-
-.category-content, .price-content {
-    font-size: 20px;
-    color: rgba(0,0,0,0.8)
-}
-
 .control-buttons {
     margin-top: 10px;
 }
@@ -166,4 +152,10 @@
 .container {
     margin-right: 120px;
     max-width: 1100px;
+}
+
+.wrong___login__data {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
 }

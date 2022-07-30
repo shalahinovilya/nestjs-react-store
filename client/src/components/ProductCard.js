@@ -14,6 +14,7 @@ const ProductCard = observer(({product}) => {
                 <Card.Text>
                     {product.description.length > 30 ? `${product.description.substring(0, 30)}...` : product.description}
                 </Card.Text>
+                <Card.Text><strong>{product.price}$</strong></Card.Text>
                 <Link key={product.id} to={`/product/${product.id}`} className='btn btn-info'>Переглянути</Link>
             </Card.Body>
         </Card>

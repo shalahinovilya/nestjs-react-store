@@ -34,8 +34,8 @@ export class AuthService {
 
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        const newUser = this.userService.createUser({ email, username, password: hashedPassword})
-        const token = await this.generateToken(await newUser)
+        const newUser = await this.userService.createUser({ email, username, password: hashedPassword})
+        const token = await this.generateToken(newUser)
 
         return {token: token}
 
@@ -54,18 +54,17 @@ export class AuthService {
 
         const {password: dtoPassword, email} = dto
 
-        const findUser = this.userService.getUserByEmail(email)
+        const findUser = await this.userService.getUserByEmail(email)
 
-        const {password: userPassword} = await findUser
+        const {password: userPassword} = findUser
 
-        const comparePasswords = bcrypt.compare(userPassword, dtoPassword)
+        const comparePasswords = await bcrypt.compare(dtoPassword, userPassword)
 
         if (findUser && comparePasswords) {
             return findUser
         }
 
         throw new UnauthorizedException({message: 'Неккоректный email или пароль'})
-
     }
 
     async checkAuth(userData) {

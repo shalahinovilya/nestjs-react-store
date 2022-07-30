@@ -8,6 +8,7 @@ import {Context} from "./index";
 import './static/AuthPath.css'
 import './static/SideBar.css'
 import './static/CatalogSettings.css'
+import './static/DetailPage.css'
 import {checkAuth} from "./http/userHttp";
 import {Spinner} from "react-bootstrap";
 

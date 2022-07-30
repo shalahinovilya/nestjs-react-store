@@ -13,6 +13,7 @@ export const login = async (authData) => {
         return await jwtDecode(res.data.token)
     } catch (e) {
         console.log(e)
+        return {err: e.response.data}
     }
 }
 
@@ -27,6 +28,7 @@ export const register = async (authData) => {
         return {token: res.data.token, ...jwtDecode(res.data.token)}
     } catch (e) {
         console.log(e)
+        return {err: e.response.data}
     }
 }
 

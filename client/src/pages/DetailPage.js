@@ -33,84 +33,99 @@ const DetailPage = observer(() => {
     }
 
     return (
-        <Container style={{marginTop: 50}}>
-            <Row md={2}>
-                <Col md={{span: 5}}>
-                    <div>
-                        <Image width={400} height={440} variant="top"
-                               src={process.env.REACT_APP_GET_IMG + '/' + product.img}/>
-                    </div>
-                </Col>
-                <Col md={{span: 4}}>
-                    <div className="title-box">
-                        <div>
-                            <strong>{product.title}</strong>
-                        </div>
-                        <div>
-                            <Button onClick={addToCartHandler} variant="outline-dark" size="lg">Add to cart</Button>
+        <div className="detail__block">
+            <Container className="huba">
+                <div className="detail__row">
+                    <div className="detail__column">
+                        <div className="detail__item">
+                            <div className="detail__img">
+                                <Image
+                                    width={463}
+                                    height={347}
+                                    variant="top"
+                                    src={process.env.REACT_APP_GET_IMG + '/' + product.img}
+                                />
+                            </div>
                         </div>
                     </div>
-                </Col>
-            </Row>
-            <Row md={2}>
-                <Col>
-                    <div className="characteristic-desc">
-                        Характеристики и описание
+                    <div className="detail__column">
+                        <div className="detail__item__title">
+                            <div className="detail__title">
+                                {product.title}
+                            </div>
+                            <div className="detail__cart__btn">
+                                <Button className="detail__add__to__cart" onClick={addToCartHandler}
+                                        variant="outline-dark" size="lg">Add to cart</Button>
+                            </div>
+                        </div>
                     </div>
-                </Col>
-            </Row>
-            <Row md={2}>
-                <Col md={{span: 2}}>
-                    <div className="category">
-                        Категория
+                    <div className="detail__column">
+                        <div className="detail__information">
+                            <div className="detail__item">
+                                <div className="characteristic__title">
+                                    Характеристики и описание
+                                </div>
+                                <div className="characteristic">
+                                    <div className="characteristic__row">
+                                        <div className="characteristic__column">
+                                            <div className="category__label">
+                                                category
+                                            </div>
+                                        </div>
+                                        <div className="characteristic__column">
+                                            <div className="category__value">
+                                                {category.value}
+                                            </div>
+                                        </div>
+                                        <div className="characteristic__column">
+                                            <div className="price__label">
+                                                price
+                                            </div>
+                                        </div>
+                                        <div className="characteristic_column">
+                                            <div className="price__value">
+                                                {product.price}$
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </Col>
-                <Col md={{span: 6}}>
-                    <div className="category-content">
-                        {category.value}
+                </div>
+                <div className="block__description">
+                    <div className="description__title">
+                        Description
                     </div>
+                    <div className="description__content">
+                        {product.description}
+                    </div>
+                </div>
+                <div className="control-buttons">
+                    {
+                        product.userId === user.getUser().userId &&
+                        <div className="card-button-manage">
 
-                </Col>
-            </Row>
-            <Row md={2}>
-                <Col md={{span: 2}}>
-                    <div className="price">
-                        Цена
-                    </div>
-                </Col>
-                <Col md={{span: 6}}>
-                    <div className="price-content">
-                        {product.price}$
-                    </div>
-                </Col>
-            </Row>
-            <div className="description-content">
-                {product.description}
-            </div>
-            <div className="control-buttons">
-                {
-                    product.userId === user.getUser().userId &&
-                    <div className="card-button-manage">
+                            <Link
+                                to={`/product-update/${productId}/`}
+                                className='btn btn-primary'
+                                key={productId}
+                                state={product}
+                            >
+                                Update
+                            </Link>
 
-                        <Link
-                            to={`/product-update/${productId}/`}
-                            className='btn btn-primary'
-                            key={productId}
-                            state={product}
-                        >
-                            Update
-                        </Link>
-
-                        <Button
-                            onClick={deleteHandler}
-                            className='btn-danger'
-                        >
-                            Delete
-                        </Button>
-                    </div>
-                }
-            </div>
-        </Container>
+                            <Button
+                                onClick={deleteHandler}
+                                className='btn-danger'
+                            >
+                                Delete
+                            </Button>
+                        </div>
+                    }
+                </div>
+            </Container>
+        </div>
     );
 });
 
