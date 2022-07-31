@@ -28,9 +28,9 @@ export class ProductService {
     }
 
     async updateProduct(productId, fieldsForUpdating, file): Promise<Product> {
-
+        console.log(fieldsForUpdating, file)
         const product = await this.productRepository.findByPk(productId);
-
+        const oldFile = product.img
         if (!product.id) {
             throw new Error('Нет продукта с таким id')
         }
@@ -53,7 +53,7 @@ export class ProductService {
                 throw new Error('Неккоректная информация при обновлении продукта')
             }
         )
-        this.fileService.removeFile(product.img)
+        fileName && this.fileService.removeFile(oldFile)
         return product
     }
 

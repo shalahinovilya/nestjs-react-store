@@ -22,8 +22,8 @@ const RegisterPage = () => {
             newErrors['email'] = 'wrong email address'
         }
 
-        if (username.length < 6 || username.length > 20) {
-            newErrors['username'] = 'username must be between 6 and 20 characters'
+        if (username.length < 6 || username.length > 15) {
+            newErrors['username'] = 'username must be between 6 and 15 characters'
         }
 
         if (password.length < 6) {
@@ -71,7 +71,7 @@ const RegisterPage = () => {
                         <Form.Control
                             type="text"
                             placeholder="Username"
-                            maxLength="20"
+                            maxLength="15"
                             minLength="6"
                             onChange={e => setUsername(e.target.value)}
                         />

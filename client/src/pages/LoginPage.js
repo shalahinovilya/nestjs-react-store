@@ -57,6 +57,7 @@ const LoginPage = observer(() => {
     return (
         <div className="auth-block">
             <Form validated={validated}>
+                {errors.message && (<div className="wrong___login__data">{errors.message}</div>)}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
@@ -87,7 +88,6 @@ const LoginPage = observer(() => {
                         {errors.password}
                     </Form.Control.Feedback>
                 </Form.Group>
-                {errors.message && (<div className="wrong___login__data">{errors.message}</div>)}
                 <Button
                     className="submit-login-button"
                     variant="outline-success"

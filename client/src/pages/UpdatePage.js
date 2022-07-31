@@ -75,14 +75,27 @@ const UpdatePage = observer(() => {
                     </FloatingLabel>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicImage">
-                    <Form.Label>Image</Form.Label>
-                    <Form.Control
-                        type="file"
-                        onChange={e => setImg(e.target.files[0])}
+                <div>
+                    <div className="choose__file__row">
+                        <div className="label_1">
+                            <label className="choose__file__update1" htmlFor="filePicker">
+                                Select file
+                            </label>
+                        </div>
+                        <div className="label_2">
+                            <label className="choose__file__update2" htmlFor="filePicker">
+                                {img?.['name'] ? img['name'] : img.length && img.length > 30 ? `${img.slice(0, 35)}...` : product.img}
+                            </label>
+                        </div>
+                    </div>
+                    <input
+                        onChange={e => e.target.files.length && setImg(e.target.files[0])
+                        }
+                        id="filePicker"
+                        style={{visibility:"hidden"}}
+                        type={"file"}
                     />
-                </Form.Group>
-
+                </div>
                 <Button
                     variant="primary"
                     type="submit"
