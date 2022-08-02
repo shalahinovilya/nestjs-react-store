@@ -6,6 +6,8 @@ import {createProduct} from "../http/productHttp";
 import {observer} from "mobx-react-lite";
 import {getAllCategories} from "../http/CategoryHttp";
 import {useNavigate} from "react-router-dom";
+import {findErrors} from "../utils/ValidateCreateData";
+
 
 const CreatePage = observer(() => {
 
@@ -19,26 +21,7 @@ const CreatePage = observer(() => {
     const [categoryId, setCategoryId] = useState('')
     const [errors, setErrors] = useState({})
     const [validated, setValidated] = useState(false)
-
-    const findErrors = async () => {
-        const newErrors = {}
-        const validatePrice = /\d+(\.\d+)?$/
-
-        if (title.length < 6 || title.length > 20) {
-            newErrors['title'] = 'title must be between 6 and 20 characters'
-        }
-
-        if (description.length < 10 || description.length > 200) {
-            newErrors['description'] = 'description must be between 10 and 200 characters'
-        }
-
-        if (!validatePrice.test(price)) {
-            newErrors['price'] = 'must be number value'
-        }
-
-        return newErrors
-    }
-
+    const [imgEvent, setImgEvent] = useState({})
 
     const sendCreateData = async () => {
         const formData = new FormData()
@@ -49,7 +32,7 @@ const CreatePage = observer(() => {
         formData.append('categoryId', categoryId)
         formData.append('userId', user.getUser().userId)
 
-        const validatedData = await findErrors()
+        const validatedData = await findErrors(imgEvent, title, description, price, categoryId)
 
         if (Object.keys(validatedData).length) {
             setValidated(true)
@@ -59,7 +42,7 @@ const CreatePage = observer(() => {
         else {
             setValidated(false)
             const data = await createProduct(formData)
-            console.log(data)
+
             if (data['err']) {
                 setErrors({...errors, message: data['err'].message})
             }
@@ -131,10 +114,14 @@ const CreatePage = observer(() => {
                     <Form.Control
                         type="file"
                         required={true}
-                        onChange={e => setImg(e.target.files[0])}
+                        onChange={e => {
+                            setImg(e.target.files[0])
+                            setImgEvent(e)
+                        }}
+                        isInvalid={!!errors.img}
                     />
                     <Form.Control.Feedback type="invalid">
-                        please, select a file
+                        {errors.img}
                     </Form.Control.Feedback>
                 </Form.Group>
 
@@ -142,23 +129,18 @@ const CreatePage = observer(() => {
                     setCategoryId(e.target.value)
                 }}
                 >
-                    <option></option>
-                    {product.categories.map(cat => {
-                        return (
-                            <option name={cat.value} value={cat.id}>{cat.value}</option>
-                        )
-                    })}
-                    <Form.Control.Feedback type="invalid">
-                       must not be empty
-                    </Form.Control.Feedback>
+                    <option value=''></option>
+                    {product.categories.map(cat =>
+                        (<option name={cat.value} value={cat.id}>{cat.value}</option>)
+                    )}
                 </Form.Select>
-
+                {errors.category && <div className="create__category__error">must not be empty</div>}
                 <Button
                     onClick={sendCreateData}
                     style={{marginTop: 20}}
                     className="create-button" variant="primary"
                 >
-                    Submit
+                    Create
                 </Button>
             </Form>
         </Card>

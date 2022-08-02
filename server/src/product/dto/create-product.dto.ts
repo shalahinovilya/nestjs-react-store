@@ -1,5 +1,5 @@
 import {ApiProperty, ApiPropertyOptional} from "@nestjs/swagger";
-import {IsNumber, IsString, Length} from "class-validator";
+import {IsString, Length} from "class-validator";
 
 export class CreateProductDto {
 
@@ -22,7 +22,6 @@ export class CreateProductDto {
     @ApiProperty()
     categoryId: number;
 
-    @IsString()
     @ApiPropertyOptional()
     img?: string;
 }

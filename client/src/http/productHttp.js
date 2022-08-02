@@ -44,6 +44,7 @@ export const updateProduct = async (productId, productUpdateData) => {
         return res.data
     } catch (e) {
         console.log(e)
+        return {err: e.response.data}
     }
 }
 

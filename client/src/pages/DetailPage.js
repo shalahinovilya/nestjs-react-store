@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {deleteProduct, getProduct} from "../http/productHttp";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {Button, Col, Container, Image, Nav, Row} from "react-bootstrap";
+import {Button, Container, Image} from "react-bootstrap";
 import {Context} from "../index";
 import {getOneCategory} from "../http/CategoryHttp";
 import {addToCart} from "../http/cartHttp";

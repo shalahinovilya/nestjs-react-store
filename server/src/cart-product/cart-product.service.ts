@@ -29,7 +29,6 @@ export class CartProductService {
     }
 
     async calcCartProductFinalPrice(productPrice, quantity) {
-        console.log(productPrice, quantity)
         return productPrice * quantity
     }
 

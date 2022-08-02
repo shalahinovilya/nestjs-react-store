@@ -28,7 +28,6 @@ export class ProductService {
     }
 
     async updateProduct(productId, fieldsForUpdating, file): Promise<Product> {
-        console.log(fieldsForUpdating, file)
         const product = await this.productRepository.findByPk(productId);
         const oldFile = product.img
         if (!product.id) {

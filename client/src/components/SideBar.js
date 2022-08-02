@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {ListGroup, Row} from "react-bootstrap";
+import {ListGroup} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 
@@ -28,7 +28,10 @@ const SideBar = observer(() => {
                         style={{borderTop: '0px', borderLeft: '0px', borderRight: '0px'}}
                         className="category-list"
                         action
-                        onClick={e => product.setSelectedCategory(cat)}
+                        onClick={e => {
+                            product.setPage(1)
+                            product.setSelectedCategory(cat)
+                        }}
                         active={product.selectedCategory.id === cat.id}
                         disabled={product.selectedCategory.id === cat.id}
                     >

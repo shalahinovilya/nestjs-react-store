@@ -194,3 +194,7 @@
     background-color: #E0E0E0;
 }
 
+.update__image__error, .create__category__error {
+    color: #dc3545;
+    font-size: .875em;
+}

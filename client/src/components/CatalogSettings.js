@@ -26,7 +26,6 @@ const CatalogSettings = observer(() => {
                     <Dropdown.Menu>
                         {Object.keys(product.sortOrderVars).map((key) =>
                             (<Dropdown.Item
-                                // href="#/action-1"
                                 onClick={e => product.setSelectedSortOrder(key)}
                                 active={product.selectedSortOrder === key}
                             >

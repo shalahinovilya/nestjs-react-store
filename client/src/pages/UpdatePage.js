@@ -5,7 +5,7 @@ import {useContext, useState} from "react";
 import {Context} from "../index";
 import {updateProduct} from "../http/productHttp";
 import {observer} from "mobx-react-lite";
-
+import {findUpdateErrors} from "../utils/ValidateUpdateData";
 
 const UpdatePage = observer(() => {
 
@@ -18,6 +18,9 @@ const UpdatePage = observer(() => {
     const [description, setDescription] = useState(product.description)
     const [price, setPrice] = useState(product.price)
     const [img, setImg] = useState(product.img)
+    const [errors, setErrors] = useState({})
+    const [validated, setValidated] = useState(false)
+    const [imgEvent, setImgEvent] = useState({})
 
     const sendUpdateData = async (e) => {
         e.preventDefault()
@@ -28,13 +31,30 @@ const UpdatePage = observer(() => {
         formData.append('img', img)
         formData.append('categoryId', product.categoryId)
         formData.append('userId', user.getUser().userId)
-        await updateProduct(product.id, formData).then((data) => navigate(`/product/${data.id}`))
-    }
 
+        const validatedData = await findUpdateErrors(imgEvent, title, description, price)
+
+        if (Object.keys(validatedData).length) {
+            setValidated(true)
+            setErrors(validatedData)
+        }
+        else {
+            setValidated(false)
+
+            const data = await updateProduct(product.id, formData)
+
+            if (data['err']) {
+                setErrors({...errors, message: data['err'].message})
+            }
+            else {
+                navigate(`/product/${data.id}`)
+            }
+        }
+    }
 
     return (
         <Card className="updateProductCard" style={{width: '30rem', left: '35%', marginTop: 150}}>
-            <Form>
+            <Form validated={validated}>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <FloatingLabel controlId="floatingInput"
@@ -44,8 +64,14 @@ const UpdatePage = observer(() => {
                             type="text"
                             placeholder="Title"
                             value={title}
+                            minLength="6"
+                            maxLength="20"
+                            required={true}
                             onChange={e => setTitle(e.target.value)}
                         />
+                        <Form.Control.Feedback type="invalid">
+                            {errors.title}
+                        </Form.Control.Feedback>
                     </FloatingLabel>
                 </Form.Group>
 
@@ -57,8 +83,14 @@ const UpdatePage = observer(() => {
                             type="text"
                             placeholder="Description"
                             value={description}
+                            minLength="10"
+                            maxLength="200"
+                            required={true}
                             onChange={e => setDescription(e.target.value)}
                         />
+                        <Form.Control.Feedback type="invalid">
+                            {errors.description}
+                        </Form.Control.Feedback>
                     </FloatingLabel>
                 </Form.Group>
 
@@ -70,8 +102,12 @@ const UpdatePage = observer(() => {
                             type="number"
                             placeholder="Price"
                             value={price}
+                            required={true}
                             onChange={e => setPrice(e.target.value)}
                         />
+                        <Form.Control.Feedback type="invalid">
+                            {errors.price}
+                        </Form.Control.Feedback>
                     </FloatingLabel>
                 </Form.Group>
 
@@ -88,8 +124,12 @@ const UpdatePage = observer(() => {
                             </label>
                         </div>
                     </div>
+                    {errors.img && <div className="update__image__error">{errors.img}</div>}
                     <input
-                        onChange={e => e.target.files.length && setImg(e.target.files[0])
+                        onChange={e => {
+                            e.target.files.length && setImg(e.target.files[0])
+                            setImgEvent(e)
+                        }
                         }
                         id="filePicker"
                         style={{visibility:"hidden"}}
