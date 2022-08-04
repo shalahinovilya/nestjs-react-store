@@ -57,58 +57,53 @@ const UpdatePage = observer(() => {
             <Form validated={validated}>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <FloatingLabel controlId="floatingInput"
-                                   label="Title"
-                                   className="mb-3">
-                        <Form.Control
-                            type="text"
-                            placeholder="Title"
-                            value={title}
-                            minLength="6"
-                            maxLength="20"
-                            required={true}
-                            onChange={e => setTitle(e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.title}
-                        </Form.Control.Feedback>
-                    </FloatingLabel>
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Title"
+                        value={title}
+                        minLength="6"
+                        maxLength="20"
+                        required={true}
+                        onChange={e => setTitle(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.title}
+                    </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicDescription">
-                    <FloatingLabel controlId="floatingInput"
-                                   label="Description"
-                                   className="mb-3">
-                        <Form.Control
-                            type="text"
-                            placeholder="Description"
-                            value={description}
-                            minLength="10"
-                            maxLength="200"
-                            required={true}
-                            onChange={e => setDescription(e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.description}
-                        </Form.Control.Feedback>
-                    </FloatingLabel>
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                        type="text"
+                        as="textarea"
+                        rows={3}
+                        placeholder="Description"
+                        value={description}
+                        minLength="10"
+                        maxLength="200"
+                        required={true}
+                        onChange={e => setDescription(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.description}
+                    </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPrice">
-                    <FloatingLabel controlId="floatingInput"
-                                   label="Price"
-                                   className="mb-3">
-                        <Form.Control
-                            type="number"
-                            placeholder="Price"
-                            value={price}
-                            required={true}
-                            onChange={e => setPrice(e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.price}
-                        </Form.Control.Feedback>
-                    </FloatingLabel>
+                    <Form.Label>Price</Form.Label>
+                    <Form.Control
+                        type="number"
+                        placeholder="Price"
+                        value={price}
+                        required={true}
+                        onChange={e => {
+                            setPrice(e.target.value >= 0 ? e.target.value : 0)
+                        }}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.price}
+                    </Form.Control.Feedback>
                 </Form.Group>
 
                 <div>

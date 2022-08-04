@@ -83,6 +83,8 @@ const CreatePage = observer(() => {
                     <Form.Label>Description</Form.Label>
                     <Form.Control
                         type="text"
+                        as="textarea"
+                        rows={4}
                         placeholder="Description"
                         value={description}
                         minLength="10"
@@ -102,7 +104,9 @@ const CreatePage = observer(() => {
                         placeholder="Price"
                         value={price}
                         required={true}
-                        onChange={e => setPrice(e.target.value)}
+                        onChange={e => {
+                            setPrice(e.target.value >= 0 ? e.target.value : 0)
+                        }}
                     />
                     <Form.Control.Feedback type="invalid">
                         {errors.price}
