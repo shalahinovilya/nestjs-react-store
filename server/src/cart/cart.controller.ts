@@ -1,7 +1,7 @@
-import {Controller, Get, Query, UseGuards} from "@nestjs/common";
+import {Controller, Get, Param, Query, UseGuards} from "@nestjs/common";
 import {CartService} from "./cart.service";
 import {AuthGuard} from "../auth/auth-jwt.guard";
-import {ApiQuery, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {ApiParam, ApiQuery, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {Cart} from "./cart.entity";
 import {CartProduct} from "../cart-product/cart-product.entity";
 
@@ -13,29 +13,10 @@ export class CartController {
     constructor(private cartService: CartService) {
     }
 
-    @UseGuards(AuthGuard)
-    @Get('get-cart')
-    @ApiQuery({name: 'userId', description: 'user id'})
-    @ApiResponse({
-        status: 200,
-        description: 'get cart by user id',
-        type: Cart
-    })
-    @ApiResponse({
-        status: 401,
-        description: 'Unauthorized'
-    })
-    @ApiResponse({
-        status: 400,
-        description: 'Bad request'
-    })
-    async getCartByUserId(@Query('userId') userId) {
-        return await this.cartService.getCartByUserId(userId)
-    }
 
     @UseGuards(AuthGuard)
-    @Get('create-cart')
-    @ApiQuery({name: 'userId', description: 'user id'})
+    @Get('create-cart/:userId')
+    @ApiParam({name: 'userId', description: 'user id'})
     @ApiResponse({
         status: 200,
         description: 'get or create cart by user id',
@@ -49,13 +30,56 @@ export class CartController {
         status: 400,
         description: 'Bad request'
     })
-    async getOrCreateCart(@Query('userId') userId) {
+    async getOrCreateCart(@Param('userId') userId) {
         return await this.cartService.getOrCreateCart(userId)
     }
 
+
     @UseGuards(AuthGuard)
-    @Get('get-all-from-cart')
-    @ApiQuery({name: 'userId', description: 'user id'})
+    @Get('delete-from-cart/:cartProductId')
+    @ApiParam({name: 'cartProductId', description: 'cartProduct id'})
+    @ApiResponse({
+        status: 200,
+        description: 'del product from cart',
+        type: Cart
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized'
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Bad request'
+    })
+    async deleteFromCart(@Param('cartProductId') cartProductId) {
+        return await this.cartService.deleteFromCart(cartProductId)
+    }
+
+
+    @UseGuards(AuthGuard)
+    @Get('get-cart/:userId')
+    @ApiParam({name: 'userId', description: 'user id'})
+    @ApiResponse({
+        status: 200,
+        description: 'get cart by user id',
+        type: Cart
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized'
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Bad request'
+    })
+    async getCartByUserId(@Param('userId') userId) {
+        return await this.cartService.getCartByUserId(userId)
+    }
+
+
+    @UseGuards(AuthGuard)
+    @Get('get-all-from-cart/:userId')
+    @ApiParam({name: 'userId', description: 'user id'})
     @ApiResponse({
         status: 200,
         description: 'get all from cart by user id',
@@ -69,9 +93,10 @@ export class CartController {
         status: 400,
         description: 'Bad request'
     })
-    async getAllFromCartByUserId(@Query('userId') userId) {
+    async getAllFromCartByUserId(@Param('userId') userId) {
         return await this.cartService.GetAllFromCartByUserId(userId)
     }
+
 
     @UseGuards(AuthGuard)
     @Get('add-to-cart')
@@ -98,25 +123,6 @@ export class CartController {
         return await this.cartService.addToCart(productId, Number(finalPrice), userId)
     }
 
-    @UseGuards(AuthGuard)
-    @Get('delete-from-cart')
-    @ApiQuery({name: 'cartProductId', description: 'cartProduct id'})
-    @ApiResponse({
-        status: 200,
-        description: 'del product from cart',
-        type: Cart
-    })
-    @ApiResponse({
-        status: 401,
-        description: 'Unauthorized'
-    })
-    @ApiResponse({
-        status: 400,
-        description: 'Bad request'
-    })
-    async deleteFromCart(@Query('cartProductId') cartProductId) {
-        return await this.cartService.deleteFromCart(cartProductId)
-    }
 
     @UseGuards(AuthGuard)
     @Get('change-cart-product-qty')

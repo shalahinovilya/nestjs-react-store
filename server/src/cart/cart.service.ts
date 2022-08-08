@@ -11,37 +11,45 @@ export class CartService {
     private cartProductService: CartProductService,
     ) {}
 
+
     async getOrCreateCart(userId) {
         let cart = await this.getCartByUserId(userId)
         if (cart) return cart
         return this.cartRepository.create({userId})
     }
 
+
+    async deleteFromCart(cartProductId) {
+        return await this.cartProductService.deleteCartProduct(cartProductId)
+    }
+
+
     async getCartByUserId(userId) {
         return this.cartRepository.findOne({where: {userId: userId, inOrder: false}})
     }
+
 
     async GetAllFromCartByUserId(userId) {
         const cart = await this.getOrCreateCart(userId)
         return await this.cartProductService.getAllCartProductsFromCart(cart.id)
     }
 
+
     async addToCart(productId, finalPrice, userId) {
         const cart = await this.getOrCreateCart(userId)
         return await this.cartProductService.createCartProduct(productId, finalPrice, cart.id)
     }
 
-    async deleteFromCart(cartProductId) {
-        return await this.cartProductService.deleteCartProduct(cartProductId)
-    }
 
     async makeCartIsOrder(cartId) {
         await this.cartRepository.update({inOrder: true}, {where: {id: cartId}})
     }
 
+
     async changeCartProductQuantity(cartProductId, quantity, productPrice) {
         return await this.cartProductService.changeCartProductQuantity(cartProductId, +quantity, productPrice)
     }
+
 
     async changeCartFinalPrice(userId, finalPrice) {
         const cart = await this.getOrCreateCart(userId)

@@ -6,7 +6,6 @@ import {
     Delete,
     Body,
     Param,
-    Query,
     UseInterceptors,
     UploadedFile,
     UseGuards,
@@ -53,29 +52,11 @@ export class ProductController {
 
     }
 
-    @Get('get-product/:id')
-    @ApiParam({name: 'id', description: 'product id'})
-    @ApiResponse({
-        status: 200,
-        description: 'get one product',
-        type: Product
-    })
-    @ApiResponse({
-        status: 400,
-        description: 'Bad request'
-    })
-    @ApiResponse({
-        status: 404,
-        description: 'Not found'
-    })
-    async getOne(@Param('id') id): Promise<Product> {
-        return await this.productService.getOne(id)
-    }
 
     @UseGuards(AuthGuard)
-    @Put('update-product/:id')
+    @Put('update-product/:productId')
     @UseInterceptors(FileInterceptor('img'))
-    @ApiParam({name: 'id', description: 'product id'})
+    @ApiParam({name: 'productId', description: 'product id'})
     @ApiBody({type: UpdateProductDto})
     @ApiResponse({
         status: 200,
@@ -94,16 +75,17 @@ export class ProductController {
         status: 404,
         description: 'Not found'
     })
-    async updateProduct( @Param('id') id,
-                         @Body() updateCatDto: UpdateProductDto,
+    async updateProduct( @Param('productId') productId,
+                         @Body() updateProductDto: UpdateProductDto,
                          @UploadedFile() file): Promise<Product>  {
 
-        return await this.productService.updateProduct(id, updateCatDto, file)
+        return await this.productService.updateProduct(productId, updateProductDto, file)
     }
 
+
     @UseGuards(AuthGuard)
-    @Delete('delete-product/:id')
-    @ApiParam({name: 'id', description: 'product id'})
+    @Delete('delete-product/:productId')
+    @ApiParam({name: 'productId', description: 'product id'})
     @ApiResponse({
         status: 200,
         description: 'delete product',
@@ -121,15 +103,17 @@ export class ProductController {
         status: 404,
         description: 'Not found'
     })
-    async deleteProduct(@Param('id') id): Promise<Product> {
-        return await this.productService.deleteProduct(id)
+    async deleteProduct(@Param('productId') productId): Promise<Product> {
+        return await this.productService.deleteProduct(productId)
     }
 
-    @Get('get-total-products-num')
+
+    @Get('get-product/:productId')
+    @ApiParam({name: 'productId', description: 'product id'})
     @ApiResponse({
         status: 200,
-        description: 'get total products num',
-        type: Number
+        description: 'get one product',
+        type: Product
     })
     @ApiResponse({
         status: 400,
@@ -139,8 +123,8 @@ export class ProductController {
         status: 404,
         description: 'Not found'
     })
-    async getTotalProductsNum(){
-        return await this.productService.getTotalProductsNum()
+    async getOne(@Param('productId') productId): Promise<Product> {
+        return await this.productService.getOne(productId)
     }
 
     @Get('get-products')

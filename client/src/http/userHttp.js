@@ -41,6 +41,17 @@ export const logout = async () => {
     }
 }
 
+export const getUserById = async (userId) => {
+    try {
+        const user = await axios({
+            method: 'get',
+            url: `/user/get-user/${userId}/`,
+        })
+        return user
+    } catch (e) {
+        console.log(e)
+    }
+}
 
 export const GetAllUsers = async (token) => {
 
@@ -55,19 +66,6 @@ export const GetAllUsers = async (token) => {
         console.log(e)
     }
 }
-
-export const getUserById = async (userId) => {
-    try {
-        const user = await axios({
-            method: 'get',
-            url: `/user/get-user/${userId}/`,
-        })
-        return user
-    } catch (e) {
-        console.log(e)
-    }
-}
-
 
 export const checkAuth = async () => {
     try {

@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {Pagination} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
-import {Context} from "../index";
-import {createPages} from "../utils/CreatePages";
+import {Context} from "../../index";
+import {createPages} from "../../utils/product/CreatePages";
 
 const PaginationBasic = observer(() => {
 

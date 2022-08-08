@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Image, Row} from "react-bootstrap";
-import {getProduct} from "../http/productHttp";
-import {changeCartProductQuantity, deleteFromCart} from "../http/cartHttp";
+import {getProduct} from "../../http/productHttp";
+import {changeCartProductQuantity, deleteFromCart} from "../../http/cartHttp";
 import {observer} from "mobx-react-lite";
 
 const ProductCart = observer(({cartProduct, counterHandler, increaseTotalProducts, decreaseTotalProducts}) => {
@@ -54,7 +54,7 @@ const ProductCart = observer(({cartProduct, counterHandler, increaseTotalProduct
                     <p>{product.price}</p>
                 </Col>
                 <Col className="cart-category-col">
-                    <p>category</p>
+                    <p>{product?.category?.value}</p>
                 </Col>
                 <Col className="cart-quantity-col">
                     <p>{qty}</p>

@@ -3,6 +3,7 @@ import {Product} from "./product.entity";
 import {CreateProductDto} from "./dto/create-product.dto";
 import {FileService} from "../file/file.service";
 import {Op} from "sequelize";
+import {Category} from "../category/category.entity";
 
 
 @Injectable()
@@ -13,9 +14,10 @@ export class ProductService {
         private fileService: FileService
     ) {}
 
+
     async createProduct(dto: CreateProductDto, file): Promise<Product> {
         const fileName = this.fileService.saveFile(file)
-        const data = await this.productRepository.create({...dto, img: fileName}).catch(e => {
+        const data = await this.productRepository.create({...dto, img: fileName}).catch(() => {
             this.fileService.removeFile(fileName)
             throw new Error('Неккоректная информация при создании продукта')
             }
@@ -23,9 +25,6 @@ export class ProductService {
         return data
     }
 
-    async getOne(productId): Promise<Product> {
-        return await this.productRepository.findByPk(productId);
-    }
 
     async updateProduct(productId, fieldsForUpdating, file): Promise<Product> {
         const product = await this.productRepository.findByPk(productId);
@@ -47,7 +46,7 @@ export class ProductService {
             description: fieldsForUpdating.description,
             price: fieldsForUpdating.price,
             img: fileName || fieldsForUpdating.img,
-        }).catch(e => {
+        }).catch(() => {
                 this.fileService.removeFile(fileName)
                 throw new Error('Неккоректная информация при обновлении продукта')
             }
@@ -55,6 +54,7 @@ export class ProductService {
         fileName && this.fileService.removeFile(oldFile)
         return product
     }
+
 
     async deleteProduct(productId): Promise<Product> {
 
@@ -64,9 +64,13 @@ export class ProductService {
         return product;
     }
 
-    async getTotalProductsNum() {
-        return await this.productRepository.count();
+
+    async getOne(productId): Promise<Product> {
+        return await this.productRepository.findByPk(productId, {include: [
+                {model: Category, attributes: ['value']}
+            ]});
     }
+
 
     async getProducts(req) {
         const {limit, offset, categoryId, sortOrder, searchInput} = req.query
@@ -83,9 +87,7 @@ export class ProductService {
         if (categoryId) {
             return await this.productRepository.findAndCountAll({
                 order: [sortOrder],
-                where: {categoryId, title: {[Op.like]: '%d%'}}, offset, limit},
-
-
+                where: {categoryId}, offset, limit}
             )}
 
         return await this.productRepository.findAndCountAll( {order: [sortOrder], offset, limit})

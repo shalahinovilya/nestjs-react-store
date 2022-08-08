@@ -1,7 +1,9 @@
 import React, {useContext} from 'react';
 import {ListGroup} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
-import {Context} from "../index";
+import {Context} from "../../index";
+import '../../static/SideBar.css'
+
 
 const SideBar = observer(() => {
 

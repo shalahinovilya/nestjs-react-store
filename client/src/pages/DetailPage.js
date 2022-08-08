@@ -1,35 +1,44 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {deleteProduct, getProduct} from "../http/productHttp";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {Button, Container, Image} from "react-bootstrap";
+import {Button, Container, Image, Spinner} from "react-bootstrap";
 import {Context} from "../index";
-import {getOneCategory} from "../http/CategoryHttp";
 import {addToCart} from "../http/cartHttp";
 import {observer} from "mobx-react-lite";
+import Comment from "../components/comment/Comment";
+import {getAllProductComments} from "../http/commentHttp";
+import '../static/DetailPage.css'
+
 
 const DetailPage = observer(() => {
 
-    const [product, setProduct] = useState('')
-    const [category, setCategory] = useState('')
-    const {user} = useContext(Context)
+    const [currentProduct, setCurrentProduct] = useState('')
+    const [isCommentLoading, setIsCommentLoading] = useState(false)
+    const {user, product} = useContext(Context)
 
     const productId = useParams().id
     const navigate = useNavigate()
 
     useEffect(() => {
         getProduct(productId).then(data => {
-            setProduct(data)
-            getOneCategory(data.categoryId).then(data => setCategory(data))
+            setCurrentProduct(data)
         })
+    }, [])
 
-    }, [getProduct])
+    useEffect(() => {
+        setIsCommentLoading(true)
+        getAllProductComments(productId).then(data => {
+            product.setComments(data)
+            setIsCommentLoading(false)
+        })
+    }, [product.commentsNum])
 
     const deleteHandler = async () => {
         await deleteProduct(productId).then(() => navigate('/products/'))
     }
 
     const addToCartHandler = async () => {
-        await addToCart(productId, product.price, user.getUser().userId)
+        await addToCart(productId, currentProduct.price, user.getUser().userId)
     }
 
     return (
@@ -43,7 +52,7 @@ const DetailPage = observer(() => {
                                     width={463}
                                     height={347}
                                     variant="top"
-                                    src={process.env.REACT_APP_GET_IMG + '/' + product.img}
+                                    src={process.env.REACT_APP_GET_IMG + '/' + currentProduct.img}
                                 />
                             </div>
                         </div>
@@ -51,7 +60,7 @@ const DetailPage = observer(() => {
                     <div className="detail__column">
                         <div className="detail__item__title">
                             <div className="detail__title">
-                                {product.title}
+                                {currentProduct.title}
                             </div>
                             <div className="detail__cart__btn">
                                 <Button className="detail__add__to__cart" onClick={addToCartHandler}
@@ -74,7 +83,7 @@ const DetailPage = observer(() => {
                                         </div>
                                         <div className="characteristic__column">
                                             <div className="category__value">
-                                                {category.value}
+                                                {currentProduct?.category?.value}
                                             </div>
                                         </div>
                                         <div className="characteristic__column">
@@ -84,7 +93,7 @@ const DetailPage = observer(() => {
                                         </div>
                                         <div className="characteristic_column">
                                             <div className="price__value">
-                                                {product.price}$
+                                                {currentProduct.price}$
                                             </div>
                                         </div>
                                     </div>
@@ -98,19 +107,19 @@ const DetailPage = observer(() => {
                         Description
                     </div>
                     <div className="description__content">
-                        {product.description}
+                        {currentProduct.description}
                     </div>
                 </div>
                 <div className="control-buttons">
                     {
-                        product.userId === user.getUser().userId &&
+                        currentProduct.userId === user.getUser().userId &&
                         <div className="card-button-manage">
 
                             <Link
                                 to={`/product-update/${productId}/`}
                                 className='btn btn-primary'
                                 key={productId}
-                                state={product}
+                                state={currentProduct}
                             >
                                 Update
                             </Link>
@@ -124,6 +133,13 @@ const DetailPage = observer(() => {
                         </div>
                     }
                 </div>
+                {isCommentLoading ? (
+                        <div className="loading-comment-block">
+                            <Spinner className="loading-spinner" animation="grow" variant="primary"/>
+                        </div>
+                    )
+                    : <Comment productId={productId}/>
+                }
             </Container>
         </div>
     );

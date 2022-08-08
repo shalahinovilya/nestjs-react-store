@@ -19,6 +19,8 @@ export class ProductStore {
         this._limit = 6
         this._offset = 0
         this._totalRecords = 0
+        this._comments = []
+        this._commentsNum = 0
         makeAutoObservable(this)
     }
 
@@ -52,6 +54,15 @@ export class ProductStore {
             return;
         }
         this._selectedSortOrder = selectedSortOrder
+    }
+
+    setComments (comments) {
+        this._comments = comments
+        this._commentsNum = comments.length
+    }
+
+    setCommentsNum(commentsNum) {
+        this._commentsNum = commentsNum
     }
 
     get products () {
@@ -88,5 +99,13 @@ export class ProductStore {
 
     get sortOrderVars () {
         return this._sortOrderVars
+    }
+
+    get comments () {
+        return this._comments
+    }
+
+    get commentsNum () {
+        return this._commentsNum
     }
 }

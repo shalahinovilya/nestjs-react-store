@@ -32,8 +32,9 @@ export class CategoryController {
         return await this.categoryService.createCategory(createCategoryDto)
     }
 
-    @Get('get-category/:id')
-    @ApiParam({name: 'id', description: 'category id'})
+
+    @Get('get-category/:categoryId')
+    @ApiParam({name: 'categoryId', description: 'category id'})
     @ApiResponse({
         status: 200,
         description: 'get category',
@@ -43,9 +44,10 @@ export class CategoryController {
         status: 400,
         description: 'Bad request'
     })
-    async getCategory(@Param('id') categoryId): Promise<Category> {
+    async getCategory(@Param('categoryId') categoryId): Promise<Category> {
         return await this.categoryService.getCategory(categoryId)
     }
+
 
     @Get('get-all-categories')
     @ApiResponse({

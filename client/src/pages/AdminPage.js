@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Form} from "react-bootstrap";
-import {createCategory} from "../http/CategoryHttp";
+import {createCategory} from "../http/categoryHttp";
 
 const AdminPage = () => {
 

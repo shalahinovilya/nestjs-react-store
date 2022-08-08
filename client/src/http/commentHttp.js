@@ -1,11 +1,45 @@
 import axios from "axios";
 
 
-export const deleteFromCart = async (cartProductId) => {
+export const createComment = async (commentData) => {
     try {
         const res = await axios({
-            method: 'get',
-            url: `/cart/delete-from-cart/${cartProductId}`,
+            method: 'post',
+            url: `/comment/create-comment/`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            data: commentData
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const updateComment = async (commentId, commentData) => {
+    try {
+        const res = await axios({
+            method: 'put',
+            url: `/comment/update-comment/${commentId}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            data: commentData
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const deleteComment = async (commentId) => {
+    try {
+        const res = await axios({
+            method: 'delete',
+            url: `/comment/delete-comment/${commentId}`,
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             },
@@ -16,14 +50,11 @@ export const deleteFromCart = async (cartProductId) => {
     }
 }
 
-export const getAllFromCartByUserId = async (userId) => {
+export const getAllProductComments = async (productId) => {
     try {
         const res = await axios({
             method: 'get',
-            url: `/cart/get-all-from-cart/${userId}`,
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
+            url: `/comment/get-product-comments/${productId}`,
         })
         return res.data
     } catch (e) {
@@ -31,47 +62,11 @@ export const getAllFromCartByUserId = async (userId) => {
     }
 }
 
-export const addToCart = async (productId, finalPrice, userId) => {
+export const getAllUserComments = async (userId) => {
     try {
         const res = await axios({
             method: 'get',
-            url: `/cart/add-to-cart/`,
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            params: {productId, finalPrice, userId}
-        })
-        return res.data
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-export const changeCartProductQuantity = async (cartProductId, quantity, productPrice) => {
-    try {
-        const res = await axios({
-            method: 'get',
-            url: `/cart/change-cart-product-qty/`,
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            params: {cartProductId, quantity, productPrice}
-        })
-        return res.data
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-export const changeCartFinalPrice = async (userId, finalPrice) => {
-    try {
-        const res = await axios({
-            method: 'get',
-            url: `/cart/change-cart-final-price/`,
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            params: {userId, finalPrice}
+            url: `/comment/get-user-comments/${userId}`,
         })
         return res.data
     } catch (e) {

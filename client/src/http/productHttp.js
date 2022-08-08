@@ -19,18 +19,6 @@ export const createProduct = async (productCreateData) => {
     }
 }
 
-export const getProduct = async (productId) => {
-    try {
-        const res = await axios({
-            method: 'get',
-            url: `/product/get-product/${productId}/`,
-        })
-        return res.data
-    } catch (e) {
-        console.log(e)
-    }
-}
-
 export const updateProduct = async (productId, productUpdateData) => {
     try {
         const res = await axios({
@@ -63,11 +51,11 @@ export const deleteProduct = async (productId) => {
     }
 }
 
-export const getTotalProductsNum = async () => {
+export const getProduct = async (productId) => {
     try {
         const res = await axios({
             method: 'get',
-            url: `/product/get-total-products-num/`,
+            url: `/product/get-product/${productId}/`,
         })
         return res.data
     } catch (e) {

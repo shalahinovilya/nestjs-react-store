@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Image, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {getProduct} from "../http/productHttp";
+import {getProduct} from "../../http/productHttp";
 
 const OrderProductCart = ({cartProduct}) => {
 

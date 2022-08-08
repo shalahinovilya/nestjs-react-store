@@ -9,9 +9,12 @@ import {ApiBody, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
 @ApiTags('order')
 @Controller('order')
 export class OrderController {
+
+
     constructor(@Inject('ORDER_PROVIDER')
                 private orderRepository: typeof Order,
                 private orderService: OrderService) {}
+
 
     @UseGuards(AuthGuard)
     @Post('create-order')
@@ -29,13 +32,14 @@ export class OrderController {
         status: 400,
         description: 'Bad request'
     })
-    async createOrder (@Body() createOrderDto: CreateOrderDto) {
+    async createOrder (@Body() createOrderDto: CreateOrderDto): Promise<Order> {
         return await this.orderService.createOrder(createOrderDto)
     }
 
+
     @UseGuards(AuthGuard)
-    @Get('get-user-orders/:id')
-    @ApiParam({name: 'id', description: 'user id'})
+    @Get('get-user-orders/:userId')
+    @ApiParam({name: 'userId', description: 'user id'})
     @ApiResponse({
         status: 200,
         description: 'get orders',
@@ -53,7 +57,7 @@ export class OrderController {
         status: 404,
         description: 'Not found'
     })
-    async getUserOrders (@Param('id') userId) {
+    async getUserOrders (@Param('userId') userId): Promise<Order[]> {
         return await this.orderService.getUserOrders(userId)
     }
 }

@@ -12,6 +12,7 @@ export class UserController {
 
     constructor(private userService: UserService) {}
 
+
     @Post('create-user')
     @ApiBody({type: CreateUserDto})
     @ApiResponse({
@@ -28,8 +29,9 @@ export class UserController {
 
     }
 
-    @Get('get-user/:id')
-    @ApiParam({name: 'id', required: true, description: 'user id'})
+
+    @Get('get-user/:userId')
+    @ApiParam({name: 'userId', description: 'user id'})
     @ApiResponse({
         status: 200,
         description: 'get user by id',
@@ -39,9 +41,10 @@ export class UserController {
         status: 404,
         description: 'Not found'
     })
-    async getUserById(@Param('id') id): Promise<User> {
-        return await this.userService.getUserById(id)
+    async getUserById(@Param('userId') userId): Promise<User> {
+        return await this.userService.getUserById(userId)
     }
+
 
     @UseGuards(AuthGuard)
     @Get('get-all-users')

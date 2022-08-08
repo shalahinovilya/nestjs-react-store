@@ -5,6 +5,7 @@ import {Category} from "../category/category.entity";
 import {Cart} from "../cart/cart.entity";
 import {CartProduct} from "../cart-product/cart-product.entity";
 import {Order} from "../order/order.entity";
+import {Comment} from "../comment/comment.entity";
 
 export const databaseProviders = [
     {
@@ -18,7 +19,7 @@ export const databaseProviders = [
                 password: process.env.POSTGRES_DB_PASSWORD,
                 database: process.env.POSTGRES_DB,
             });
-            sequelize.addModels([User, Product, Category, Cart, CartProduct, Order]);
+            sequelize.addModels([User, Product, Category, Cart, CartProduct, Order, Comment]);
             await sequelize.sync();
             return sequelize;
         },

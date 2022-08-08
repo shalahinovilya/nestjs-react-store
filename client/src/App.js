@@ -1,14 +1,11 @@
 import {BrowserRouter as Browser} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {AuthRoutes, UnAuthRoutes} from "./routes";
-import NavBarComponent from "./components/NavBar";
+import NavBarComponent from "./components/utills/NavBar";
 import {observer} from "mobx-react-lite";
 import {useContext, useEffect, useState} from "react";
 import {Context} from "./index";
 import './static/AuthPath.css'
-import './static/SideBar.css'
-import './static/CatalogSettings.css'
-import './static/DetailPage.css'
 import {checkAuth} from "./http/userHttp";
 import {Spinner} from "react-bootstrap";
 

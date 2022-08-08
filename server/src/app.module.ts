@@ -13,6 +13,7 @@ import {AuthModule} from "./auth/auth.module";
 import {CartModule} from "./cart/cart.module";
 import {CartProductModule} from "./cart-product/cart-product.module";
 import {OrderModule} from "./order/order.module";
+import {CommentModule} from "./comment/comment.module";
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import {OrderModule} from "./order/order.module";
       CartModule,
       CartProductModule,
       OrderModule,
+      CommentModule,
       ConfigModule.forRoot(),
       ServeStaticModule.forRoot({
           rootPath: path.resolve(__dirname, 'static'),

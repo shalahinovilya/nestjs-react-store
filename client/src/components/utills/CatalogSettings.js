@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
 import {Button, Dropdown} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
-import {Context} from "../index";
+import {Context} from "../../index";
+import '../../static/CatalogSettings.css'
 
 
 const CatalogSettings = observer(() => {

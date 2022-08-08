@@ -4,9 +4,9 @@ import {useState} from "react";
 import {Context} from "../index";
 import {createProduct} from "../http/productHttp";
 import {observer} from "mobx-react-lite";
-import {getAllCategories} from "../http/CategoryHttp";
+import {getAllCategories} from "../http/categoryHttp";
 import {useNavigate} from "react-router-dom";
-import {findErrors} from "../utils/ValidateCreateData";
+import {findErrors} from "../utils/product/ValidateCreateProductData";
 
 
 const CreatePage = observer(() => {

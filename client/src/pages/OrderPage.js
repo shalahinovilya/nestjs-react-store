@@ -4,11 +4,11 @@ import {useState} from "react";
 import {useContext} from "react";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import OrderProductCart from "../components/OrderProductCart";
+import OrderProductCart from "../components/cart/OrderProductCart";
 import {useEffect} from "react";
 import {getAllFromCartByUserId} from "../http/cartHttp";
-import {recalcCartFinalPrice} from "../utils/RecalcCartFinalPrice";
-import ProductRowDesc from "../components/ProductRowDesc";
+import {recalcCartFinalPrice} from "../utils/cart/RecalcCartFinalPrice";
+import ProductRowDesc from "../components/product/ProductRowDesc";
 import {createOrder} from "../http/orderHttp";
 import {useNavigate} from "react-router-dom";
 

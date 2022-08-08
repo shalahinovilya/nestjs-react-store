@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Form, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {logout} from "../http/userHttp";
+import {logout} from "../../http/userHttp";
 
 
 const NavBarComponent = () => {

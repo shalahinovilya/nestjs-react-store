@@ -1,13 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Col, Container, Row, Spinner} from "react-bootstrap";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/product/ProductCard";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import PaginationBasic from "../components/Pagination";
-import SideBar from "../components/SideBar";
+import PaginationBasic from "../components/product/Pagination";
+import SideBar from "../components/utills/SideBar";
 import {getProducts} from "../http/productHttp";
-import {getAllCategories} from "../http/CategoryHttp";
-import CatalogSettings from "../components/CatalogSettings";
+import {getAllCategories} from "../http/categoryHttp";
+import CatalogSettings from "../components/utills/CatalogSettings";
 
 
 const ProductsPage = observer(() => {

@@ -2,12 +2,12 @@ import React, {useContext, useEffect} from 'react';
 import {Container, Row} from "react-bootstrap";
 import {Context} from "../index";
 import {changeCartFinalPrice, getAllFromCartByUserId} from "../http/cartHttp";
-import ProductCart from "../components/ProductCart";
-import {recalcCartFinalPrice} from "../utils/RecalcCartFinalPrice";
-import {countTotalProducts} from "../utils/countTotalProducts";
+import ProductCart from "../components/cart/ProductCart";
+import {recalcCartFinalPrice} from "../utils/cart/RecalcCartFinalPrice";
+import {countTotalProducts} from "../utils/product/CountTotalProducts";
 import {Link} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import ProductRowDesc from "../components/ProductRowDesc";
+import ProductRowDesc from "../components/product/ProductRowDesc";
 
 const CartPage = observer(() => {
 
@@ -44,7 +44,6 @@ const CartPage = observer(() => {
     if (!cart.getCartProducts().length) {
         return <div className="cart-data-info">no data in cart</div>
     }
-
 
     return (
         <div>

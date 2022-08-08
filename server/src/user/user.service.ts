@@ -11,19 +11,23 @@ export class UserService {
         private cartService: CartService,
     ) {}
 
+
     async createUser(dto: CreateUserDto): Promise<User> {
         const user = await this.userRepository.create(dto);
-        const cart = await this.cartService.getOrCreateCart(user.id)
+        await this.cartService.getOrCreateCart(user.id)
         return user
     }
+
 
     async getUserById(userId): Promise<User> {
         return  await this.userRepository.findByPk(userId);
     }
 
+
     async getUserByEmail(email): Promise<User> {
         return await this.userRepository.findOne({where: {email} });
     }
+
 
     async findAllUsers(): Promise<User[]> {
         return this.userRepository.findAll<User>();

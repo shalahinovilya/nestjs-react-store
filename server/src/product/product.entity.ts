@@ -4,6 +4,7 @@ import {User} from "../user/user.entity";
 import {Category} from "../category/category.entity";
 import {CartProduct} from "../cart-product/cart-product.entity";
 import {ApiProperty} from "@nestjs/swagger";
+import {Comment} from "../comment/comment.entity";
 
 @Table
 export class Product extends Model<CreateProduct> {
@@ -47,8 +48,8 @@ export class Product extends Model<CreateProduct> {
     @HasMany(() => CartProduct)
     cartProduct: CartProduct[];
 
+    @HasMany(() => Comment)
+    comment: Comment[];
 
-    // @BelongsToMany(() => Cart,  { through: CartProduct })
-    // carts: Cart[];
 
 }

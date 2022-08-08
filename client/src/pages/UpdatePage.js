@@ -5,7 +5,7 @@ import {useContext, useState} from "react";
 import {Context} from "../index";
 import {updateProduct} from "../http/productHttp";
 import {observer} from "mobx-react-lite";
-import {findUpdateErrors} from "../utils/ValidateUpdateData";
+import {findUpdateErrors} from "../utils/product/ValidateUpdateProductData";
 
 const UpdatePage = observer(() => {
 

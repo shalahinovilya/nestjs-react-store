@@ -22,6 +22,7 @@ export class AuthController {
         return await this.authService.login(loginUserDto)
     }
 
+
     @Post('register')
     @ApiBody({type: CreateUserDto})
     @ApiResponse({
@@ -32,6 +33,7 @@ export class AuthController {
     async register(@Body() createUserDto: CreateUserDto) {
         return await this.authService.register(createUserDto)
     }
+
 
     @UseGuards(AuthGuard)
     @Get('check')

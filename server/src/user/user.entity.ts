@@ -3,6 +3,7 @@ import {CreateUser} from "./interfaces/user.interface";
 import {Product} from "../product/product.entity";
 import {Cart} from "../cart/cart.entity";
 import {ApiProperty} from "@nestjs/swagger";
+import {Comment} from "../comment/comment.entity";
 
 @Table
 export class User extends Model<CreateUser> {
@@ -28,4 +29,7 @@ export class User extends Model<CreateUser> {
 
     @HasMany(() => Cart)
     cart: Cart[];
+
+    @HasMany(() => Comment)
+    comment: Comment[];
 }
