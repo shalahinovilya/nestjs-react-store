@@ -4,6 +4,7 @@ import {CreateProductDto} from "./dto/create-product.dto";
 import {FileService} from "../file/file.service";
 import {Op} from "sequelize";
 import {Category} from "../category/category.entity";
+import {CartProduct} from "../cart-product/cart-product.entity";
 
 
 @Injectable()
@@ -17,7 +18,13 @@ export class ProductService {
 
     async createProduct(dto: CreateProductDto, file): Promise<Product> {
         const fileName = this.fileService.saveFile(file)
-        const data = await this.productRepository.create({...dto, img: fileName}).catch(() => {
+        const data = await this.productRepository.create({
+            title: dto.title,
+            description: dto.description,
+            price: dto.price,
+            categoryId: dto.categoryId,
+            userId: dto.userId,
+            img: fileName}).catch(() => {
             this.fileService.removeFile(fileName)
             throw new Error('Неккоректная информация при создании продукта')
             }
@@ -91,6 +98,22 @@ export class ProductService {
             )}
 
         return await this.productRepository.findAndCountAll( {order: [sortOrder], offset, limit})
+    }
+
+    async getProductsForCart (idList) {
+        return await this.productRepository.findAll({
+            order: [['title', 'ASC']],
+            where: {id: idList},
+            include: [
+                {
+                    model: CartProduct,
+                    attributes: ['id', 'quantity']
+                },
+                {
+                    model: Category,
+                    attributes: ['id', 'value']
+                }],
+        })
     }
 
 }

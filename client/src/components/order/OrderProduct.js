@@ -3,12 +3,15 @@ import {Col, Image, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {getProduct} from "../../http/productHttp";
 
-const OrderProductCart = ({cartProduct}) => {
+const OrderProduct = ({cartProduct}) => {
 
     const [product, setProduct] = useState({})
 
     useEffect(() => {
-        getProduct(cartProduct.productId).then(data => setProduct(data))
+        getProduct(cartProduct.productId).then(data => {
+            setProduct(data)
+            console.log(data)
+        })
     }, [])
 
     return (
@@ -23,14 +26,11 @@ const OrderProductCart = ({cartProduct}) => {
                 <Col className="cart-title-col">
                     <p>{product.title}</p>
                 </Col>
-                <Col className="cart-description-col">
-                    <p>{product.description}</p>
-                </Col>
                 <Col className="cart-price-col">
                     <p>{product.price}</p>
                 </Col>
                 <Col className="cart-category-col">
-                    <p>category</p>
+                    <p>{product?.category?.value}</p>
                 </Col>
                 <Col className="cart-quantity-col">
                     <p>{cartProduct.quantity}</p>
@@ -40,4 +40,4 @@ const OrderProductCart = ({cartProduct}) => {
     );
 };
 
-export default OrderProductCart;
+export default OrderProduct;

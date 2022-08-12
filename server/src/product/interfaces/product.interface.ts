@@ -1,8 +1,9 @@
 export interface CreateProduct {
-    categoryId?: number;
+    id?: number
+    categoryId: number;
+    userId: number;
     title: string;
     description: string;
     price: number;
-    category: string;
     img: string;
 }

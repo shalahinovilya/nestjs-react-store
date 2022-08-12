@@ -1,37 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Col, Image, Row} from "react-bootstrap";
-import {getProduct} from "../../http/productHttp";
 import {changeCartProductQuantity, deleteFromCart} from "../../http/cartHttp";
 import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 
-const ProductCart = observer(({cartProduct, counterHandler, increaseTotalProducts, decreaseTotalProducts}) => {
+const product = observer(({product}) => {
 
-    const [product, setProduct] = useState({})
-    const [qty, setQty] = useState(cartProduct.quantity)
-
-    useEffect(() => {
-        getProduct(cartProduct.productId).then(data => {
-            setProduct(data)
-        })
-    }, [])
+    const {cart} = useContext(Context)
+    const [qty, setQty] = useState(product.cartProduct[0].quantity)
 
     const deleteProductFromCart = async () => {
-        await deleteFromCart(cartProduct.id)
-        await counterHandler()
+        await deleteFromCart(product.cartProduct[0].id).then(() => cart.setCartTotalProductsCount(0))
     }
 
     const increaseQty = async () => {
-        await changeCartProductQuantity(cartProduct.id, qty + 1, product.price).then(data => {
+        await changeCartProductQuantity(product.cartProduct[0].id, qty + 1, product.price).then(data => {
             setQty(data.quantity)
-            increaseTotalProducts()
+            cart.setCartTotalProductsCount(cart.cartTotalProductsCount + 1)
         })
     }
 
     const decreaseQty = async () => {
-        if (qty > 1) await changeCartProductQuantity(cartProduct.id, qty - 1, product.price)
+        if (qty > 1) await changeCartProductQuantity(product.cartProduct[0].id, qty - 1, product.price)
             .then(data => {
                 setQty(data.quantity)
-                decreaseTotalProducts()
+                cart.setCartTotalProductsCount(cart.cartTotalProductsCount - 1)
             })
     }
 
@@ -46,9 +39,6 @@ const ProductCart = observer(({cartProduct, counterHandler, increaseTotalProduct
                 </Col>
                 <Col className="cart-title-col">
                     <p>{product.title}</p>
-                </Col>
-                <Col className="cart-description-col">
-                    <p>{product.description}</p>
                 </Col>
                 <Col className="cart-price-col">
                     <p>{product.price}</p>
@@ -88,4 +78,4 @@ const ProductCart = observer(({cartProduct, counterHandler, increaseTotalProduct
     );
 });
 
-export default ProductCart;
+export default product;

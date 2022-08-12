@@ -77,7 +77,10 @@
 
 .cart-title-col, .cart-description-col, .cart-price-col, .cart-category-col, .cart-quantity-col {
     display: flex;
+    overflow: hidden;
     border: 1px solid gainsboro;
+    align-items: center;
+    text-align: center;
 }
 
 .create-order-block-final-price {
@@ -111,8 +114,6 @@
     font-size: 30px;
     width: 200px;
     margin: 30px auto;
-    background-color: #E0FFFF;
-    color: black;
 }
 
 .delete-from-cart-btn {
@@ -124,10 +125,12 @@
 
 .final-price-content {
     font-size: 50px;
+    text-align: center;
 }
 
-.order-img-row, .order-title-row, .order-description-row, .order-price-row, .order-category-row, .order-quantity-row {
+.cart-table-img, .cart-table-title, .cart-table-price, .cart-table-category, .cart-table-quantity {
     font-size: 30px;
+    flex: 0 1 20%;
     text-align: center;
 }
 
@@ -150,7 +153,7 @@
 }
 
 .container {
-    margin-right: 120px;
+    margin-right: 200px;
     max-width: 1100px;
 }
 

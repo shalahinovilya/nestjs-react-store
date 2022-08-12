@@ -4,11 +4,11 @@ import {useState} from "react";
 import {useContext} from "react";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import OrderProductCart from "../components/cart/OrderProductCart";
+import OrderProduct from "../components/order/OrderProduct";
 import {useEffect} from "react";
 import {getAllFromCartByUserId} from "../http/cartHttp";
 import {recalcCartFinalPrice} from "../utils/cart/RecalcCartFinalPrice";
-import ProductRowDesc from "../components/product/ProductRowDesc";
+import CartProductsRowDesc from "../components/cart/CartProductsRowDesc";
 import {createOrder} from "../http/orderHttp";
 import {useNavigate} from "react-router-dom";
 
@@ -133,9 +133,9 @@ const OrderPage = observer(() => {
                 </Form>
             </Card>
             <Container style={{marginTop: 35, marginBottom: 50}}>
-                <ProductRowDesc/>
+                <CartProductsRowDesc/>
                 {products.map(product => (
-                    <OrderProductCart cartProduct={product}/>
+                    <OrderProduct cartProduct={product}/>
                 ))}
             </Container>
         </div>

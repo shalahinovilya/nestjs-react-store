@@ -4,52 +4,47 @@ import {makeAutoObservable} from "mobx";
 export class CartStore {
 
     constructor() {
-        this.cartProducts = []
-        this.categories = []
-        this.cartDataCount = 0
-        this.finalPrice = 0
-        this.cartTotalProductsCount = 0
+        this._cartProducts = []
+        this._categories = []
+        this._finalPrice = 0
+        this._cartTotalProductsCount = 0
         makeAutoObservable(this)
     }
 
     setCartProducts(cartProducts) {
-        this.cartProducts = cartProducts
-    }
-
-    setCartDataCount(cartDataCount) {
-        this.cartDataCount = cartDataCount
+        this._cartProducts = cartProducts
     }
 
     setFinalPrice(finalPrice) {
-        this.finalPrice = finalPrice
+        this._finalPrice = finalPrice
     }
 
     setCartTotalProductsCount(cartTotalProductsCount) {
-        this.cartTotalProductsCount = cartTotalProductsCount
+        this._cartTotalProductsCount = cartTotalProductsCount
     }
 
     setCategories(categories) {
-        this.categories = categories
+        this._categories = categories
     }
 
-    getCartProducts() {
-        return this.cartProducts
+    get cartProducts() {
+        return this._cartProducts
     }
 
-    getCartDataCount() {
-        return this.cartDataCount
+    get cartDataCount() {
+        return this._cartDataCount
     }
 
-    getFinalPrice() {
-        return this.finalPrice
+    get finalPrice() {
+        return this._finalPrice
     }
 
-    getCartTotalProductsCount() {
-        return this.cartTotalProductsCount
+    get cartTotalProductsCount() {
+        return this._cartTotalProductsCount
     }
 
-    getCategories() {
-        return this.categories
+    get categories() {
+        return this._categories
     }
 
 }

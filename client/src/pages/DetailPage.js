@@ -80,8 +80,6 @@ const DetailPage = observer(() => {
                                             <div className="category__label">
                                                 category
                                             </div>
-                                        </div>
-                                        <div className="characteristic__column">
                                             <div className="category__value">
                                                 {currentProduct?.category?.value}
                                             </div>
@@ -90,8 +88,6 @@ const DetailPage = observer(() => {
                                             <div className="price__label">
                                                 price
                                             </div>
-                                        </div>
-                                        <div className="characteristic_column">
                                             <div className="price__value">
                                                 {currentProduct.price}$
                                             </div>

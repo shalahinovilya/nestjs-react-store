@@ -9,7 +9,7 @@ import {
     UseInterceptors,
     UploadedFile,
     UseGuards,
-    Req
+    Req, Query
 } from '@nestjs/common';
 import {FileInterceptor} from "@nestjs/platform-express";
 import {ProductService} from "./product.service";
@@ -135,6 +135,16 @@ export class ProductController {
     })
     async getProducts(@Req() req){
         return await this.productService.getProducts(req)
+    }
+
+    @Get('get-products-for-cart')
+    @ApiResponse({
+        status: 200,
+        description: 'get products for cart',
+        type: [Product]
+    })
+    async getProductsForCart (@Query('idList') idList) {
+        return await this.productService.getProductsForCart(idList)
     }
 
 }

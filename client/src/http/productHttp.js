@@ -75,3 +75,17 @@ export const getProducts = async (limit, offset, categoryId, sortOrder) => {
         console.log(e)
     }
 }
+
+
+export const getProductsForCart = async (idList) => {
+    try {
+        const res = await axios({
+            method: 'get',
+            url: `/product/get-products-for-cart/`,
+            params: {idList}
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}

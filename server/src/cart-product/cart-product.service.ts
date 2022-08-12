@@ -12,6 +12,11 @@ export class CartProductService {
 
 
     async createCartProduct(productId, finalPrice, cartId): Promise<CartProduct> {
+        const cartProduct = await this.cartProductProvider.findOne({where: {productId: productId, cartId: cartId}})
+        if (cartProduct?.id) {
+            await cartProduct.update({quantity: cartProduct.quantity + 1, finalPrice: +cartProduct.finalPrice + finalPrice})
+            return await cartProduct.save()
+        }
         return await this.cartProductProvider.create({productId, finalPrice, cartId})
     }
 
