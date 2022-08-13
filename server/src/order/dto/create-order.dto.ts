@@ -4,21 +4,21 @@ import {ApiProperty, ApiPropertyOptional} from "@nestjs/swagger";
 export class CreateOrderDto {
 
     @IsString({message: 'must be a string'})
-    @Length(5, 50, {message: 'must be longer than or equal to 5 characters'})
-    @ApiProperty({minLength: 5, maxLength: 50})
+    @Length(5, 30, {message: 'must be longer than or equal to 5 characters'})
+    @ApiProperty({minLength: 5, maxLength: 30})
     firstName: string;
 
     @IsString({message: 'must be a string'})
-    @Length(5, 50, {message: 'must be longer than or equal to 5 characters'})
-    @ApiProperty({minLength: 5, maxLength: 50})
+    @Length(5, 30, {message: 'must be longer than or equal to 5 characters'})
+    @ApiProperty({minLength: 5, maxLength: 30})
     lastName: string;
 
-    @IsPhoneNumber('UA', {message: 'wrong UA phone number'})
     @IsString({message: 'property must be a string'})
-    @ApiProperty({description: 'UA numbers'})
+    @ApiProperty({description: 'phone number'})
     phone: string;
 
     @IsString()
+    @Length(10, 30, {message: 'must be longer than or equal to 10 characters'})
     @ApiProperty()
     address: string;
 

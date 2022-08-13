@@ -8,9 +8,10 @@ import OrderProduct from "../components/order/OrderProduct";
 import {useEffect} from "react";
 import {getAllFromCartByUserId} from "../http/cartHttp";
 import {recalcCartFinalPrice} from "../utils/cart/RecalcCartFinalPrice";
-import CartProductsRowDesc from "../components/cart/CartProductsRowDesc";
+import OrderProductsRowDesc from "../components/order/OrderProductsRowDesc";
 import {createOrder} from "../http/orderHttp";
 import {useNavigate} from "react-router-dom";
+import {findOrderDataErrors} from "../utils/order/ValidateOrderData";
 
 const DELIVERY_TYPES = [
     'pickup',
@@ -30,18 +31,35 @@ const OrderPage = observer(() => {
     const [comment, setComment] = useState('')
     const [buyingType, setBuyingType] = useState(DELIVERY_TYPES[0])
     const [finalPrice, setFinalPrice] = useState(0)
+    const [errors, setErrors] = useState({})
+    const [validated, setValidated] = useState(false)
 
     const sendCreateData = async () => {
-        await createOrder({
-            firstName,
-            lastName,
-            phone,
-            address,
-            comment,
-            buyingType,
-            userId: user.getUser().userId
-        })
-        navigate(`/`)
+
+        const validatedData = await findOrderDataErrors(firstName, lastName, phone, address, comment, buyingType)
+
+        if (Object.keys(validatedData).length) {
+            setValidated(true)
+            setErrors(validatedData)
+        }
+        else {
+            setValidated(false)
+            const data = await createOrder({
+                firstName,
+                lastName,
+                phone,
+                address,
+                comment,
+                buyingType,
+                userId: user.getUser().userId
+            })
+
+            if (data.err) {
+                setValidated(true)
+            } else {
+                navigate(`/`)
+            }
+        }
     }
 
     useEffect(() => {
@@ -56,15 +74,20 @@ const OrderPage = observer(() => {
     return (
         <div>
             <Card className="create-product-card" style={{width: '30rem'}}>
-                <Form>
+                <Form validated={validated}>
                     <Form.Group className="mb-3" controlId="formBasicFirstName">
                         <FloatingLabel controlId="floatingFirstName" label="First name">
                             <Form.Control
                                 type="text"
                                 placeholder="First name"
+                                minLength={5}
+                                maxLength={20}
                                 value={firstName}
                                 onChange={e => setFirstName(e.target.value)}
                             />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.firstName}
+                            </Form.Control.Feedback>
                         </FloatingLabel>
                     </Form.Group>
 
@@ -73,20 +96,29 @@ const OrderPage = observer(() => {
                             <Form.Control
                                 type="text"
                                 placeholder="Last name"
+                                minLength={5}
+                                maxLength={20}
                                 value={lastName}
                                 onChange={e => setLastName(e.target.value)}
                             />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.lastName}
+                            </Form.Control.Feedback>
                         </FloatingLabel>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPhone">
                         <FloatingLabel controlId="floatingPhone" label="Phone">
                             <Form.Control
-                                type="text"
+                                type="tel"
                                 placeholder="Phone"
+                                isInvalid={!!errors.phone}
                                 value={phone}
                                 onChange={e => setPhone(e.target.value)}
                             />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.phone}
+                            </Form.Control.Feedback>
                         </FloatingLabel>
                     </Form.Group>
 
@@ -95,9 +127,14 @@ const OrderPage = observer(() => {
                             <Form.Control
                                 type="text"
                                 placeholder="Address"
+                                minLength={10}
+                                maxLength={50}
                                 value={address}
                                 onChange={e => setAddress(e.target.value)}
                             />
+                            <Form.Control.Feedback type="invalid">
+                                {errors.address}
+                            </Form.Control.Feedback>
                         </FloatingLabel>
                     </Form.Group>
 
@@ -117,6 +154,8 @@ const OrderPage = observer(() => {
                             <option value={type}>{type}</option>
                         ))}
                     </Form.Select>
+                    {errors.buyingType && <div className="create__order__error">must not be empty</div>}
+
                     <Row style={{marginTop: 20}} md={2}>
                         <Col md={{span: 4}}>
                             <Button
@@ -133,7 +172,7 @@ const OrderPage = observer(() => {
                 </Form>
             </Card>
             <Container style={{marginTop: 35, marginBottom: 50}}>
-                <CartProductsRowDesc/>
+                <OrderProductsRowDesc/>
                 {products.map(product => (
                     <OrderProduct cartProduct={product}/>
                 ))}

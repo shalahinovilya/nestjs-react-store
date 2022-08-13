@@ -15,6 +15,7 @@ export const createOrder = async (orderData) => {
         return res.data
     } catch (e) {
         console.log(e)
+        return {err: e.response.data}
     }
 }
 

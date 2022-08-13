@@ -10,7 +10,6 @@ const OrderProduct = ({cartProduct}) => {
     useEffect(() => {
         getProduct(cartProduct.productId).then(data => {
             setProduct(data)
-            console.log(data)
         })
     }, [])
 
@@ -19,7 +18,7 @@ const OrderProduct = ({cartProduct}) => {
             <Row style={{marginTop: 20}} md={6}>
                 <Col>
                     <div className="cart-img-container">
-                        <Image className="cart-img" height={120} width={150}
+                        <Image className="cart-img" height={110} width={110}
                                src={process.env.REACT_APP_GET_IMG + '/' + product.img}></Image>
                     </div>
                 </Col>

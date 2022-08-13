@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Button, Col, Image, Row} from "react-bootstrap";
+import {Button, Col, Image, Row, Spinner} from "react-bootstrap";
 import {changeCartProductQuantity, deleteFromCart} from "../../http/cartHttp";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
@@ -9,23 +9,39 @@ const product = observer(({product}) => {
     const {cart} = useContext(Context)
     const [qty, setQty] = useState(product.cartProduct[0].quantity)
 
+    const [increaseBtnDisabled, setIncreaseBtnDisabled] = useState(false)
+    const [decreaseBtnDisabled, setDecreaseBtnDisabled] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
     const deleteProductFromCart = async () => {
+        setIsLoading(true)
         await deleteFromCart(product.cartProduct[0].id).then(() => cart.setCartTotalProductsCount(0))
+        setIsLoading(false)
     }
 
     const increaseQty = async () => {
+        setIncreaseBtnDisabled(true)
         await changeCartProductQuantity(product.cartProduct[0].id, qty + 1, product.price).then(data => {
             setQty(data.quantity)
             cart.setCartTotalProductsCount(cart.cartTotalProductsCount + 1)
         })
+        setIncreaseBtnDisabled(false)
     }
 
     const decreaseQty = async () => {
+        setDecreaseBtnDisabled(true)
         if (qty > 1) await changeCartProductQuantity(product.cartProduct[0].id, qty - 1, product.price)
             .then(data => {
                 setQty(data.quantity)
                 cart.setCartTotalProductsCount(cart.cartTotalProductsCount - 1)
             })
+        setDecreaseBtnDisabled(false)
+    }
+
+    if (isLoading) {
+        return (<div className="loading-block">
+            <Spinner className="loading-spinner" animation="grow" variant="primary"/>
+        </div>)
     }
 
     return (
@@ -55,6 +71,7 @@ const product = observer(({product}) => {
                                 size="sm"
                                 className="btn-success"
                                 onClick={increaseQty}
+                                disabled={increaseBtnDisabled}
                             >
                                 +
                             </Button>
@@ -63,6 +80,7 @@ const product = observer(({product}) => {
                                 size="sm"
                                 className="btn-danger"
                                 onClick={decreaseQty}
+                                disabled={decreaseBtnDisabled}
                             >
                                 -
                             </Button>
