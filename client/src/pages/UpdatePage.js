@@ -30,7 +30,7 @@ const UpdatePage = observer(() => {
         formData.append('price', price)
         formData.append('img', img)
         formData.append('categoryId', product.categoryId)
-        formData.append('userId', user.getUser().userId)
+        formData.append('userId', user.user.userId)
 
         const validatedData = await findUpdateErrors(imgEvent, title, description, price)
 

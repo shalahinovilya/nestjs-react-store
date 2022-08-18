@@ -36,7 +36,7 @@ const App = observer(() => {
         <div>
             <Browser>
                 <NavBarComponent/>
-                {user.getIsAuth() && AuthApp || UnAuthApp}
+                {user.isAuth && AuthApp || UnAuthApp}
             </Browser>
 
         </div>

@@ -38,7 +38,7 @@ const DetailPage = observer(() => {
     }
 
     const addToCartHandler = async () => {
-        await addToCart(productId, currentProduct.price, user.getUser().userId)
+        await addToCart(productId, currentProduct.price, user.user.userId)
     }
 
     return (
@@ -108,7 +108,7 @@ const DetailPage = observer(() => {
                 </div>
                 <div className="control-buttons">
                     {
-                        currentProduct.userId === user.getUser().userId &&
+                        currentProduct.userId === user.user.userId &&
                         <div className="card-button-manage">
 
                             <Link

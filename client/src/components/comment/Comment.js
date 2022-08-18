@@ -86,7 +86,7 @@ const Comment = observer(({productId}) => {
                                             </dl>
                                         </div>
                                         {
-                                            comment.user.id === user.getUser().userId && (
+                                            comment.user.id === user.user.userId && (
                                                 <div className="control__comment__buttons">
                                                     <Button
                                                         variant="outline-danger btn-sm"

@@ -26,7 +26,7 @@ const CreateCommentModal = observer(({show, closeCommentModalHandler, productId}
         }
 
         else {
-            await createComment({advantages, limitations, content, productId, userId: user.getUser().userId})
+            await createComment({advantages, limitations, content, productId, userId: user.user.userId})
                 .then(data => {
                     product.setCommentsNum(product.comments.length + 1)
                     closeCommentModalHandler()

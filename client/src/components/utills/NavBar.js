@@ -5,7 +5,6 @@ import {logout} from "../../http/userHttp";
 
 const NavBarComponent = () => {
 
-
     return (
         <div className="navbar-block">
 

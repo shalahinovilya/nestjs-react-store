@@ -15,12 +15,12 @@ const CartPage = observer(() => {
     const {user, cart} = useContext(Context)
 
     useEffect(() => {
-        getAllFromCartByUserId(user.getUser().userId).then(data => {
+        getAllFromCartByUserId(user.user.userId).then(data => {
             cart.setCartTotalProductsCount(countTotalProducts(data.rows))
             getProductsForCart(data.rows.reduce(
                 (res, row) => [...res, row.productId], [])).then(data => cart.setCartProducts(data))
             cart.setFinalPrice(recalcCartFinalPrice(data.rows))
-            changeCartFinalPrice(user.getUser().userId, cart.finalPrice)
+            changeCartFinalPrice(user.user.userId, cart.finalPrice)
         })
     }, [cart.cartTotalProductsCount])
 

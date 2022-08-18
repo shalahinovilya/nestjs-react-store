@@ -51,7 +51,7 @@ const OrderPage = observer(() => {
                 address,
                 comment,
                 buyingType,
-                userId: user.getUser().userId
+                userId: user.user.userId
             })
 
             if (data.err) {
@@ -63,7 +63,7 @@ const OrderPage = observer(() => {
     }
 
     useEffect(() => {
-        getAllFromCartByUserId(user.getUser().userId).then(data => {
+        getAllFromCartByUserId(user.user.userId).then(data => {
             setFinalPrice(recalcCartFinalPrice(data.rows))
             setProducts(data.rows)
         })

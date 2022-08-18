@@ -30,7 +30,7 @@ const CreatePage = observer(() => {
         formData.append('price', price)
         formData.append('img', img)
         formData.append('categoryId', categoryId)
-        formData.append('userId', user.getUser().userId)
+        formData.append('userId', user.user.userId)
 
         const validatedData = await findErrors(imgEvent, title, description, price, categoryId)
 

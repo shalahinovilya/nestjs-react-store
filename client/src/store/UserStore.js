@@ -4,25 +4,25 @@ import {makeAutoObservable} from "mobx";
 export class UserStore {
 
     constructor() {
-        this.isAuth = false
-        this.user = {}
+        this._isAuth = false
+        this._user = {}
         makeAutoObservable(this)
     }
 
     setIsAuth (IsAuth) {
-        this.isAuth = IsAuth
+        this._isAuth = IsAuth
     }
 
     setUser (user) {
-        this.user = user
+        this._user = user
     }
 
-    getIsAuth () {
-        return this.isAuth
+    get isAuth () {
+        return this._isAuth
     }
 
-    getUser () {
-        return this.user
+    get user () {
+        return this._user
     }
 
 }
