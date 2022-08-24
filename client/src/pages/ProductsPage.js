@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Col, Container, Row, Spinner} from "react-bootstrap";
+import {Col, Row, Spinner} from "react-bootstrap";
 import ProductCard from "../components/product/ProductCard";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
@@ -50,20 +50,20 @@ const ProductsPage = observer(() => {
     }
 
     return (
-        <div>
-            <CatalogSettings/>
-            <SideBar/>
-            <Container>
+        <div className="products-block">
+            <div className="products-block__body">
+                <CatalogSettings/>
+                <SideBar/>
                 <Row xs={2} md={4} className="g-4">
                     {product.products.length && product.products.map((product) => (
-                        <Col lg={4}>
+                        <Col lg={3}>
                             <ProductCard product={product}/>
                         </Col>
                     ))
                     }
                 </Row>
                 <PaginationBasic/>
-            </Container>
+            </div>
         </div>
     );
 });

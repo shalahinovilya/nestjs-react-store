@@ -158,9 +158,8 @@
     z-index: 999999;
 }
 
-.container {
-    margin-right: 200px;
-    max-width: 1100px;
+.products-block__body {
+    margin: 30px 110px 20px 30px;
 }
 
 .wrong___login__data, .wrong___create__data {
