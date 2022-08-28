@@ -15,14 +15,14 @@ export class AuthService {
         private jwtService: JwtService) {}
 
 
-    async login(dto: LoginUserDto) {
+    async login (dto: LoginUserDto) {
 
         const user = await this.validateUser(dto)
         return await this.generateToken(user)
     }
 
 
-    async register(dto: CreateUserDto) {
+    async register (dto: CreateUserDto) {
 
         const {password, email, username} = dto
 
@@ -44,7 +44,7 @@ export class AuthService {
     }
 
 
-    async generateToken(user: User) {
+    async generateToken (user: User) {
 
         const payload = {email: user.email, userId: user.id, username: user.username}
 
@@ -54,7 +54,7 @@ export class AuthService {
     }
 
 
-    async validateUser(dto: LoginUserDto) {
+    async validateUser (dto: LoginUserDto) {
 
         const {password: dtoPassword, email} = dto
 
@@ -71,7 +71,7 @@ export class AuthService {
         throw new UnauthorizedException({message: 'Неккоректный email или пароль'})
     }
 
-    async checkAuth(userData) {
+    async checkAuth (userData) {
         const payload = {email: userData.email, userId: userData.userId, username: userData.username}
 
         return {

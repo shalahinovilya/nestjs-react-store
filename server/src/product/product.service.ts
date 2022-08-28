@@ -16,7 +16,7 @@ export class ProductService {
     ) {}
 
 
-    async createProduct(dto: CreateProductDto, file): Promise<Product> {
+    async createProduct (dto: CreateProductDto, file): Promise<Product> {
         const fileName = this.fileService.saveFile(file)
         const data = await this.productRepository.create({
             title: dto.title,
@@ -33,7 +33,7 @@ export class ProductService {
     }
 
 
-    async updateProduct(productId, fieldsForUpdating, file): Promise<Product> {
+    async updateProduct (productId, fieldsForUpdating, file): Promise<Product> {
         const product = await this.productRepository.findByPk(productId);
         const oldFile = product.img
         if (!product.id) {
@@ -63,7 +63,7 @@ export class ProductService {
     }
 
 
-    async deleteProduct(productId): Promise<Product> {
+    async deleteProduct (productId): Promise<Product> {
 
         const product = await this.productRepository.findByPk(productId);
         this.fileService.removeFile(product.img);
@@ -72,14 +72,14 @@ export class ProductService {
     }
 
 
-    async getOne(productId): Promise<Product> {
+    async getOne (productId): Promise<Product> {
         return await this.productRepository.findByPk(productId, {include: [
                 {model: Category, attributes: ['value']}
             ]});
     }
 
 
-    async getProducts(req) {
+    async getProducts (req) {
         const {limit, offset, categoryId, sortOrder, searchInput} = req.query
 
         if (searchInput) {

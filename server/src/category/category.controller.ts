@@ -28,7 +28,7 @@ export class CategoryController {
         status: 400,
         description: 'Bad request'
     })
-    async createCategory(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
+    async createCategory (@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
         return await this.categoryService.createCategory(createCategoryDto)
     }
 
@@ -55,7 +55,7 @@ export class CategoryController {
         description: 'get categories',
         type: [Category]
     })
-    async getAllCategories(): Promise<Category[]> {
+    async getAllCategories (): Promise<Category[]> {
         return await this.categoryService.getAllCategories()
     }
 

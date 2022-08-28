@@ -125,7 +125,7 @@ export class CommentController {
         status: 404,
         description: 'Not found'
     })
-    async getAllUserComments(@Param('userId') userId): Promise<Comment[]> {
+    async getAllUserComments (@Param('userId') userId): Promise<Comment[]> {
         return await this.commentService.getAllUserComments(userId)
     }
 
@@ -145,7 +145,7 @@ export class CommentController {
         status: 404,
         description: 'Not found'
     })
-    async getAllProductComments(@Param('productId') productId): Promise<Comment[]> {
+    async getAllProductComments (@Param('productId') productId): Promise<Comment[]> {
         return await this.commentService.getAllProductComments(productId)
     }
 

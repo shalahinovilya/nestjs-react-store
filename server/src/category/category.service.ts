@@ -9,17 +9,17 @@ export class CategoryService {
         private categoryRepository: typeof Category) {}
 
 
-    async createCategory(dto: CreateCategoryDto): Promise<Category> {
+    async createCategory (dto: CreateCategoryDto): Promise<Category> {
         return await this.categoryRepository.create(dto)
     }
 
 
-    async getCategory(categoryId): Promise<Category> {
+    async getCategory (categoryId): Promise<Category> {
         return await this.categoryRepository.findByPk(categoryId)
     }
 
 
-    async getAllCategories(): Promise<Category[]> {
+    async getAllCategories (): Promise<Category[]> {
         return await this.categoryRepository.findAll()
     }
 

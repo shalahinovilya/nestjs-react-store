@@ -30,7 +30,7 @@ export class CartController {
         status: 400,
         description: 'Bad request'
     })
-    async getOrCreateCart(@Param('userId') userId) {
+    async getOrCreateCart (@Param('userId') userId) {
         return await this.cartService.getOrCreateCart(userId)
     }
 
@@ -51,7 +51,7 @@ export class CartController {
         status: 400,
         description: 'Bad request'
     })
-    async deleteFromCart(@Param('cartProductId') cartProductId) {
+    async deleteFromCart (@Param('cartProductId') cartProductId) {
         return await this.cartService.deleteFromCart(cartProductId)
     }
 
@@ -72,7 +72,7 @@ export class CartController {
         status: 400,
         description: 'Bad request'
     })
-    async getCartByUserId(@Param('userId') userId) {
+    async getCartByUserId (@Param('userId') userId) {
         return await this.cartService.getCartByUserId(userId)
     }
 
@@ -93,7 +93,7 @@ export class CartController {
         status: 400,
         description: 'Bad request'
     })
-    async getAllFromCartByUserId(@Param('userId') userId) {
+    async getAllFromCartByUserId (@Param('userId') userId) {
         return await this.cartService.GetAllFromCartByUserId(userId)
     }
 
@@ -116,7 +116,7 @@ export class CartController {
         status: 400,
         description: 'Bad request'
     })
-    async addToCart(
+    async addToCart (
         @Query('productId') productId,
         @Query('userId') userId,
         @Query('finalPrice') finalPrice) {
@@ -142,7 +142,7 @@ export class CartController {
         status: 400,
         description: 'Bad request'
     })
-    async changeCartProductQuantity(
+    async changeCartProductQuantity (
         @Query('cartProductId') cartProductId,
         @Query('quantity') quantity,
         @Query('productPrice') productPrice)
@@ -167,7 +167,7 @@ export class CartController {
         status: 400,
         description: 'Bad request'
     })
-    async changeCartFinalPrice(
+    async changeCartFinalPrice (
         @Query('userId') userId,
         @Query('finalPrice') finalPrice) {
         return await this.cartService.changeCartFinalPrice(userId, finalPrice)

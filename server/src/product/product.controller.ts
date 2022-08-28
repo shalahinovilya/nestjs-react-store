@@ -45,7 +45,7 @@ export class ProductController {
         status: 401,
         description: 'Unauthorized'
     })
-    async create(
+    async createProduct (
         @Body() createProductDto: CreateProductDto,
         @UploadedFile() file: Express.Multer.File): Promise<Product> {
         return await this.productService.createProduct(createProductDto, file);
@@ -75,7 +75,7 @@ export class ProductController {
         status: 404,
         description: 'Not found'
     })
-    async updateProduct( @Param('productId') productId,
+    async updateProduct ( @Param('productId') productId,
                          @Body() updateProductDto: UpdateProductDto,
                          @UploadedFile() file): Promise<Product>  {
 
@@ -103,7 +103,7 @@ export class ProductController {
         status: 404,
         description: 'Not found'
     })
-    async deleteProduct(@Param('productId') productId): Promise<Product> {
+    async deleteProduct (@Param('productId') productId): Promise<Product> {
         return await this.productService.deleteProduct(productId)
     }
 
@@ -123,7 +123,7 @@ export class ProductController {
         status: 404,
         description: 'Not found'
     })
-    async getOne(@Param('productId') productId): Promise<Product> {
+    async getOne (@Param('productId') productId): Promise<Product> {
         return await this.productService.getOne(productId)
     }
 
@@ -133,7 +133,7 @@ export class ProductController {
         description: 'get products for page',
         type: [Product]
     })
-    async getProducts(@Req() req){
+    async getProducts (@Req() req){
         return await this.productService.getProducts(req)
     }
 

@@ -24,7 +24,7 @@ export class UserController {
         status: 400,
         description: 'Bad request'
     })
-    async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    async createUser (@Body() createUserDto: CreateUserDto): Promise<User> {
         return await this.userService.createUser(createUserDto);
 
     }
@@ -57,8 +57,8 @@ export class UserController {
         status: 401,
         description: 'Unauthorized'
     })
-    async findAllUsers(): Promise<User[]> {
-        return await this.userService.findAllUsers()
+    async getAllUsers(): Promise<User[]> {
+        return await this.userService.getAllUsers()
     }
 
 }

@@ -22,7 +22,7 @@ export class CommentService {
     }
 
 
-    async updateComment(commentId, dto: UpdateCommentDto) {
+    async updateComment (commentId, dto: UpdateCommentDto) {
         return await this.commentRepository.update(
             {
                 advantages: dto.advantages,
@@ -42,12 +42,12 @@ export class CommentService {
     }
 
 
-    async getAllUserComments(userId): Promise<Comment[]> {
+    async getAllUserComments (userId): Promise<Comment[]> {
         return await this.commentRepository.findAll({where: {userId}})
     }
 
 
-    async getAllProductComments(productId): Promise<Comment[]> {
+    async getAllProductComments (productId): Promise<Comment[]> {
         return await this.commentRepository.findAll(
             {
                 where: {productId},
