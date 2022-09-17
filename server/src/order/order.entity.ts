@@ -49,5 +49,4 @@ export class Order extends Model<CreateOrder> {
     @BelongsTo(() => Cart)
     cart: Cart;
 
-
 }

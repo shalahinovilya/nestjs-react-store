@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import {updateComment} from "../../http/commentHttp";
@@ -9,17 +9,11 @@ const UpdateCommentModal = observer(({show, closeCommentModalHandler, comment}) 
 
     const {product} = useContext(Context)
 
-    const [advantages, setAdvantages] = useState(comment.advantages)
-    const [limitations, setLimitations] = useState(comment.limitations)
-    const [content, setContent] = useState(comment.content)
+    const [advantages, setAdvantages] = useState('')
+    const [limitations, setLimitations] = useState('')
+    const [content, setContent] = useState('')
     const [errors, setErrors] = useState({})
     const [validated, setValidated] = useState(false)
-
-    const clearFields = () => {
-        setAdvantages(comment.advantages)
-        setLimitations(comment.limitations)
-        setContent(comment.content)
-    }
 
     const updateCommentHandler = async () => {
 
@@ -31,12 +25,18 @@ const UpdateCommentModal = observer(({show, closeCommentModalHandler, comment}) 
         }
         else {
             await updateComment(comment.id, {advantages, limitations, content})
-                .then(data => {
+                .then(() => {
                     product.setCommentsNum(product.comments.length + 1)
                     closeCommentModalHandler()
                 })
         }
     }
+
+    useEffect(() => {
+        setAdvantages(comment.advantages)
+        setLimitations(comment.limitations)
+        setContent(comment.content)
+    }, [comment])
 
     return (
         <>
@@ -44,7 +44,6 @@ const UpdateCommentModal = observer(({show, closeCommentModalHandler, comment}) 
                 show={show}
                 onHide={() => {
                     setValidated(false)
-                    clearFields()
                     closeCommentModalHandler()
                 }}
                 aria-labelledby="contained-modal-title-vcenter"
@@ -76,7 +75,7 @@ const UpdateCommentModal = observer(({show, closeCommentModalHandler, comment}) 
                                 type="text"
                                 minLength="5"
                                 maxLength="20"
-                                value={limitations}
+                                value={String(limitations)}
                                 onChange={e => setLimitations(e.target.value)}
                                 required={true}
                             />
@@ -93,7 +92,7 @@ const UpdateCommentModal = observer(({show, closeCommentModalHandler, comment}) 
                                 maxLength="100"
                                 as="textarea"
                                 rows={4}
-                                value={content}
+                                value={String(content)}
                                 onChange={e => setContent(e.target.value)}
                                 required={true}
                             />
@@ -112,7 +111,6 @@ const UpdateCommentModal = observer(({show, closeCommentModalHandler, comment}) 
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => {
                         setValidated(false)
-                        clearFields()
                         closeCommentModalHandler()
                     }}>
                         Close

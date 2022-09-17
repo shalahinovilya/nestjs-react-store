@@ -11,9 +11,10 @@ import '../../static/Comment.css'
 const Comment = observer(({productId}) => {
 
     const {product, user} = useContext(Context)
+    const [selectedComment, setSelectedComment] = useState({})
     const [showCreateCommentModal, setShowCreateCommentModal] = useState(false);
-    const [showUpdateCommentModal, setShowUpdateCommentModal] = useState(-1)
-    const [showDeleteCommentModal, setShowDeleteCommentModal] = useState(-1)
+    const [showUpdateCommentModal, setShowUpdateCommentModal] = useState(false)
+    const [showDeleteCommentModal, setShowDeleteCommentModal] = useState(false)
 
     const closeCreateCommentModalHandler = () => {
         setShowCreateCommentModal(false)
@@ -24,19 +25,21 @@ const Comment = observer(({productId}) => {
     }
 
     const closeUpdateCommentModalHandler = () => {
-        setShowUpdateCommentModal(-1)
+        setShowUpdateCommentModal(false)
     }
 
-    const openUpdateCommentModalHandler = (commentId) => {
-        setShowUpdateCommentModal(commentId)
+    const openUpdateCommentModalHandler = (comment) => {
+        setSelectedComment(comment)
+        setShowUpdateCommentModal(true)
     }
 
     const closeDeleteCommentModalHandler = () => {
-        setShowDeleteCommentModal(-1)
+        setShowDeleteCommentModal(false)
     }
 
-    const openDeleteCommentModalHandler = (commentId) => {
-        setShowDeleteCommentModal(commentId)
+    const openDeleteCommentModalHandler = (comment) => {
+        setSelectedComment(comment)
+        setShowDeleteCommentModal(true)
     }
 
     return (
@@ -59,6 +62,16 @@ const Comment = observer(({productId}) => {
                 show={showCreateCommentModal}
                 closeCommentModalHandler={closeCreateCommentModalHandler}
                 productId={productId}
+            />
+            <DeleteCommentModal
+                show={showDeleteCommentModal}
+                closeCommentModalHandler={closeDeleteCommentModalHandler}
+                commentId={selectedComment.id}
+            />
+            <UpdateCommentModal
+                show={showUpdateCommentModal}
+                closeCommentModalHandler={closeUpdateCommentModalHandler}
+                comment={selectedComment}
             />
             <div className="comment__row">
                 {
@@ -90,26 +103,18 @@ const Comment = observer(({productId}) => {
                                                 <div className="control__comment__buttons">
                                                     <Button
                                                         variant="outline-danger btn-sm"
-                                                        onClick={() => openDeleteCommentModalHandler(comment.id)}
+                                                        id={comment.id}
+                                                        onClick={() => openDeleteCommentModalHandler(comment)}
                                                     >
                                                         delete
                                                     </Button>
                                                     <Button
                                                         variant="outline-info btn-sm"
-                                                        onClick={() => openUpdateCommentModalHandler(comment.id)}
+                                                        key={comment.id}
+                                                        onClick={() => openUpdateCommentModalHandler(comment)}
                                                     >
                                                         update
                                                     </Button>
-                                                    <DeleteCommentModal
-                                                        show={comment.id === showDeleteCommentModal}
-                                                        closeCommentModalHandler={closeDeleteCommentModalHandler}
-                                                        commentId={comment.id}
-                                                    />
-                                                    <UpdateCommentModal
-                                                        show={comment.id === showUpdateCommentModal}
-                                                        closeCommentModalHandler={closeUpdateCommentModalHandler}
-                                                        comment={comment}
-                                                    />
                                                 </div>
                                             )}
                                     </div>
