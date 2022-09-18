@@ -35,6 +35,7 @@ const CartPage = observer(() => {
                 <Row md={1}>
                     {cart.cartProducts.map((product) => (
                         <CartProduct
+                            key={product.id}
                             product={product}
                         />
                     ))}

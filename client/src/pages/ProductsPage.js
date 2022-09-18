@@ -56,7 +56,7 @@ const ProductsPage = observer(() => {
                 <SideBar/>
                 <Row xs={2} md={4} className="g-4">
                     {product.products.length && product.products.map((product) => (
-                        <Col lg={3}>
+                        <Col key={product.id} lg={3}>
                             <ProductCard product={product}/>
                         </Col>
                     ))

@@ -174,7 +174,7 @@ const OrderPage = observer(() => {
             <Container style={{marginTop: 35, marginBottom: 50}}>
                 <OrderProductsRowDesc/>
                 {products.map(product => (
-                    <OrderProduct cartProduct={product}/>
+                    <OrderProduct key={product.id} cartProduct={product}/>
                 ))}
             </Container>
         </div>

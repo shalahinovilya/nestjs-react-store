@@ -1,8 +1,8 @@
+import {Context} from "../../index";
+import {observer} from "mobx-react-lite";
 import React, {useContext, useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
 import {createComment} from "../../http/commentHttp";
-import {Context} from "../../index";
-import {observer} from "mobx-react-lite";
 import {findCommentDataErrors} from "../../utils/comment/ValidateCommentData";
 
 
@@ -27,7 +27,7 @@ const CreateCommentModal = observer(({show, closeCommentModalHandler, productId}
 
         else {
             await createComment({advantages, limitations, content, productId, userId: user.user.userId})
-                .then(data => {
+                .then(() => {
                     product.setCommentsNum(product.comments.length + 1)
                     closeCommentModalHandler()
                 })
