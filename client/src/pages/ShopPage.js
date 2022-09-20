@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Col, Row, Spinner} from "react-bootstrap";
-import ProductCard from "../components/product/ProductCard";
+import {Spinner} from "react-bootstrap";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 import PaginationBasic from "../components/product/Pagination";
@@ -8,9 +7,10 @@ import SideBar from "../components/utills/SideBar";
 import {getProducts} from "../http/productHttp";
 import {getAllCategories} from "../http/categoryHttp";
 import CatalogSettings from "../components/utills/CatalogSettings";
+import ProductList from "../components/product/ProductList";
 
 
-const ProductsPage = observer(() => {
+const ShopPage = observer(() => {
 
     const {product} = useContext(Context)
     const [loading, setLoading] = useState(true)
@@ -33,13 +33,16 @@ const ProductsPage = observer(() => {
     }, [product.page, product.selectedCategory, product.selectedSortOrder])
 
     if (loading) {
-        return (<div className="loading-block">
-            <Spinner className="loading-spinner" animation="grow" variant="primary"/>
-        </div>)
+        return (
+            <div className="loading-block">
+                <Spinner className="loading-spinner" animation="grow" variant="primary"/>
+            </div>
+        )
     }
 
     if (!product.products.length) {
-        return (<div>
+        return (
+            <div>
                 <CatalogSettings/>
                 <SideBar/>
                 <div className="no-products-block">
@@ -54,18 +57,11 @@ const ProductsPage = observer(() => {
             <div className="products-block__body">
                 <CatalogSettings/>
                 <SideBar/>
-                <Row xs={2} md={4} className="g-4">
-                    {product.products.length && product.products.map((product) => (
-                        <Col key={product.id} lg={3}>
-                            <ProductCard product={product}/>
-                        </Col>
-                    ))
-                    }
-                </Row>
+                <ProductList/>
                 <PaginationBasic/>
             </div>
         </div>
     );
 });
 
-export default ProductsPage;
+export default ShopPage;

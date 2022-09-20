@@ -2,7 +2,7 @@ import React from 'react';
 import {Routes, Route, Navigate} from "react-router-dom";
 import CreatePage from "./pages/CreatePage";
 import DetailPage from "./pages/DetailPage";
-import ProductsPage from "./pages/ProductsPage";
+import ShopPage from "./pages/ShopPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CartPage from "./pages/CartPage";
@@ -21,7 +21,7 @@ export const UnAuthRoutes = () => {
 
             <Route
                 path="products"
-                element={<ProductsPage/>}
+                element={<ShopPage/>}
             />
 
             <Route
@@ -73,7 +73,7 @@ export const AuthRoutes = () => {
 
             <Route
                 path="products"
-                element={<ProductsPage/>}
+                element={<ShopPage/>}
             />
 
             <Route
