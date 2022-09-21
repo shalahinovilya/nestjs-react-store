@@ -7,16 +7,14 @@ import {Context} from "../../index";
 const product = observer(({product}) => {
 
     const {cart} = useContext(Context)
-    const [qty, setQty] = useState(product.cartProduct[0].quantity)
+    const [qty, setQty] = useState(product?.cartProduct[0]?.quantity)
 
     const [increaseBtnDisabled, setIncreaseBtnDisabled] = useState(false)
     const [decreaseBtnDisabled, setDecreaseBtnDisabled] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
 
     const deleteProductFromCart = async () => {
-        setIsLoading(true)
         await deleteFromCart(product.cartProduct[0].id).then(() => cart.setCartTotalProductsCount(0))
-        setIsLoading(false)
+
     }
 
     const increaseQty = async () => {
@@ -36,12 +34,6 @@ const product = observer(({product}) => {
                 cart.setCartTotalProductsCount(cart.cartTotalProductsCount - 1)
             })
         setDecreaseBtnDisabled(false)
-    }
-
-    if (isLoading) {
-        return (<div className="loading-block">
-            <Spinner className="loading-spinner" animation="grow" variant="primary"/>
-        </div>)
     }
 
     return (

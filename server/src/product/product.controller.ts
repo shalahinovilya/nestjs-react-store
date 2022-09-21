@@ -143,8 +143,8 @@ export class ProductController {
         description: 'get products for cart',
         type: [Product]
     })
-    async getProductsForCart (@Query('idList') idList) {
-        return await this.productService.getProductsForCart(idList)
+    async getProductsForCart (@Query('idList') idList, @Query('cartId') cartId) {
+        return await this.productService.getProductsForCart(idList, cartId)
     }
 
 }

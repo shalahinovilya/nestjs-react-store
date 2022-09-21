@@ -39,7 +39,7 @@ const NavBarComponent = () => {
                     </div>
                     <Nav>
                         <Nav.Link
-                            href="/products/"
+                            href="/"
                         >
                             Home
                         </Nav.Link>

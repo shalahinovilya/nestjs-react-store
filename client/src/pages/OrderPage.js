@@ -12,11 +12,8 @@ import OrderProductsRowDesc from "../components/order/OrderProductsRowDesc";
 import {createOrder} from "../http/orderHttp";
 import {useNavigate} from "react-router-dom";
 import {findOrderDataErrors} from "../utils/order/ValidateOrderData";
+import CreateOrderForm from "../components/order/CreateOrderForm";
 
-const DELIVERY_TYPES = [
-    'pickup',
-    'courier',
-]
 
 const OrderPage = observer(() => {
 
@@ -24,17 +21,11 @@ const OrderPage = observer(() => {
     const navigate = useNavigate()
 
     const [products, setProducts] = useState([])
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [phone, setPhone] = useState('')
-    const [address, setAddress] = useState('')
-    const [comment, setComment] = useState('')
-    const [buyingType, setBuyingType] = useState(DELIVERY_TYPES[0])
     const [finalPrice, setFinalPrice] = useState(0)
     const [errors, setErrors] = useState({})
     const [validated, setValidated] = useState(false)
 
-    const sendCreateData = async () => {
+    const sendCreateData = async (firstName, lastName, phone, address, comment, buyingType) => {
 
         const validatedData = await findOrderDataErrors(firstName, lastName, phone, address, comment, buyingType)
 
@@ -74,102 +65,12 @@ const OrderPage = observer(() => {
     return (
         <div>
             <Card className="create-product-card" style={{width: '30rem'}}>
-                <Form validated={validated}>
-                    <Form.Group className="mb-3" controlId="formBasicFirstName">
-                        <FloatingLabel controlId="floatingFirstName" label="First name">
-                            <Form.Control
-                                type="text"
-                                placeholder="First name"
-                                minLength={5}
-                                maxLength={20}
-                                value={firstName}
-                                onChange={e => setFirstName(e.target.value)}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                {errors.firstName}
-                            </Form.Control.Feedback>
-                        </FloatingLabel>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicDescription">
-                        <FloatingLabel controlId="floatingLastName" label="Last name">
-                            <Form.Control
-                                type="text"
-                                placeholder="Last name"
-                                minLength={5}
-                                maxLength={20}
-                                value={lastName}
-                                onChange={e => setLastName(e.target.value)}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                {errors.lastName}
-                            </Form.Control.Feedback>
-                        </FloatingLabel>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicPhone">
-                        <FloatingLabel controlId="floatingPhone" label="Phone">
-                            <Form.Control
-                                type="tel"
-                                placeholder="Phone"
-                                isInvalid={!!errors.phone}
-                                value={phone}
-                                onChange={e => setPhone(e.target.value)}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                {errors.phone}
-                            </Form.Control.Feedback>
-                        </FloatingLabel>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicAddress">
-                        <FloatingLabel controlId="floatingAddress" label="Address">
-                            <Form.Control
-                                type="text"
-                                placeholder="Address"
-                                minLength={10}
-                                maxLength={50}
-                                value={address}
-                                onChange={e => setAddress(e.target.value)}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                {errors.address}
-                            </Form.Control.Feedback>
-                        </FloatingLabel>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicComment">
-                        <FloatingLabel controlId="floatingComment" label="Comment">
-                            <Form.Control
-                                type="text"
-                                placeholder="Comment"
-                                value={comment}
-                                onChange={e => setComment(e.target.value)}
-                            />
-                        </FloatingLabel>
-                    </Form.Group>
-
-                    <Form.Select aria-label="Default select example" onChange={e => setBuyingType(e.target.value)}>
-                        {DELIVERY_TYPES.map((type) => (
-                            <option value={type}>{type}</option>
-                        ))}
-                    </Form.Select>
-                    {errors.buyingType && <div className="create__order__error">must not be empty</div>}
-
-                    <Row style={{marginTop: 20}} md={2}>
-                        <Col md={{span: 4}}>
-                            <Button
-                                variant="primary"
-                                onClick={sendCreateData}
-                            >
-                                Create Order
-                            </Button>
-                        </Col>
-                        <Col className="create-order-block-final-price" md={{span: 6}}>
-                            <p>Итого: <b>{finalPrice}$</b></p>
-                        </Col>
-                    </Row>
-                </Form>
+                    <CreateOrderForm
+                        validated={validated}
+                        errors={errors}
+                        finalPrice={finalPrice}
+                        sendCreateData={sendCreateData}
+                    />
             </Card>
             <Container style={{marginTop: 35, marginBottom: 50}}>
                 <OrderProductsRowDesc/>

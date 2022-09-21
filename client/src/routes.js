@@ -20,7 +20,7 @@ export const UnAuthRoutes = () => {
             />
 
             <Route
-                path="products"
+                path="/"
                 element={<ShopPage/>}
             />
 
@@ -72,7 +72,7 @@ export const AuthRoutes = () => {
             />
 
             <Route
-                path="products"
+                path="/"
                 element={<ShopPage/>}
             />
 

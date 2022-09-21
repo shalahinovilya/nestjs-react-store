@@ -77,12 +77,12 @@ export const getProducts = async (limit, offset, categoryId, sortOrder) => {
 }
 
 
-export const getProductsForCart = async (idList) => {
+export const getProductsForCart = async (idList, cartId) => {
     try {
         const res = await axios({
             method: 'get',
             url: `/product/get-products-for-cart/`,
-            params: {idList}
+            params: {idList, cartId}
         })
         return res.data
     } catch (e) {

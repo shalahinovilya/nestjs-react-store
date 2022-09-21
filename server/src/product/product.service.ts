@@ -2,7 +2,7 @@ import {Injectable, Inject} from '@nestjs/common';
 import {Product} from "./product.entity";
 import {CreateProductDto} from "./dto/create-product.dto";
 import {FileService} from "../file/file.service";
-import {Op} from "sequelize";
+import sequelize, {Op} from "sequelize";
 import {Category} from "../category/category.entity";
 import {CartProduct} from "../cart-product/cart-product.entity";
 
@@ -100,13 +100,14 @@ export class ProductService {
         return await this.productRepository.findAndCountAll( {order: [sortOrder], offset, limit})
     }
 
-    async getProductsForCart (idList) {
+    async getProductsForCart (idList, cartId) {
         return await this.productRepository.findAll({
             order: [['title', 'ASC']],
             where: {id: idList},
             include: [
                 {
                     model: CartProduct,
+                    where: {'cartId': cartId},
                     attributes: ['id', 'quantity']
                 },
                 {

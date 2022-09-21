@@ -1,7 +1,7 @@
-import React, {useContext, useEffect} from 'react';
-import {Container, Row} from "react-bootstrap";
+import React, {useContext, useEffect, useState} from 'react';
+import {Container, Row, Spinner} from "react-bootstrap";
 import {Context} from "../index";
-import {changeCartFinalPrice, deleteFromCart, getAllFromCartByUserId} from "../http/cartHttp";
+import {changeCartFinalPrice, getAllFromCartByUserId} from "../http/cartHttp";
 import CartProduct from "../components/cart/CartProduct";
 import {recalcCartFinalPrice} from "../utils/cart/RecalcCartFinalPrice";
 import {countTotalProducts} from "../utils/product/CountTotalProducts";
@@ -13,16 +13,33 @@ import {getProductsForCart} from "../http/productHttp";
 const CartPage = observer(() => {
 
     const {user, cart} = useContext(Context)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        getAllFromCartByUserId(user.user.userId).then(data => {
-            cart.setCartTotalProductsCount(countTotalProducts(data.rows))
-            getProductsForCart(data.rows.reduce(
-                (res, row) => [...res, row.productId], [])).then(data => cart.setCartProducts(data))
-            cart.setFinalPrice(recalcCartFinalPrice(data.rows))
-            changeCartFinalPrice(user.user.userId, cart.finalPrice)
-        })
+
+        setIsLoading(true)
+
+        getAllFromCartByUserId(user.user.userId).then(async data => {
+
+            await cart.setCartTotalProductsCount(countTotalProducts(data.rows))
+
+            await getProductsForCart(data.rows.reduce(
+                (res, row) => [...res, row.productId], []), data?.rows[0]?.cartId).then(data => cart.setCartProducts(data))
+
+            await cart.setFinalPrice(recalcCartFinalPrice(data.rows))
+
+            await changeCartFinalPrice(user.user.userId, cart.finalPrice)
+
+        }).finally(() => setIsLoading(false))
     }, [cart.cartTotalProductsCount])
+
+    if (isLoading) {
+        return (
+            <div className="loading-block">
+                <Spinner className="loading-spinner" animation="grow" variant="primary"/>
+            </div>
+        )
+    }
 
     if (!cart?.cartProducts?.length) {
         return <div className="cart-data-info">Your cart is empty</div>
