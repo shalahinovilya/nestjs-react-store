@@ -2,6 +2,7 @@ import axios from "axios";
 
 
 export const createProduct = async (productCreateData) => {
+
     try {
         const res = await axios({
             method: 'post',
@@ -75,7 +76,6 @@ export const getProducts = async (limit, offset, categoryId, sortOrder) => {
         console.log(e)
     }
 }
-
 
 export const getProductsForCart = async (idList, cartId) => {
     try {

@@ -51,5 +51,4 @@ export class Product extends Model<CreateProduct> {
     @HasMany(() => Comment)
     comment: Comment[];
 
-
 }

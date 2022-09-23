@@ -1,6 +1,6 @@
 import {BrowserRouter as Browser} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {AuthRoutes, UnAuthRoutes} from "./routes";
+import {AppRoutes} from "./routes";
 import NavBarComponent from "./components/utills/NavBar";
 import {observer} from "mobx-react-lite";
 import {useContext, useEffect, useState} from "react";
@@ -13,8 +13,6 @@ import {Spinner} from "react-bootstrap";
 const App = observer(() => {
 
     const [isLoading, setIsLoading] = useState(true)
-    const AuthApp = AuthRoutes()
-    const UnAuthApp = UnAuthRoutes()
     const {user} = useContext(Context)
 
     useEffect(() => {
@@ -36,7 +34,7 @@ const App = observer(() => {
         <div>
             <Browser>
                 <NavBarComponent/>
-                {user.isAuth && AuthApp || UnAuthApp}
+                <AppRoutes/>
             </Browser>
 
         </div>

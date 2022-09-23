@@ -30,12 +30,13 @@ const SideBar = observer(() => {
                         style={{borderTop: '0px', borderLeft: '0px', borderRight: '0px'}}
                         className="category-list"
                         action
-                        onClick={e => {
+                        onClick={() => {
                             product.setPage(1)
                             product.setSelectedCategory(cat)
                         }}
                         active={product.selectedCategory.id === cat.id}
                         disabled={product.selectedCategory.id === cat.id}
+                        key={cat.id}
                     >
                         {cat.value}
                     </ListGroup.Item>)

@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {JwtService} from "@nestjs/jwt";
 
 @Injectable()
-export class AuthGuard implements CanActivate{
+export class AuthGuard implements CanActivate {
 
     constructor(private jwtService: JwtService) {
     }
@@ -12,7 +12,6 @@ export class AuthGuard implements CanActivate{
         const request=context.switchToHttp().getRequest();
 
         try {
-
             const authHeader = request.headers
             const bearer = authHeader.authorization.split(' ')[0]
             const token = authHeader.authorization.split(' ')[1]

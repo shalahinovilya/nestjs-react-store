@@ -7,6 +7,7 @@ import {CartProduct} from "../cart-product/cart-product.entity";
 import {Order} from "../order/order.entity";
 import {Comment} from "../comment/comment.entity";
 
+
 export const databaseProviders = [
     {
         provide: 'SEQUELIZE',

@@ -94,8 +94,8 @@ const CreateOrderForm = ({validated, errors, finalPrice, sendCreateData}) => {
 
             <Form.Select aria-label="Default select example" onChange={e => setBuyingType(e.target.value)}>
                 <Form.Label>Delivery Type</Form.Label>
-                {DELIVERY_TYPES.map((type) => (
-                    <option value={type}>{type}</option>
+                {DELIVERY_TYPES.map((type, index) => (
+                    <option key={index.toString()} value={type}>{type}</option>
                 ))}
             </Form.Select>
             {errors.buyingType && <div className="create__order__error">must not be empty</div>}

@@ -39,6 +39,7 @@ const CreateProductForm = observer(({validated, errors, sendCreateData}) => {
                 <Form.Control
                     type="text"
                     as="textarea"
+                    isInvalid={errors.description}
                     rows={4}
                     placeholder="Description"
                     value={description}
@@ -90,7 +91,7 @@ const CreateProductForm = observer(({validated, errors, sendCreateData}) => {
             >
                 <option value=''></option>
                 {product.categories.map(cat =>
-                    (<option name={cat.value} value={cat.id}>{cat.value}</option>)
+                    (<option key={cat.id} name={cat.value} value={cat.id}>{cat.value}</option>)
                 )}
             </Form.Select>
             {errors.category && <div className="create__category__error">must not be empty</div>}

@@ -25,10 +25,11 @@ const CatalogSettings = observer(() => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                        {Object.keys(product.sortOrderVars).map((key) =>
+                        {Object.keys(product.sortOrderVars).map((key, index) =>
                             (<Dropdown.Item
                                 onClick={() => product.setSelectedSortOrder(key)}
                                 active={product.selectedSortOrder === key}
+                                key={index.toString()}
                             >
                                 {key}
                             </Dropdown.Item>)

@@ -1,10 +1,13 @@
-import { Injectable, Inject } from '@nestjs/common';
+import {Injectable, Inject, OnModuleInit} from '@nestjs/common';
 import {User} from "./user.entity";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {CartService} from "../cart/cart.service";
 
+
+
 @Injectable()
 export class UserService {
+
     constructor(
         @Inject('USER_REPOSITORY')
         private userRepository: typeof User,
@@ -13,6 +16,7 @@ export class UserService {
 
 
     async createUser (dto: CreateUserDto): Promise<User> {
+
         const user = await this.userRepository.create(dto);
         await this.cartService.getOrCreateCart(user.id)
         return user
@@ -32,4 +36,5 @@ export class UserService {
     async getAllUsers (): Promise<User[]> {
         return this.userRepository.findAll<User>();
     }
+
 }

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Button, Form, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {logout} from "../../http/userHttp";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 
 
-const NavBarComponent = () => {
+const NavBarComponent = observer(() => {
+
+    const {user} = useContext(Context)
 
     return (
         <div className="navbar-block">
@@ -13,7 +17,7 @@ const NavBarComponent = () => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse style={{marginRight: 10}} id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/admin/">Admin</Nav.Link>
+                        {user.user.role === 'admin' && <Nav.Link href="/admin/">Admin</Nav.Link>}
                         <NavDropdown title="Actions" id="collasible-nav-dropdown">
                             <NavDropdown.Item href="/create/">Create Product</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -50,17 +54,25 @@ const NavBarComponent = () => {
                             Cart
                         </Nav.Link>
 
-                        <Nav.Link
-                            href="/"
-                            onClick={logout}
-                        >
-                            Logout
-                        </Nav.Link>
+                        {user.isAuth ?
+                            <Nav.Link
+                                href={"/login"}
+                                onClick={logout}
+                            >
+                                Logout
+                            </Nav.Link>
+                            :
+                            <Nav.Link
+                                href={"/login"}
+                            >
+                                Login
+                            </Nav.Link>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
         </div>
     );
-};
+});
 
 export default NavBarComponent;

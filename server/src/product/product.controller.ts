@@ -49,7 +49,6 @@ export class ProductController {
         @Body() createProductDto: CreateProductDto,
         @UploadedFile() file: Express.Multer.File): Promise<Product> {
         return await this.productService.createProduct(createProductDto, file);
-
     }
 
 

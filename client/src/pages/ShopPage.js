@@ -18,8 +18,8 @@ const ShopPage = observer(() => {
     useEffect(() => {
         getAllCategories().then(data => product.setCategories(data))
         getProducts(3, 0).then(data => {
-            product.setProducts(data.rows)
-            product.setTotalRecords(data.count)
+            product.setProducts(data?.rows)
+            product.setTotalRecords(data?.count)
         })
     }, [])
 
@@ -40,25 +40,23 @@ const ShopPage = observer(() => {
         )
     }
 
-    if (!product.products.length) {
-        return (
-            <div>
-                <CatalogSettings/>
-                <SideBar/>
-                <div className="no-products-block">
-                    <h1 className="no-products-h1">No products</h1>
-                </div>
-            </div>
-        )
-    }
-
     return (
         <div className="products-block">
-            <div className="products-block__body">
-                <CatalogSettings/>
-                <SideBar/>
-                <ProductList/>
-                <PaginationBasic/>
+            <div className="products-block__body products-body">
+                <div className="products-body__header">
+                    <CatalogSettings/>
+                </div>
+                <div className="products-body__content">
+                    <SideBar/>
+                    {product.products.length ?  <ProductList/> :
+                        (<div className="no-products-block">
+                            <h1 className="no-products-h1">No products</h1>
+                        </div>)
+                    }
+                </div>
+               <div className="products-body__footer">
+                   <PaginationBasic/>
+               </div>
             </div>
         </div>
     );

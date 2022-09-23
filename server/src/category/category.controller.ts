@@ -4,6 +4,9 @@ import {CreateCategoryDto} from "./dto/create-category.dto";
 import {Category} from "./category.entity";
 import {AuthGuard} from "../auth/auth-jwt.guard";
 import {ApiBody, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {Roles} from "../auth/auth-role.decorator";
+import {Role} from "../enums/role.enum";
+import {RoleGuard} from "../auth/role.guard";
 
 
 @ApiTags('category')
@@ -12,7 +15,8 @@ export class CategoryController {
 
     constructor(private categoryService: CategoryService) {}
 
-    @UseGuards(AuthGuard)
+    @Roles(Role.Admin)
+    @UseGuards(AuthGuard, RoleGuard)
     @Post('create-category')
     @ApiBody({type: CreateCategoryDto})
     @ApiResponse({

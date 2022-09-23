@@ -4,6 +4,9 @@ import {CreateUserDto} from "./dto/create-user.dto";
 import {User} from "./user.entity";
 import {AuthGuard} from "../auth/auth-jwt.guard";
 import {ApiBody, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {Roles} from "../auth/auth-role.decorator";
+import {RoleGuard} from "../auth/role.guard";
+import {Role} from "../enums/role.enum";
 
 
 @ApiTags('user')
@@ -45,8 +48,8 @@ export class UserController {
         return await this.userService.getUserById(userId)
     }
 
-
-    @UseGuards(AuthGuard)
+    @Roles(Role.Admin)
+    @UseGuards(AuthGuard, RoleGuard)
     @Get('get-all-users')
     @ApiResponse({
         status: 200,

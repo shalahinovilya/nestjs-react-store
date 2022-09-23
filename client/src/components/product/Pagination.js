@@ -21,7 +21,7 @@ const PaginationBasic = observer(() => {
                 <Pagination.Prev onClick={e => product.setPage(pages[0] < product.page ? product.page - 1 : 1)}/>
                 {pages.map(pageNum =>
                     (<Pagination.Item
-                        onClick={e => {
+                        onClick={() => {
                             pageNum !== product.page && product.setPage(pageNum)
                         }}
                         key={pageNum}

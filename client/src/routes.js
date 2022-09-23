@@ -1,5 +1,5 @@
-import React from 'react';
-import {Routes, Route, Navigate} from "react-router-dom";
+import React, {useContext} from 'react';
+import {Routes, Route, Navigate, Outlet} from "react-router-dom";
 import CreatePage from "./pages/CreatePage";
 import DetailPage from "./pages/DetailPage";
 import ShopPage from "./pages/ShopPage";
@@ -9,81 +9,124 @@ import CartPage from "./pages/CartPage";
 import UpdatePage from "./pages/UpdatePage";
 import OrderPage from "./pages/OrderPage";
 import AdminPage from "./pages/AdminPage";
+import {observer} from "mobx-react-lite";
+import {Context} from "./index";
 
-export const UnAuthRoutes = () => {
+const ProtectedRoute = ({redirectPath = '/login', isAllowed, children}) => {
+    if (!isAllowed) {
+        return <Navigate to={redirectPath}/>
+    }
+    return children ? children : <Outlet/>
+}
+
+const ShopPagePublic = () => {
+    return <ShopPage />
+}
+
+const DetailPagePublic = () => {
+    return <DetailPage />
+}
+
+
+export const AppRoutes = observer(() => {
+
+    const {user} = useContext(Context)
+
     return (
         <Routes>
 
             <Route
                 path="product/:id"
-                element={<DetailPage/>}
+                element={<DetailPagePublic/>}
             />
 
             <Route
                 path="/"
-                element={<ShopPage/>}
+                element={<ShopPagePublic/>}
             />
 
             <Route
                 path="login"
-                element={<LoginPage/>}
+            element={
+                <ProtectedRoute
+                redirectPath='/'
+                isAllowed={!user.isAuth}
+            >
+                <LoginPage/>
+            </ProtectedRoute>
+                }
             />
 
             <Route
                 path="register"
-                element={<RegisterPage/>}
+                element={
+                    <ProtectedRoute
+                        redirectPath='/'
+                        isAllowed={!user.isAuth}
+                    >
+                        <RegisterPage/>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="create"
+                element={
+                <ProtectedRoute
+                    isAllowed={user.isAuth}
+                >
+                    <CreatePage/>
+                </ProtectedRoute>
+                    }
+            />
+
+            <Route
+                path="order"
+                element={
+                    <ProtectedRoute
+                        isAllowed={user.isAuth}
+                    >
+                        <OrderPage/>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="product-update/:id"
+                element={
+                    <ProtectedRoute
+                        isAllowed={user.isAuth}
+                    >
+                        <UpdatePage/>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="cart"
+                element={
+                    <ProtectedRoute
+                        isAllowed={user.isAuth}
+                    >
+                        <CartPage/>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="admin"
+                element={
+                    <ProtectedRoute
+                        redirectPath={'/'}
+                        isAllowed={user.isAuth && user.user.role === 'admin' }
+                    >
+                        <AdminPage/>
+                    </ProtectedRoute>
+                }
             />
 
             <Route path="*" element={<Navigate to="login" />} />
 
         </Routes>
     );
-}
-
-export const AuthRoutes = () => {
-
-    return (
-
-        <Routes>
-
-            <Route
-                path="create"
-                element={<CreatePage/>}
-            />
-
-            <Route
-                path="order"
-                element={<OrderPage/>}
-            />
-
-            <Route
-                path="product-update/:id"
-                element={<UpdatePage/>}
-            />
-
-            <Route
-                path="product/:id"
-                element={<DetailPage/>}
-            />
-
-            <Route
-                path="cart"
-                element={<CartPage/>}
-            />
-
-            <Route
-                path="/"
-                element={<ShopPage/>}
-            />
-
-            <Route
-                path="admin"
-                element={<AdminPage/>}
-            />
-
-            <Route path="*" element={<Navigate to="create" />} />
-
-        </Routes>
-    );
-};
-
+})
