@@ -17,7 +17,9 @@ export class ProductService {
 
 
     async createProduct (dto: CreateProductDto, file): Promise<Product> {
+
         const fileName = this.fileService.saveFile(file)
+
         const data = await this.productRepository.create({
             title: dto.title,
             description: dto.description,
@@ -25,8 +27,8 @@ export class ProductService {
             categoryId: dto.categoryId,
             userId: dto.userId,
             img: fileName}).catch(() => {
-            this.fileService.removeFile(fileName)
-            throw new Error('Неккоректная информация при создании продукта')
+                this.fileService.removeFile(fileName)
+                throw new Error('Неккоректная информация при создании продукта')
             }
         )
         return data

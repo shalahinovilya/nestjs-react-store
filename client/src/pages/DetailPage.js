@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {deleteProduct, getProduct} from "../http/productHttp";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {getProduct} from "../http/productHttp";
+import {Link, useParams} from "react-router-dom";
 import {Button, Container, Image, Spinner} from "react-bootstrap";
 import {Context} from "../index";
 import {addToCart} from "../http/cartHttp";
@@ -8,16 +8,17 @@ import {observer} from "mobx-react-lite";
 import Comment from "../components/comment/Comment";
 import {getAllProductComments} from "../http/commentHttp";
 import '../static/DetailPage.css'
+import DeleteProductModal from "../components/product/DeleteProductModal";
 
 
 const DetailPage = observer(() => {
 
     const [currentProduct, setCurrentProduct] = useState('')
     const [isCommentLoading, setIsCommentLoading] = useState(false)
+    const [showDeleteProductModal, setShowDeleteProductModal] = useState(false)
     const {user, product} = useContext(Context)
 
     const productId = useParams().id
-    const navigate = useNavigate()
 
     useEffect(() => {
         getProduct(productId).then(data => {
@@ -33,8 +34,12 @@ const DetailPage = observer(() => {
         })
     }, [product.commentsNum])
 
-    const deleteHandler = async () => {
-        await deleteProduct(productId).then(() => navigate('/products/'))
+    const closeDeleteProductModalHandler = () => {
+        setShowDeleteProductModal(false)
+    }
+
+    const openDeleteProductModalHandler = () => {
+        setShowDeleteProductModal(true)
     }
 
     const addToCartHandler = async () => {
@@ -42,8 +47,14 @@ const DetailPage = observer(() => {
     }
 
     return (
-        <div className="detail__block">
-            <Container className="huba">
+        <>
+            <DeleteProductModal
+                show={showDeleteProductModal}
+                closeProductModalHandler={closeDeleteProductModalHandler}
+                productId={productId}
+            />
+        <div className="detail__block detail">
+            <Container className="detail__body">
                 <div className="detail__row">
                     <div className="detail__column">
                         <div className="detail__item">
@@ -121,7 +132,7 @@ const DetailPage = observer(() => {
                             </Link>
 
                             <Button
-                                onClick={deleteHandler}
+                                onClick={openDeleteProductModalHandler}
                                 className='btn-danger'
                             >
                                 Delete
@@ -138,6 +149,7 @@ const DetailPage = observer(() => {
                 }
             </Container>
         </div>
+        </>
     );
 });
 
