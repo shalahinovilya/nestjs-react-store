@@ -3,7 +3,7 @@ import {Button} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 
-const CommentList = observer(({openUpdateModal, openDeleteModal}) => {
+const CommentList = observer(({openUpdateModalHandler, openDeleteModalHandler}) => {
 
     const {product, user} = useContext(Context)
 
@@ -38,13 +38,13 @@ const CommentList = observer(({openUpdateModal, openDeleteModal}) => {
                                             <div className="control__comment__buttons">
                                                 <Button
                                                     variant="outline-danger btn-sm"
-                                                    onClick={() => openDeleteModal(comment)}
+                                                    onClick={() => openDeleteModalHandler(comment)}
                                                 >
                                                     delete
                                                 </Button>
                                                 <Button
                                                     variant="outline-info btn-sm"
-                                                    onClick={() => openUpdateModal(comment)}
+                                                    onClick={() => openUpdateModalHandler(comment)}
                                                 >
                                                     update
                                                 </Button>

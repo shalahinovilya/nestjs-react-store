@@ -7,11 +7,14 @@ import UpdateCommentModal from "./UpdateCommentModal";
 import DeleteCommentModal from "./DeleteCommentModal";
 import '../../static/Comment.css'
 import CommentList from "./CommentList";
+import {useNavigate} from "react-router-dom";
 
 
 const Comment = observer(({productId}) => {
 
-    const {product} = useContext(Context)
+    const {product, user} = useContext(Context)
+    const navigate = useNavigate()
+
     const [selectedComment, setSelectedComment] = useState({})
     const [showCreateCommentModal, setShowCreateCommentModal] = useState(false);
     const [showUpdateCommentModal, setShowUpdateCommentModal] = useState(false)
@@ -50,7 +53,7 @@ const Comment = observer(({productId}) => {
                 <Button
                     variant="outline-secondary"
                     className="btn-lg"
-                    onClick={createCommentModalHandler}
+                    onClick={() => user.isAuth ? createCommentModalHandler() : navigate('login')}
                 >
                     Add a review
                 </Button>
@@ -71,8 +74,8 @@ const Comment = observer(({productId}) => {
                 comment={selectedComment}
             />
             <CommentList
-                openUpdateModal={openUpdateCommentModalHandler}
-                openDeleteModal={openDeleteCommentModalHandler}
+                openUpdateModalHandler={openUpdateCommentModalHandler}
+                openDeleteModalHandler={openDeleteCommentModalHandler}
             />
 
         </div>
