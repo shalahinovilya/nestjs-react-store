@@ -1,17 +1,27 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Container, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import Comment from "../comment/Comment";
 import {addToCart} from "../../http/cartHttp";
 import {Context} from "../../index";
+import AddToCartToast from "./AddToCartToast";
 
 const DetailBody = ({currentProduct, openDeleteModalHandler}) => {
 
     const {user} = useContext(Context)
 
+    const [show, setShow] = useState(false)
+
+    const addToCartShowHandler = async () => {
+        await setShow(true)
+        setTimeout(() => setShow(false), 1000)
+    }
+
     const addToCartHandler = async () => {
         await addToCart(currentProduct.id, currentProduct.price, user.user.userId)
+        await addToCartShowHandler()
     }
+
 
     return (
         <Container className="detail__body">
@@ -39,6 +49,7 @@ const DetailBody = ({currentProduct, openDeleteModalHandler}) => {
                         </div>
                     </div>
                 </div>
+                <AddToCartToast show={show} />
                 <div className="detail__column">
                     <div className="detail__information">
                         <div className="detail__item">

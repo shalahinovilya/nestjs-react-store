@@ -21,7 +21,7 @@ const DeleteCommentModal = observer(({show, closeCommentModalHandler, commentId}
                 centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Delete Product</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Are you sure you want to delete the comment?</Modal.Body>
                 <Modal.Footer>
