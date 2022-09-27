@@ -19,8 +19,11 @@ export class OrderService {
 
     }
 
-
     async getUserOrders (userId): Promise<Order[]> {
         return await this.orderRepository.findAll({where : {userId: userId}})
+    }
+
+    async getAllOrders (): Promise<Order[]> {
+        return await this.orderRepository.findAll()
     }
 }

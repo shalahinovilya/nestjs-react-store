@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Badge, Button, Form, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Button, Form, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {logout} from "../../http/userHttp";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";

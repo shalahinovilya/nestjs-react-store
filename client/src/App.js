@@ -36,7 +36,6 @@ const App = observer(() => {
                 <NavBarComponent/>
                 <AppRoutes/>
             </Browser>
-
         </div>
     );
 })

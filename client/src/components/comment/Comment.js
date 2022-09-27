@@ -21,7 +21,7 @@ const Comment = observer(({productId}) => {
     const [showDeleteCommentModal, setShowDeleteCommentModal] = useState(false)
 
     const createCommentModalHandler = () => {
-        showCreateCommentModal ? setShowCreateCommentModal(false) : setShowCreateCommentModal(true)
+        setShowCreateCommentModal(!showCreateCommentModal)
     }
 
     const closeUpdateCommentModalHandler = () => {

@@ -46,3 +46,18 @@ export const getUserOrders = async (userId) => {
         console.log(e)
     }
 }
+
+
+export const getAllOrders = async () => {
+    try {
+        const res = await axios({
+            method: 'get',
+            url: `/order/get-all-orders/`,
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}
+

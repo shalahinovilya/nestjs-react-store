@@ -4,6 +4,10 @@ import {Order} from "./order.entity";
 import {CreateOrderDto} from "./dto/create-order.dto";
 import {AuthGuard} from "../auth/auth-jwt.guard";
 import {ApiBody, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {Roles} from "../auth/auth-role.decorator";
+import {Role} from "../enums/role.enum";
+import {RoleGuard} from "../auth/role.guard";
+import {User} from "../user/user.entity";
 
 
 @ApiTags('order')
@@ -59,5 +63,21 @@ export class OrderController {
     })
     async getUserOrders (@Param('userId') userId): Promise<Order[]> {
         return await this.orderService.getUserOrders(userId)
+    }
+
+    @Roles(Role.Admin)
+    @UseGuards(AuthGuard, RoleGuard)
+    @Get('get-all-orders')
+    @ApiResponse({
+        status: 200,
+        description: 'get all orders',
+        type: [Order]
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized'
+    })
+    async getAllOrders (): Promise<Order[]> {
+        return await this.orderService.getAllOrders()
     }
 }

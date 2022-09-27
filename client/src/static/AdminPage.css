@@ -1,0 +1,36 @@
+.admin-block {
+    margin-top: 10px;
+}
+
+.container {
+    min-width: 95rem;
+}
+
+.users-table-header, .orders-table-header {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 20px 0 20px 0;
+}
+
+.admin-user-controllers {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0  auto;
+}
+
+.admin-user-controllers i, .admin-order-controllers i{
+   cursor: pointer;
+}
+
+.admin-user-controllers i:hover, .admin-order-controllers i:hover{
+    transform: scale(1.1);
+}
+
+.edit-item i:hover {
+    color: darkblue;
+}
+
+.delete-item i:hover {
+    color: #dc3545;
+}

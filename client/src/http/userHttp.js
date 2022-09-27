@@ -53,7 +53,7 @@ export const getUserById = async (userId) => {
     }
 }
 
-export const GetAllUsers = async (token) => {
+export const getAllUsers = async () => {
 
     try {
         const users = await axios({
@@ -61,7 +61,7 @@ export const GetAllUsers = async (token) => {
             url: `/user/get-all-users/`,
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
-        return users
+        return users.data
     } catch (e) {
         console.log(e)
     }
