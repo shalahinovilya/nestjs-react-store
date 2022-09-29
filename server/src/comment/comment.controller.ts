@@ -71,7 +71,6 @@ export class CommentController {
     @ApiResponse({
         status: 200,
         description: 'delete comment',
-        type: Comment
     })
     @ApiResponse({
         status: 401,

@@ -19,6 +19,41 @@ export const createOrder = async (orderData) => {
     }
 }
 
+export const updateOrder = async (orderId, orderUpdateData) => {
+    try {
+        const res = await axios({
+            method: 'put',
+            url: `/order/update-order/${orderId}/`,
+            data: orderUpdateData,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+        })
+        return res
+    } catch (e) {
+        console.log(e)
+        return {err: e.response.data}
+    }
+}
+
+export const deleteOrder = async (orderId) => {
+    try {
+        const res = await axios({
+            method: 'delete',
+            url: `/order/delete-order/${orderId}/`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+        })
+        return res
+    } catch (e) {
+        console.log(e)
+        return {err: e.response.data}
+    }
+}
+
 export const getOrder = async (orderId) => {
     try {
         const res = await axios({

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Col, FloatingLabel, Form, Row} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 const DELIVERY_TYPES = [
     'pickup',
@@ -32,7 +32,7 @@ const CreateOrderForm = ({validated, errors, finalPrice, sendCreateData}) => {
                     </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicDescription">
+            <Form.Group className="mb-3" controlId="formBasicLastName">
                 <Form.Label>Last Name</Form.Label>
                     <Form.Control
                         type="text"

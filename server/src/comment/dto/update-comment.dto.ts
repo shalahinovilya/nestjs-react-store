@@ -1,4 +1,4 @@
-import {IsNumber, IsString, Length} from "class-validator";
+import {IsString, Length} from "class-validator";
 import {ApiProperty} from "@nestjs/swagger";
 
 export class UpdateCommentDto {

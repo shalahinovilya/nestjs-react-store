@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Inject, Param, Post, UseGuards} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Inject, Param, Post, Put, UseGuards} from "@nestjs/common";
 import {OrderService} from "./order.service";
 import {Order} from "./order.entity";
 import {CreateOrderDto} from "./dto/create-order.dto";
@@ -8,12 +8,12 @@ import {Roles} from "../auth/auth-role.decorator";
 import {Role} from "../enums/role.enum";
 import {RoleGuard} from "../auth/role.guard";
 import {User} from "../user/user.entity";
+import {UpdateOrderDto} from "./dto/update-order.dto";
 
 
 @ApiTags('order')
 @Controller('order')
 export class OrderController {
-
 
     constructor(@Inject('ORDER_PROVIDER')
                 private orderRepository: typeof Order,
@@ -40,6 +40,61 @@ export class OrderController {
         return await this.orderService.createOrder(createOrderDto)
     }
 
+    @Roles(Role.Admin)
+    @UseGuards(AuthGuard, RoleGuard)
+    @Put('update-order/:orderId')
+    @ApiBody({type: UpdateOrderDto})
+    @ApiResponse({
+        status: 201,
+        description: 'update order',
+        type: User
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Bad request'
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden'
+    })
+    async updateOrder (
+        @Param('orderId') orderId,
+        @Body() updateOrderDto: UpdateOrderDto
+    ) {
+        return await this.orderService.updateOrder(orderId, updateOrderDto)
+    }
+
+    @Roles(Role.Admin)
+    @UseGuards(AuthGuard, RoleGuard)
+    @Delete('delete-order/:orderId')
+    @ApiParam({name: 'orderId', description: 'order id'})
+    @ApiResponse({
+        status: 200,
+        description: 'delete order',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Bad request'
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden'
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Not found'
+    })
+    async deleteOrder (@Param('orderId') orderId) {
+        return await this.orderService.deleteOrder(orderId)
+    }
 
     @UseGuards(AuthGuard)
     @Get('get-user-orders/:userId')

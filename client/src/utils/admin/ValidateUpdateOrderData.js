@@ -1,7 +1,8 @@
-export const findOrderDataErrors = async (firstName, lastName, phone, address, comment, buyingType) => {
+export const findUpdateOrderErrors = async (firstName, lastName, phone, buyingType, address) => {
 
     const newErrors = {}
     const validatePhone = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
+    const availableBuyingTypes = ['pickup', 'courier']
 
     if (firstName.length < 5 || firstName.length > 20) {
         newErrors['firstName'] = 'first name must be between 5 and 20 characters'
@@ -19,14 +20,9 @@ export const findOrderDataErrors = async (firstName, lastName, phone, address, c
         newErrors['address'] = 'address must be between 10 and 50 characters'
     }
 
-    if (comment.length > 100) {
-        newErrors['comment'] = 'comment must not be more than 100 characters'
-    }
-
-    if (!buyingType.length) {
-        newErrors['buyingType'] = 'buying type must not be empty'
+    if (!availableBuyingTypes.includes(buyingType)) {
+        newErrors['buyingType'] = 'wrong buying type'
     }
 
     return newErrors
-
 }

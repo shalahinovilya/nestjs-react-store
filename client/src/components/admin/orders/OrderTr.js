@@ -1,109 +1,155 @@
 import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
+import {findUpdateOrderErrors} from "../../../utils/admin/ValidateUpdateOrderData";
+import {updateOrder} from "../../../http/orderHttp";
+import TableDefaultControllers from "../TableDefaultControllers";
+import TableEditControllers from "../TableEditControllers";
 
-const OrderTr = ({order, showDeleteModal}) => {
+const OrderTr = ({order, showDeleteModal, isEditing, selectIdEditOrder}) => {
 
-    const [orderId, setOrderId] = useState(order.id)
-    const [userId, setUserId] = useState(order.userId)
-    const [cartId, setCartId] = useState(order.cartId)
     const [firstName, setFirstName] = useState(order.firstName)
     const [lastName, setLastName] = useState(order.lastName)
     const [phone, setPhone] = useState(order.phone)
     const [buyingType, setBuyingType] = useState(order.buyingType)
     const [address, setAddress] = useState(order.address)
+    const [errors, setErrors] = useState({})
+
+    const sendUpdateData = async () => {
+        const validatedData = await findUpdateOrderErrors(firstName, lastName, phone, buyingType, address)
+
+        if (Object.keys(validatedData).length) {
+            await setErrors(validatedData)
+        } else {
+            await setErrors(validatedData)
+            await updateOrder(order.id, {firstName, lastName, phone, buyingType, address})
+            await selectIdEditOrder(NaN)
+        }
+    }
+
+    const setDefaultValues = async () => {
+        await setFirstName(order.firstName)
+        await setLastName(order.lastName)
+        await setPhone(order.phone)
+        await setBuyingType(order.buyingType)
+        await setAddress(order.address)
+        await setErrors({})
+        await selectIdEditOrder(NaN)
+    }
 
     return (
         <tr className="align-middle">
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="formBasicOrderId">
                     <Form.Control
-                        disabled={true}
+                        disabled
                         type="number"
                         placeholder="order id"
-                        value={orderId}
-                        onChange={e => setOrderId(e.target.value)}
+                        value={order.id}
                     />
+
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="formBasicUserId">
                     <Form.Control
-                        disabled={true}
+                        disabled
                         type="number"
                         placeholder="user id"
-                        value={userId}
-                        onChange={e => setUserId(e.target.value)}
+                        value={order.userId}
                     />
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="formBasicCartId">
                     <Form.Control
-                        disabled={true}
+                        disabled
                         type="number"
                         placeholder="cart id"
-                        value={cartId}
-                        onChange={e => setCartId(e.target.value)}
+                        value={order.cartId}
                     />
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="formBasicFirstName">
                     <Form.Control
-                        disabled={true}
+                        disabled={isEditing}
                         type="text"
                         placeholder="first name"
+                        minLength={5}
+                        maxLength={20}
                         value={firstName}
+                        isInvalid={errors.firstName}
                         onChange={e => setFirstName(e.target.value)}
                     />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.firstName}
+                    </Form.Control.Feedback>
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="formBasicLastName">
                     <Form.Control
-                        disabled={true}
+                        disabled={isEditing}
                         type="text"
                         placeholder="last name"
+                        minLength={5}
+                        maxLength={20}
                         value={lastName}
+                        isInvalid={errors.lastName}
                         onChange={e => setLastName(e.target.value)}
                     />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.lastName}
+                    </Form.Control.Feedback>
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="formBasicPhone">
                     <Form.Control
-                        disabled={true}
+                        disabled={isEditing}
                         type="text"
                         placeholder="phone"
                         value={phone}
+                        isInvalid={errors.phone}
                         onChange={e => setPhone(e.target.value)}
                     />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.phone}
+                    </Form.Control.Feedback>
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="formBasicBuyingType">
                     <Form.Control
-                        disabled={true}
+                        disabled={isEditing}
                         type="text"
                         placeholder="buying type"
                         value={buyingType}
+                        isInvalid={errors.buyingType}
                         onChange={e => setBuyingType(e.target.value)}
                     />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.buyingType}
+                    </Form.Control.Feedback>
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="formBasicAddress">
                     <Form.Control
-                        disabled={true}
+                        disabled={isEditing}
                         type="text"
                         placeholder="address"
                         value={address}
+                        isInvalid={errors.address}
                         onChange={e => setAddress(e.target.value)}
                     />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.address}
+                    </Form.Control.Feedback>
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="formBasicCreatedAt">
                     <Form.Control
                         disabled
                         type="date"
@@ -113,7 +159,7 @@ const OrderTr = ({order, showDeleteModal}) => {
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
+                <Form.Group controlId="exampleForm.ControlUpdatedAt">
                     <Form.Control
                         disabled
                         type="date"
@@ -124,22 +170,19 @@ const OrderTr = ({order, showDeleteModal}) => {
             </td>
 
             <div className="admin-order-controllers">
-                <div className="edit-item">
-                    <i
-                        className="fa-solid fa-pen-to-square"
-                        // onClick={() => showDeleteModal(order)}
-                    >
-
-                    </i>
-                </div>
-                <div className="delete-item">
-                    <i
-                        className="fa-solid fa-trash"
-                        onClick={() => showDeleteModal({orderId: order.id, type: 'order'})}
-                    >
-
-                    </i>
-                </div>
+                {isEditing ? (
+                   <TableDefaultControllers
+                       id={order.id}
+                       type={'order'}
+                       selectIdEdit={selectIdEditOrder}
+                       showDeleteModal={showDeleteModal}
+                   />
+                ) : (
+                    <TableEditControllers
+                        setDefaultValues={setDefaultValues}
+                        sendUpdateData={sendUpdateData}
+                    />
+                )}
             </div>
         </tr>
     );

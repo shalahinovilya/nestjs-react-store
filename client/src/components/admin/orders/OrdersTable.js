@@ -1,7 +1,13 @@
 import React, {useState} from 'react';
 import OrderTr from "./OrderTr";
 
-const OrdersBlock = ({orderList, showDeleteModal}) => {
+const OrdersTable = ({orderList, showDeleteModal}) => {
+
+    const [idEditOrder, setIdEditOrder] = useState(NaN)
+
+    const selectIdEditOrder = async (orderId) => {
+        await setIdEditOrder(orderId)
+    }
 
     return (
         <tbody>
@@ -9,6 +15,8 @@ const OrdersBlock = ({orderList, showDeleteModal}) => {
             <OrderTr
                 order={order}
                 showDeleteModal={showDeleteModal}
+                selectIdEditOrder={selectIdEditOrder}
+                isEditing={idEditOrder !== order.id}
                 key={order.id}
             />
         ) )}
@@ -16,4 +24,4 @@ const OrdersBlock = ({orderList, showDeleteModal}) => {
     );
 };
 
-export default OrdersBlock;
+export default OrdersTable;

@@ -1,12 +1,8 @@
 import React from 'react';
 import {Button, Modal} from "react-bootstrap";
-import {deleteComment} from "../../http/commentHttp";
 
-const DeleteItemModal = ({show,  deleteItemModalShow, item}) => {
 
-    const deleteOrderHandler = async () => {
-        item.type === 'user' ? console.log('user') : console.log('order')
-    }
+const DeleteItemModal = ({show, deleteItemModalShow, deleteItemHandler}) => {
 
     return (
         <>
@@ -24,7 +20,7 @@ const DeleteItemModal = ({show,  deleteItemModalShow, item}) => {
                     <Button variant="secondary" onClick={deleteItemModalShow}>
                         Close
                     </Button>
-                    <Button variant="danger" onClick={deleteOrderHandler}>
+                    <Button variant="danger" onClick={deleteItemHandler}>
                         Delete
                     </Button>
                 </Modal.Footer>

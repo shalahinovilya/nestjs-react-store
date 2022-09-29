@@ -34,7 +34,6 @@ export class AuthService implements OnModuleInit {
         return await this.generateToken(user)
     }
 
-
     async register (dto: CreateUserDto) {
 
         const {password, email, username} = dto

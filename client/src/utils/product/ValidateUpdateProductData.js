@@ -1,6 +1,6 @@
 import {checkImageSize} from "./ImgValidate";
 
-export const findUpdateErrors = async (imgEvent, title, description, price) => {
+export const findUpdateProductErrors = async (imgEvent, title, description, price) => {
     const newErrors = {}
     const validatePrice = /\d+(\.\d+)?$/
 

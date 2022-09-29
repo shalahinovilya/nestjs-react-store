@@ -5,7 +5,7 @@ import {useContext, useState} from "react";
 import {Context} from "../index";
 import {updateProduct} from "../http/productHttp";
 import {observer} from "mobx-react-lite";
-import {findUpdateErrors} from "../utils/product/ValidateUpdateProductData";
+import {findUpdateProductErrors} from "../utils/product/ValidateUpdateProductData";
 import UpdateProductForm from "../components/product/UpdateProductForm";
 
 const UpdatePage = observer(() => {
@@ -28,7 +28,7 @@ const UpdatePage = observer(() => {
         formData.append('categoryId', product.categoryId)
         formData.append('userId', user.user.userId)
 
-        const validatedData = await findUpdateErrors(imgEvent, title, description, price)
+        const validatedData = await findUpdateProductErrors(imgEvent, title, description, price)
 
         if (Object.keys(validatedData).length) {
             setValidated(true)

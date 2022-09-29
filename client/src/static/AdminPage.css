@@ -31,6 +31,10 @@
     color: darkblue;
 }
 
-.delete-item i:hover {
+.delete-item i:hover, .cancel-edit i:hover {
     color: #dc3545;
+}
+
+.confirm-edit i:hover {
+    color: #198754;
 }

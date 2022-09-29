@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Param, UseGuards} from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, UseGuards, Put, Delete} from '@nestjs/common';
 import {UserService} from "./user.service";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {User} from "./user.entity";
@@ -7,6 +7,7 @@ import {ApiBody, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {Roles} from "../auth/auth-role.decorator";
 import {RoleGuard} from "../auth/role.guard";
 import {Role} from "../enums/role.enum";
+import {UpdateUserDto} from "./dto/update-user.dto";
 
 
 @ApiTags('user')
@@ -32,6 +33,60 @@ export class UserController {
 
     }
 
+    @Roles(Role.Admin)
+    @UseGuards(AuthGuard, RoleGuard)
+    @Put('update-user/:userId')
+    @ApiBody({type: UpdateUserDto})
+    @ApiResponse({
+        status: 201,
+        description: 'update user',
+        type: User
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Bad request'
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden'
+    })
+    async updateUser (
+        @Param('userId') userId,
+        @Body() updateUserDto: UpdateUserDto) {
+        return await this.userService.updateUser(userId, updateUserDto);
+    }
+
+    @Roles(Role.Admin)
+    @UseGuards(AuthGuard, RoleGuard)
+    @Delete('delete-user/:userId')
+    @ApiParam({name: 'userId', description: 'user id'})
+    @ApiResponse({
+        status: 200,
+        description: 'delete user',
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Bad request'
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Unauthorized'
+    })
+    @ApiResponse({
+        status: 403,
+        description: 'Forbidden'
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Not found'
+    })
+    async deleteUser (@Param('userId') userId) {
+        return await this.userService.deleteUser(userId);
+    }
 
     @Get('get-user/:userId')
     @ApiParam({name: 'userId', description: 'user id'})

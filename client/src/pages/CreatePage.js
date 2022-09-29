@@ -6,7 +6,7 @@ import {createProduct} from "../http/productHttp";
 import {observer} from "mobx-react-lite";
 import {getAllCategories} from "../http/categoryHttp";
 import {useNavigate} from "react-router-dom";
-import {findErrors} from "../utils/product/ValidateCreateProductData";
+import {findCreateProductErrors} from "../utils/product/ValidateCreateProductData";
 import CreateProductForm from "../components/product/CreateProductForm";
 
 
@@ -28,7 +28,7 @@ const CreatePage = observer(() => {
         formData.append('categoryId', categoryId)
         formData.append('userId', user.user.userId)
 
-        const validatedData = await findErrors(imgEvent, title, description, price, categoryId)
+        const validatedData = await findCreateProductErrors(imgEvent, title, description, price, categoryId)
 
         if (Object.keys(validatedData).length) {
             setValidated(true)
