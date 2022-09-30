@@ -43,6 +43,7 @@ export class OrderController {
     @Roles(Role.Admin)
     @UseGuards(AuthGuard, RoleGuard)
     @Put('update-order/:orderId')
+    @ApiParam({name: 'orderId', description: 'order id'})
     @ApiBody({type: UpdateOrderDto})
     @ApiResponse({
         status: 201,

@@ -36,6 +36,7 @@ export class UserController {
     @Roles(Role.Admin)
     @UseGuards(AuthGuard, RoleGuard)
     @Put('update-user/:userId')
+    @ApiParam({name: 'userId', description: 'user id'})
     @ApiBody({type: UpdateUserDto})
     @ApiResponse({
         status: 201,
