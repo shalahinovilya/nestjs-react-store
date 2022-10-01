@@ -9,6 +9,7 @@ import OrdersBlockHeader from "../components/admin/orders/OrdersBlockHeader";
 import CreateCategoryForm from "../components/admin/CreateCategoryForm";
 import '../static/AdminPage.css'
 import DeleteItemModal from "../components/admin/DeleteItemModal";
+import {createCategory} from "../http/categoryHttp";
 
 const AdminPage = () => {
 
@@ -19,7 +20,7 @@ const AdminPage = () => {
     const [isUsersLoading, setIsUsersLoading] = useState(true)
     const [isOrdersLoading, setIsOrdersLoading] = useState(true)
 
-    const createCategory = async (category, categoryDescription) => {
+    const createCategoryHandler = async (category, categoryDescription) => {
         await createCategory({value: category, description: categoryDescription})
     }
 
@@ -73,7 +74,7 @@ const AdminPage = () => {
             <Container>
                 <Row style={{textAlign: 'center'}}  md={1}>
                     <Col md={{offset: 5, span: 3}}>
-                        <CreateCategoryForm createCategory={createCategory}/>
+                        <CreateCategoryForm createCategory={createCategoryHandler}/>
                     </Col>
                     <hr/>
                     <Col style={{marginTop: 40}}>

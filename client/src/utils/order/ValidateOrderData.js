@@ -1,7 +1,8 @@
-export const findOrderDataErrors = async (firstName, lastName, phone, address, comment, buyingType) => {
+import {PHONE_REG} from "../../constants";
+
+export const findOrderDataErrors = async (firstName, lastName, phone, address, comment, deliveryType) => {
 
     const newErrors = {}
-    const validatePhone = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
 
     if (firstName.length < 5 || firstName.length > 20) {
         newErrors['firstName'] = 'first name must be between 5 and 20 characters'
@@ -11,7 +12,7 @@ export const findOrderDataErrors = async (firstName, lastName, phone, address, c
         newErrors['lastName'] = 'last name must be between 5 and 20 characters'
     }
 
-    if (!validatePhone.test(phone)) {
+    if (!PHONE_REG.test(phone)) {
         newErrors['phone'] = 'wrong phone number'
     }
 
@@ -23,8 +24,8 @@ export const findOrderDataErrors = async (firstName, lastName, phone, address, c
         newErrors['comment'] = 'comment must not be more than 100 characters'
     }
 
-    if (!buyingType.length) {
-        newErrors['buyingType'] = 'buying type must not be empty'
+    if (!deliveryType.length) {
+        newErrors['deliveryType'] = 'delivery type must not be empty'
     }
 
     return newErrors

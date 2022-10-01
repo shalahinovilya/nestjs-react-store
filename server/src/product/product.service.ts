@@ -2,7 +2,7 @@ import {Injectable, Inject} from '@nestjs/common';
 import {Product} from "./product.entity";
 import {CreateProductDto} from "./dto/create-product.dto";
 import {FileService} from "../file/file.service";
-import sequelize, {Op} from "sequelize";
+import {Op} from "sequelize";
 import {Category} from "../category/category.entity";
 import {CartProduct} from "../cart-product/cart-product.entity";
 
@@ -26,7 +26,8 @@ export class ProductService {
             price: dto.price,
             categoryId: dto.categoryId,
             userId: dto.userId,
-            img: fileName}).catch(() => {
+            img: fileName}).catch((e) => {
+                console.log(e)
                 this.fileService.removeFile(fileName)
                 throw new Error('Неккоректная информация при создании продукта')
             }

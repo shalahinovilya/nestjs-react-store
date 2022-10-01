@@ -4,6 +4,7 @@ import {findUpdateUserErrors} from "../../../utils/admin/ValidateUpdateUserData"
 import {updateUser} from "../../../http/userHttp";
 import TableDefaultControllers from "../TableDefaultControllers";
 import TableEditControllers from "../TableEditControllers";
+import {AVAILABLE_ROLES} from "../../../constants";
 
 
 const UserTr = ({user, showDeleteModal, isEditing, selectIdEditUser}) => {
@@ -76,19 +77,16 @@ const UserTr = ({user, showDeleteModal, isEditing, selectIdEditUser}) => {
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="exampleForm.ControlInput1">
-                    <Form.Control
-                        disabled={isEditing}
-                        type="text"
-                        placeholder="role"
-                        value={role}
-                        isInvalid={errors.role}
-                        onChange={e => setRole(e.target.value)}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                        {errors.role}
-                    </Form.Control.Feedback>
-                </Form.Group>
+                <Form.Select
+                    disabled={isEditing}
+                    defaultValue={role}
+                    onChange={e => setRole(e.target.value)}>
+                    {
+                        AVAILABLE_ROLES.map((role, index)=> {
+                           return (<option key={index.toString()} value={role}>{role}</option>)
+                        })
+                    }
+                </Form.Select>
             </td>
             <td>
                 <Form.Group controlId="exampleForm.ControlInput1">

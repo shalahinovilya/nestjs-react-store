@@ -23,7 +23,7 @@ const OrdersBlockHeader = () => {
                     phone
                 </th>
                 <th>
-                    buying type
+                    delivery type
                 </th>
                 <th>
                     address

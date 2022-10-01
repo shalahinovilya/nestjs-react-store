@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Card, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
+import {Button, Card, Col, Container} from "react-bootstrap";
 import {useState} from "react";
 import {useContext} from "react";
 import {Context} from "../index";
@@ -25,9 +25,9 @@ const OrderPage = observer(() => {
     const [errors, setErrors] = useState({})
     const [validated, setValidated] = useState(false)
 
-    const sendCreateData = async (firstName, lastName, phone, address, comment, buyingType) => {
+    const sendCreateData = async (firstName, lastName, phone, address, comment, deliveryType) => {
 
-        const validatedData = await findOrderDataErrors(firstName, lastName, phone, address, comment, buyingType)
+        const validatedData = await findOrderDataErrors(firstName, lastName, phone, address, comment, deliveryType)
 
         if (Object.keys(validatedData).length) {
             setValidated(true)
@@ -41,7 +41,7 @@ const OrderPage = observer(() => {
                 phone,
                 address,
                 comment,
-                buyingType,
+                deliveryType,
                 userId: user.user.userId
             })
 

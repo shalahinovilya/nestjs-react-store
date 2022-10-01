@@ -29,7 +29,7 @@ export class Order extends Model<CreateOrder> {
 
     @Column({type: DataType.STRING, allowNull: false})
     @ApiProperty({nullable: false})
-    buyingType: string;
+    deliveryType: string;
 
     @Column({type: DataType.STRING, allowNull: true})
     @ApiProperty({nullable: true})

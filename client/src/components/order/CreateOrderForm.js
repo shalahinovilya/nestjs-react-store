@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Col, Form, Row} from "react-bootstrap";
+import {DELIVERY_TYPES} from "../../constants";
 
-const DELIVERY_TYPES = [
-    'pickup',
-    'courier',
-]
 
 const CreateOrderForm = ({validated, errors, finalPrice, sendCreateData}) => {
 
@@ -13,7 +10,7 @@ const CreateOrderForm = ({validated, errors, finalPrice, sendCreateData}) => {
     const [phone, setPhone] = useState('')
     const [address, setAddress] = useState('')
     const [comment, setComment] = useState('')
-    const [buyingType, setBuyingType] = useState(DELIVERY_TYPES[0])
+    const [deliveryType, setDeliveryType] = useState(DELIVERY_TYPES[0])
 
     return (
         <Form validated={validated}>
@@ -92,19 +89,19 @@ const CreateOrderForm = ({validated, errors, finalPrice, sendCreateData}) => {
                 </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Select aria-label="Default select example" onChange={e => setBuyingType(e.target.value)}>
+            <Form.Select aria-label="Select Delivery Type" onChange={e => setDeliveryType(e.target.value)}>
                 <Form.Label>Delivery Type</Form.Label>
                 {DELIVERY_TYPES.map((type, index) => (
                     <option key={index.toString()} value={type}>{type}</option>
                 ))}
             </Form.Select>
-            {errors.buyingType && <div className="create__order__error">must not be empty</div>}
+            {errors.deliveryType && <div className="create__order__error">must not be empty</div>}
 
             <Row style={{marginTop: 20}} md={2}>
                 <Col md={{span: 4}}>
                     <Button
                         variant="primary"
-                        onClick={() => sendCreateData(firstName, lastName, phone, address, comment, buyingType)}
+                        onClick={() => sendCreateData(firstName, lastName, phone, address, comment, deliveryType)}
                     >
                         Create Order
                     </Button>

@@ -24,5 +24,5 @@ export class UpdateOrderDto {
 
     @IsString()
     @ApiProperty()
-    buyingType: string;
+    deliveryType: string;
 }

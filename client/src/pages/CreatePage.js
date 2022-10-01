@@ -14,7 +14,6 @@ const CreatePage = observer(() => {
 
     const {user, product} = useContext(Context)
     const navigate = useNavigate()
-
     const [errors, setErrors] = useState({})
     const [validated, setValidated] = useState(false)
 

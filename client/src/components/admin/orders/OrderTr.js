@@ -4,24 +4,26 @@ import {findUpdateOrderErrors} from "../../../utils/admin/ValidateUpdateOrderDat
 import {updateOrder} from "../../../http/orderHttp";
 import TableDefaultControllers from "../TableDefaultControllers";
 import TableEditControllers from "../TableEditControllers";
+import {DELIVERY_TYPES} from "../../../constants";
+
 
 const OrderTr = ({order, showDeleteModal, isEditing, selectIdEditOrder}) => {
 
     const [firstName, setFirstName] = useState(order.firstName)
     const [lastName, setLastName] = useState(order.lastName)
     const [phone, setPhone] = useState(order.phone)
-    const [buyingType, setBuyingType] = useState(order.buyingType)
+    const [deliveryType, setDeliveryType] = useState(order.deliveryType)
     const [address, setAddress] = useState(order.address)
     const [errors, setErrors] = useState({})
 
     const sendUpdateData = async () => {
-        const validatedData = await findUpdateOrderErrors(firstName, lastName, phone, buyingType, address)
+        const validatedData = await findUpdateOrderErrors(firstName, lastName, phone, deliveryType, address)
 
         if (Object.keys(validatedData).length) {
             await setErrors(validatedData)
         } else {
             await setErrors(validatedData)
-            await updateOrder(order.id, {firstName, lastName, phone, buyingType, address})
+            await updateOrder(order.id, {firstName, lastName, phone,deliveryType, address})
             await selectIdEditOrder(NaN)
         }
     }
@@ -30,7 +32,7 @@ const OrderTr = ({order, showDeleteModal, isEditing, selectIdEditOrder}) => {
         await setFirstName(order.firstName)
         await setLastName(order.lastName)
         await setPhone(order.phone)
-        await setBuyingType(order.buyingType)
+        await setDeliveryType(order.deliveryType)
         await setAddress(order.address)
         await setErrors({})
         await selectIdEditOrder(NaN)
@@ -119,19 +121,16 @@ const OrderTr = ({order, showDeleteModal, isEditing, selectIdEditOrder}) => {
                 </Form.Group>
             </td>
             <td>
-                <Form.Group controlId="formBasicBuyingType">
-                    <Form.Control
-                        disabled={isEditing}
-                        type="text"
-                        placeholder="buying type"
-                        value={buyingType}
-                        isInvalid={errors.buyingType}
-                        onChange={e => setBuyingType(e.target.value)}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                        {errors.buyingType}
-                    </Form.Control.Feedback>
-                </Form.Group>
+                <Form.Select
+                    disabled={isEditing}
+                    defaultValue={deliveryType}
+                    onChange={e => setDeliveryType(e.target.value)}>
+                    {
+                        DELIVERY_TYPES.map((type, index)=> {
+                            return (<option key={index.toString()} value={type}>{type}</option>)
+                        })
+                    }
+                </Form.Select>
             </td>
             <td>
                 <Form.Group controlId="formBasicAddress">

@@ -27,7 +27,7 @@ export class OrderService {
             lastName: dto.lastName,
             phone: dto.phone,
             address: dto.address,
-            buyingType: dto.buyingType
+            deliveryType: dto.deliveryType
         }, {where: {id: orderId}})
     }
 

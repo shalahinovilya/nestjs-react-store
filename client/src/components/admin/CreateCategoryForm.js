@@ -6,6 +6,7 @@ const CreateCategoryForm = ({createCategory}) => {
     const [category, setCategory] = useState('')
     const [categoryDescription, setCategoryDescription] = useState('')
 
+
     return (
         <div className="create-category-block">
             <Form>

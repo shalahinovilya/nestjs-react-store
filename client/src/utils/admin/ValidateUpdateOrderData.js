@@ -1,8 +1,8 @@
+import {DELIVERY_TYPES, PHONE_REG} from "../../constants";
+
 export const findUpdateOrderErrors = async (firstName, lastName, phone, buyingType, address) => {
 
     const newErrors = {}
-    const validatePhone = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
-    const availableBuyingTypes = ['pickup', 'courier']
 
     if (firstName.length < 5 || firstName.length > 20) {
         newErrors['firstName'] = 'first name must be between 5 and 20 characters'
@@ -12,7 +12,7 @@ export const findUpdateOrderErrors = async (firstName, lastName, phone, buyingTy
         newErrors['lastName'] = 'last name must be between 5 and 20 characters'
     }
 
-    if (!validatePhone.test(phone)) {
+    if (!PHONE_REG.test(phone)) {
         newErrors['phone'] = 'wrong phone number'
     }
 
@@ -20,7 +20,7 @@ export const findUpdateOrderErrors = async (firstName, lastName, phone, buyingTy
         newErrors['address'] = 'address must be between 10 and 50 characters'
     }
 
-    if (!availableBuyingTypes.includes(buyingType)) {
+    if (!DELIVERY_TYPES.includes(buyingType)) {
         newErrors['buyingType'] = 'wrong buying type'
     }
 

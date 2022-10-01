@@ -3,7 +3,7 @@ export interface CreateOrder {
     lastName: string;
     phone: string;
     address: string;
-    buyingType: string;
+    deliveryType: string;
     comment?: string;
     userId: number;
     cartId: number;

@@ -8,7 +8,7 @@ import {LoginUserDto} from "./dto/login-user.dto";
 import {Role} from "../enums/role.enum";
 
 
-const adminUser : CreateUserDto = {email: 'admin@gmail.com', username: 'superAdmin', password: '8965HttpLLo'}
+const adminUser : CreateUserDto = {email: 'admin@gmail.com', username: 'superAdmin', password: 'admin12'}
 
 @Injectable()
 export class AuthService implements OnModuleInit {
