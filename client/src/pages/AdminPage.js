@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Col, Container, Row, Spinner, Table} from "react-bootstrap";
 import {deleteUser, getAllUsers} from "../http/userHttp";
 import {deleteOrder, getAllOrders} from "../http/orderHttp";
@@ -10,11 +10,13 @@ import CreateCategoryForm from "../components/admin/CreateCategoryForm";
 import '../static/AdminPage.css'
 import DeleteItemModal from "../components/admin/DeleteItemModal";
 import {createCategory} from "../http/categoryHttp";
+import {Context} from "../index";
+import {observer} from "mobx-react-lite";
 
-const AdminPage = () => {
+const AdminPage = observer(() => {
 
-    const [orders, setOrders] = useState([])
-    const [users, setUsers] = useState([])
+    const {admin} = useContext(Context)
+
     const [currentItem, setCurrentItem] = useState({})
     const [showDeleteItemModal, setShowDeleteItemModal] = useState(false)
     const [isUsersLoading, setIsUsersLoading] = useState(true)
@@ -33,12 +35,12 @@ const AdminPage = () => {
         if (currentItem.type === 'user') {
             await setShowDeleteItemModal(false)
             const res = await deleteUser(currentItem.id)
-            res.status === 200 ? await setUsers([]) : console.log(res)
+            res.status === 200 ? admin.setUsers([]) : console.log(res)
         }
         else if (currentItem.type === 'order') {
             await setShowDeleteItemModal(false)
             const res = await deleteOrder(currentItem.id)
-            res.status === 200 ? await setOrders([]) : console.log(res)
+            res.status === 200 ? admin.setOrders([]) : console.log(res)
         }
     }
 
@@ -48,26 +50,28 @@ const AdminPage = () => {
     }
 
     const getUsers = async () => {
-        setIsUsersLoading(true)
-        const users = await getAllUsers()
-        await setUsers(users)
-        await setIsUsersLoading(false)
+        console.log('users')
+        await setIsUsersLoading(true)
+        await getAllUsers()
+            .then(data => admin.setUsers(data))
+            .finally(() => setIsUsersLoading(false))
     }
 
     const getOrders = async () => {
-        setIsOrdersLoading(true)
-        const orders = await getAllOrders()
-        await setOrders(orders)
-        await setIsOrdersLoading(false)
+        console.log('orders')
+        await setIsOrdersLoading(true)
+        await getAllOrders()
+            .then(data => admin.setOrders(data))
+            .finally(() => setIsOrdersLoading(false))
     }
 
     useEffect(() => {
         getUsers()
-    }, [users.length])
+    }, [admin.users.length])
 
     useEffect(() => {
         getOrders()
-    }, [orders.length])
+    }, [admin.orders.length])
 
     return (
         <div className="admin-block">
@@ -86,7 +90,6 @@ const AdminPage = () => {
                             <Table striped bordered hover size="sm">
                                 <UsersBlockHeader/>
                                 <UsersTable
-                                    userList={users}
                                     showDeleteModal={deleteItemModalShow}
                                 />
                             </Table>
@@ -101,7 +104,6 @@ const AdminPage = () => {
                             <Table striped bordered hover size="sm">
                                 <OrdersBlockHeader/>
                                 <OrdersTable
-                                    orderList={orders}
                                     showDeleteModal={deleteItemModalShow}
                                 />
                             </Table>
@@ -116,6 +118,6 @@ const AdminPage = () => {
             />
         </div>
     );
-};
+});
 
 export default AdminPage;

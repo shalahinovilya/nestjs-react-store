@@ -31,10 +31,6 @@ export class CartStore {
         return this._cartProducts
     }
 
-    get cartDataCount() {
-        return this._cartDataCount
-    }
-
     get finalPrice() {
         return this._finalPrice
     }

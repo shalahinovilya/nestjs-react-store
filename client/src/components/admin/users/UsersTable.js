@@ -1,7 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import UserTr from "./UserTr";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../../index";
 
-const UsersTable = ({userList, showDeleteModal}) => {
+const UsersTable = observer(({showDeleteModal}) => {
+
+    const {admin} = useContext(Context)
 
     const [idEditUser, setIdEditUser] = useState(NaN)
 
@@ -11,7 +15,7 @@ const UsersTable = ({userList, showDeleteModal}) => {
 
     return (
         <tbody>
-        {userList.map((user) => (
+        {admin.users.map((user) => (
                 <UserTr
                     user={user}
                     showDeleteModal={showDeleteModal}
@@ -23,6 +27,6 @@ const UsersTable = ({userList, showDeleteModal}) => {
         )}
         </tbody>
     );
-};
+});
 
 export default UsersTable;

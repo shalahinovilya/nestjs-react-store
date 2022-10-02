@@ -1,7 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import OrderTr from "./OrderTr";
+import {Context} from "../../../index";
+import {observer} from "mobx-react-lite";
 
-const OrdersTable = ({orderList, showDeleteModal}) => {
+const OrdersTable = observer(({showDeleteModal}) => {
+
+    const {admin} = useContext(Context)
 
     const [idEditOrder, setIdEditOrder] = useState(NaN)
 
@@ -11,7 +15,7 @@ const OrdersTable = ({orderList, showDeleteModal}) => {
 
     return (
         <tbody>
-        {orderList.map((order) => (
+        {admin.orders.map((order) => (
             <OrderTr
                 order={order}
                 showDeleteModal={showDeleteModal}
@@ -22,6 +26,6 @@ const OrdersTable = ({orderList, showDeleteModal}) => {
         ) )}
         </tbody>
     );
-};
+});
 
 export default OrdersTable;
