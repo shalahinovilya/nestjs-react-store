@@ -13,6 +13,7 @@ import {createCategory} from "../http/categoryHttp";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 
+
 const AdminPage = observer(() => {
 
     const {admin} = useContext(Context)
@@ -50,7 +51,6 @@ const AdminPage = observer(() => {
     }
 
     const getUsers = async () => {
-        console.log('users')
         await setIsUsersLoading(true)
         await getAllUsers()
             .then(data => admin.setUsers(data))
@@ -58,7 +58,6 @@ const AdminPage = observer(() => {
     }
 
     const getOrders = async () => {
-        console.log('orders')
         await setIsOrdersLoading(true)
         await getAllOrders()
             .then(data => admin.setOrders(data))

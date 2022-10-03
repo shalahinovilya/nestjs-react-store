@@ -48,15 +48,17 @@ const ShopPage = observer(() => {
                 </div>
                 <div className="products-body__content">
                     <SideBar/>
-                    {product.products.length ?  <ProductList/> :
+                    {product?.products?.length ?  <ProductList/> :
                         (<div className="no-products-block">
                             <h1 className="no-products-h1">No products</h1>
                         </div>)
                     }
                 </div>
-               <div className="products-body__footer">
-                   <PaginationBasic/>
-               </div>
+                {product?.products?.length && (
+                    <div className="products-body__pagination">
+                        <PaginationBasic/>
+                    </div>
+                )}
             </div>
         </div>
     );
