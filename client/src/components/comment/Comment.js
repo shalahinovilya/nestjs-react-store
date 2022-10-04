@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import {Button} from "react-bootstrap";
-import CreateCommentModal from "./CreateCommentModal";
+import CreateCommentModal from "./createComment/CreateCommentModal";
 import UpdateCommentModal from "./UpdateCommentModal";
 import DeleteCommentModal from "./DeleteCommentModal";
 import '../../static/Comment.css'

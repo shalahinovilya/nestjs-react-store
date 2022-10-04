@@ -1,18 +1,8 @@
-import {checkImageSize} from "./ImgValidate";
 import {VALIDATE_PRICE} from "../../constants";
 
-export const findUpdateProductErrors = async (imgEvent, title, description, price) => {
+export const findUpdateProductErrors = async (title, description, price) => {
+
     const newErrors = {}
-
-    let imgValidate
-
-    if (Object.keys(imgEvent).length) {
-        imgValidate = await checkImageSize(imgEvent)
-    }
-
-    if (imgValidate?.err) {
-        newErrors['img'] = imgValidate.err
-    }
 
     if (title.length < 6 || title.length > 20) {
         newErrors['title'] = 'title must be between 6 and 20 characters'

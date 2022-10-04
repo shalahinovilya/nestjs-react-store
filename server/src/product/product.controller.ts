@@ -146,6 +146,16 @@ export class ProductController {
         return await this.productService.getProductsForCart(idList, cartId)
     }
 
+    @Get('get-products-for-admin')
+    @ApiResponse({
+        status: 200,
+        description: 'get products for admin',
+        type: [Product]
+    })
+    async getProductsForAdmin () {
+        return await this.productService.getProductsForAdmin()
+    }
+
 }
 
 

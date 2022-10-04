@@ -86,3 +86,13 @@
     color: #dc3545;
     font-size: .875em;
 }
+
+
+.modal-create-comment-controllers {
+    text-align: right;
+    margin-left: 5px;
+}
+
+.modal-create-comment-controllers button{
+    margin-left: 0.4rem;
+}

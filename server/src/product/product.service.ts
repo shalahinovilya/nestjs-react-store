@@ -120,4 +120,8 @@ export class ProductService {
         })
     }
 
+    async getProductsForAdmin () {
+        return await this.productRepository.findAll()
+    }
+
 }

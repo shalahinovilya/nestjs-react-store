@@ -89,3 +89,15 @@ export const getProductsForCart = async (idList, cartId) => {
         console.log(e)
     }
 }
+
+export const getProductsForAdmin = async () => {
+    try {
+        const res = await axios({
+            method: 'get',
+            url: `/product/get-products-for-admin/`,
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}

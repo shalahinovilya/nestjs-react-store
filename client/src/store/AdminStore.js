@@ -6,6 +6,7 @@ export class AdminStore {
     constructor() {
         this._orders = []
         this._users = []
+        this._products = []
         makeAutoObservable(this)
     }
 
@@ -17,12 +18,20 @@ export class AdminStore {
         this._users = users
     }
 
+    setProducts (products) {
+        this._products = products
+    }
+
     get orders () {
         return this._orders
     }
 
     get users () {
         return this._users
+    }
+
+    get products () {
+        return this._products
     }
 
 }

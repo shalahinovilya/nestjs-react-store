@@ -23,7 +23,7 @@ const OrderTr = ({order, showDeleteModal, isEditing, selectIdEditOrder}) => {
             await setErrors(validatedData)
         } else {
             await setErrors(validatedData)
-            await updateOrder(order.id, {firstName, lastName, phone,deliveryType, address})
+            await updateOrder(order.id, {firstName, lastName, phone, deliveryType, address})
             await selectIdEditOrder(NaN)
         }
     }

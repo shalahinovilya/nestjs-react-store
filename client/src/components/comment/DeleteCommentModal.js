@@ -10,6 +10,7 @@ const DeleteCommentModal = observer(({show, closeCommentModalHandler, commentId}
 
     const deleteCommentHandler = async () => {
         await deleteComment(commentId).then(() => product.setCommentsNum(0))
+        await closeCommentModalHandler()
     }
 
     return (

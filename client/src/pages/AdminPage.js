@@ -12,6 +12,8 @@ import DeleteItemModal from "../components/admin/DeleteItemModal";
 import {createCategory} from "../http/categoryHttp";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
+import ProductsTable from "../components/admin/products/ProductsTable";
+import {deleteProduct} from "../http/productHttp";
 
 
 const AdminPage = observer(() => {
@@ -22,6 +24,7 @@ const AdminPage = observer(() => {
     const [showDeleteItemModal, setShowDeleteItemModal] = useState(false)
     const [isUsersLoading, setIsUsersLoading] = useState(true)
     const [isOrdersLoading, setIsOrdersLoading] = useState(true)
+
 
     const createCategoryHandler = async (category, categoryDescription) => {
         await createCategory({value: category, description: categoryDescription})
@@ -42,6 +45,11 @@ const AdminPage = observer(() => {
             await setShowDeleteItemModal(false)
             const res = await deleteOrder(currentItem.id)
             res.status === 200 ? admin.setOrders([]) : console.log(res)
+        }
+        else if (currentItem.type === 'product') {
+            await setShowDeleteItemModal(false)
+            const res = await deleteProduct(currentItem.id)
+            res.status === 200 ? admin.setProducts([]) : console.log(res)
         }
     }
 
@@ -64,6 +72,7 @@ const AdminPage = observer(() => {
             .finally(() => setIsOrdersLoading(false))
     }
 
+
     useEffect(() => {
         getUsers()
     }, [admin.users.length])
@@ -71,6 +80,7 @@ const AdminPage = observer(() => {
     useEffect(() => {
         getOrders()
     }, [admin.orders.length])
+
 
     return (
         <div className="admin-block">
@@ -80,7 +90,7 @@ const AdminPage = observer(() => {
                         <CreateCategoryForm createCategory={createCategoryHandler}/>
                     </Col>
                     <hr/>
-                    <Col style={{marginTop: 40}}>
+                    <Col>
                         <div className="users-table-header">Users</div>
                         {isUsersLoading ? (
                             <Spinner animation="border" role="status">
@@ -94,7 +104,7 @@ const AdminPage = observer(() => {
                             </Table>
                         )}
                     </Col>
-                    <Col style={{marginTop: 40}}>
+                    <Col>
                         <div className="orders-table-header">Orders</div>
                         {isOrdersLoading ? (
                             <Spinner animation="border" role="status">
@@ -107,6 +117,17 @@ const AdminPage = observer(() => {
                                 />
                             </Table>
                         )}
+                    </Col>
+                    <Col>
+                        <div className="products-table-header">Products</div>
+                        {admin.products.length ? (
+                            <ProductsTable
+                                showDeleteModal={deleteItemModalShow}
+                            />
+                        ) : (
+                            <div>No products</div>
+                        )}
+
                     </Col>
                 </Row>
             </Container>
