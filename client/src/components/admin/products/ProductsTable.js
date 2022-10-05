@@ -25,6 +25,9 @@ const ProductsTable = observer(({showDeleteModal}) => {
         getProducts()
     }, [admin.products.length])
 
+    if (!admin.products.length) {
+        return <div>No Data</div>
+    }
 
     return (
         <>

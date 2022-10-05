@@ -42,7 +42,6 @@ const ProductTr = ({product, showDeleteModal, isEditing, selectIdEditProduct}) =
                         placeholder="product id"
                         value={product.id}
                     />
-
                 </Form.Group>
             </td>
             <td>
@@ -70,8 +69,8 @@ const ProductTr = ({product, showDeleteModal, isEditing, selectIdEditProduct}) =
                     <Form.Control
                         disabled={isEditing}
                         type="text"
-                        placeholder="first name"
-                        minLength={5}
+                        placeholder="title"
+                        minLength={6}
                         maxLength={20}
                         value={title}
                         isInvalid={errors.title}
@@ -87,9 +86,9 @@ const ProductTr = ({product, showDeleteModal, isEditing, selectIdEditProduct}) =
                     <Form.Control
                         disabled={isEditing}
                         type="text"
-                        placeholder="last name"
-                        minLength={5}
-                        maxLength={20}
+                        placeholder="description"
+                        minLength={10}
+                        maxLength={200}
                         value={description}
                         isInvalid={errors.description}
                         onChange={e => setDescription(e.target.value)}
@@ -103,8 +102,8 @@ const ProductTr = ({product, showDeleteModal, isEditing, selectIdEditProduct}) =
                 <Form.Group controlId="formBasicPrice">
                     <Form.Control
                         disabled={isEditing}
-                        type="text"
-                        placeholder="phone"
+                        type="number"
+                        placeholder="price"
                         value={price}
                         isInvalid={errors.price}
                         onChange={e => setPrice(e.target.value)}

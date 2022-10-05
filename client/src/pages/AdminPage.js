@@ -1,19 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Col, Container, Row, Spinner, Table} from "react-bootstrap";
-import {deleteUser, getAllUsers} from "../http/userHttp";
 import {deleteOrder, getAllOrders} from "../http/orderHttp";
+import {createCategory} from "../http/categoryHttp";
+import {deleteProduct} from "../http/productHttp";
+import {deleteUser} from "../http/userHttp";
 import UsersTable from "../components/admin/users/UsersTable";
-import UsersBlockHeader from "../components/admin/users/UsersBlockHeader";
 import OrdersTable from "../components/admin/orders/OrdersTable";
 import OrdersBlockHeader from "../components/admin/orders/OrdersBlockHeader";
 import CreateCategoryForm from "../components/admin/CreateCategoryForm";
-import '../static/AdminPage.css'
 import DeleteItemModal from "../components/admin/DeleteItemModal";
-import {createCategory} from "../http/categoryHttp";
+import ProductsTable from "../components/admin/products/ProductsTable";
+import '../static/AdminPage.css'
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import ProductsTable from "../components/admin/products/ProductsTable";
-import {deleteProduct} from "../http/productHttp";
 
 
 const AdminPage = observer(() => {
@@ -22,7 +21,6 @@ const AdminPage = observer(() => {
 
     const [currentItem, setCurrentItem] = useState({})
     const [showDeleteItemModal, setShowDeleteItemModal] = useState(false)
-    const [isUsersLoading, setIsUsersLoading] = useState(true)
     const [isOrdersLoading, setIsOrdersLoading] = useState(true)
 
 
@@ -58,24 +56,12 @@ const AdminPage = observer(() => {
         await setShowDeleteItemModal(!showDeleteItemModal)
     }
 
-    const getUsers = async () => {
-        await setIsUsersLoading(true)
-        await getAllUsers()
-            .then(data => admin.setUsers(data))
-            .finally(() => setIsUsersLoading(false))
-    }
-
     const getOrders = async () => {
         await setIsOrdersLoading(true)
         await getAllOrders()
             .then(data => admin.setOrders(data))
             .finally(() => setIsOrdersLoading(false))
     }
-
-
-    useEffect(() => {
-        getUsers()
-    }, [admin.users.length])
 
     useEffect(() => {
         getOrders()
@@ -92,17 +78,9 @@ const AdminPage = observer(() => {
                     <hr/>
                     <Col>
                         <div className="users-table-header">Users</div>
-                        {isUsersLoading ? (
-                            <Spinner animation="border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </Spinner>) : (
-                            <Table striped bordered hover size="sm">
-                                <UsersBlockHeader/>
-                                <UsersTable
-                                    showDeleteModal={deleteItemModalShow}
-                                />
-                            </Table>
-                        )}
+                        <UsersTable
+                                showDeleteModal={deleteItemModalShow}
+                        />
                     </Col>
                     <Col>
                         <div className="orders-table-header">Orders</div>
@@ -120,14 +98,9 @@ const AdminPage = observer(() => {
                     </Col>
                     <Col>
                         <div className="products-table-header">Products</div>
-                        {admin.products.length ? (
-                            <ProductsTable
-                                showDeleteModal={deleteItemModalShow}
-                            />
-                        ) : (
-                            <div>No products</div>
-                        )}
-
+                        <ProductsTable
+                            showDeleteModal={deleteItemModalShow}
+                        />
                     </Col>
                 </Row>
             </Container>
