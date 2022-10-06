@@ -1,12 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Col, Container, Row, Spinner, Table} from "react-bootstrap";
-import {deleteOrder, getAllOrders} from "../http/orderHttp";
+import React, {useContext, useState} from 'react';
+import {Col, Container, Row} from "react-bootstrap";
+import {deleteOrder} from "../http/orderHttp";
 import {createCategory} from "../http/categoryHttp";
 import {deleteProduct} from "../http/productHttp";
 import {deleteUser} from "../http/userHttp";
 import UsersTable from "../components/admin/users/UsersTable";
 import OrdersTable from "../components/admin/orders/OrdersTable";
-import OrdersBlockHeader from "../components/admin/orders/OrdersBlockHeader";
 import CreateCategoryForm from "../components/admin/CreateCategoryForm";
 import DeleteItemModal from "../components/admin/DeleteItemModal";
 import ProductsTable from "../components/admin/products/ProductsTable";
@@ -21,8 +20,6 @@ const AdminPage = observer(() => {
 
     const [currentItem, setCurrentItem] = useState({})
     const [showDeleteItemModal, setShowDeleteItemModal] = useState(false)
-    const [isOrdersLoading, setIsOrdersLoading] = useState(true)
-
 
     const createCategoryHandler = async (category, categoryDescription) => {
         await createCategory({value: category, description: categoryDescription})
@@ -56,17 +53,6 @@ const AdminPage = observer(() => {
         await setShowDeleteItemModal(!showDeleteItemModal)
     }
 
-    const getOrders = async () => {
-        await setIsOrdersLoading(true)
-        await getAllOrders()
-            .then(data => admin.setOrders(data))
-            .finally(() => setIsOrdersLoading(false))
-    }
-
-    useEffect(() => {
-        getOrders()
-    }, [admin.orders.length])
-
 
     return (
         <div className="admin-block">
@@ -79,22 +65,14 @@ const AdminPage = observer(() => {
                     <Col>
                         <div className="users-table-header">Users</div>
                         <UsersTable
-                                showDeleteModal={deleteItemModalShow}
+                            showDeleteModal={deleteItemModalShow}
                         />
                     </Col>
                     <Col>
                         <div className="orders-table-header">Orders</div>
-                        {isOrdersLoading ? (
-                            <Spinner animation="border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </Spinner>) : (
-                            <Table striped bordered hover size="sm">
-                                <OrdersBlockHeader/>
-                                <OrdersTable
-                                    showDeleteModal={deleteItemModalShow}
-                                />
-                            </Table>
-                        )}
+                        <OrdersTable
+                            showDeleteModal={deleteItemModalShow}
+                        />
                     </Col>
                     <Col>
                         <div className="products-table-header">Products</div>

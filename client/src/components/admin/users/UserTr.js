@@ -108,21 +108,25 @@ const UserTr = ({user, showDeleteModal, isEditing, selectIdEditUser}) => {
                     />
                 </Form.Group>
             </td>
-            <div className="admin-user-controllers">
-                {isEditing ? (
-                    <TableDefaultControllers
-                        id={user.id}
-                        type={'user'}
-                        selectIdEdit={selectIdEditUser}
-                        showDeleteModal={showDeleteModal}
-                    />
-                    ) : (
-                    <TableEditControllers
-                        setDefaultValues={setDefaultValues}
-                        sendUpdateData={sendUpdateData}
-                    />
-                )}
-            </div>
+            <td>
+                <>
+                    <div className="admin-user-controllers">
+                        {isEditing ? (
+                            <TableDefaultControllers
+                                id={user.id}
+                                type={'user'}
+                                selectIdEdit={selectIdEditUser}
+                                showDeleteModal={showDeleteModal}
+                            />
+                            ) : (
+                            <TableEditControllers
+                                setDefaultValues={setDefaultValues}
+                                sendUpdateData={sendUpdateData}
+                            />
+                        )}
+                    </div>
+                </>
+            </td>
         </tr>
     );
 };

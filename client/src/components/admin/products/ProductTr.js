@@ -7,8 +7,8 @@ import {updateProduct} from "../../../http/productHttp";
 
 const ProductTr = ({product, showDeleteModal, isEditing, selectIdEditProduct}) => {
 
-    const [title, setTitle] = useState(product.title)
-    const [description, setDescription] = useState(product.description)
+    const [title, setTitle] = useState(product?.title)
+    const [description, setDescription] = useState(product?.description)
     const [price, setPrice] = useState(product.price)
     const [errors, setErrors] = useState({})
 
@@ -133,22 +133,25 @@ const ProductTr = ({product, showDeleteModal, isEditing, selectIdEditProduct}) =
                     />
                 </Form.Group>
             </td>
-
-            <div className="admin-product-controllers">
-                {isEditing ? (
-                    <TableDefaultControllers
-                        id={product.id}
-                        type={'product'}
-                        selectIdEdit={selectIdEditProduct}
-                        showDeleteModal={showDeleteModal}
-                    />
-                ) : (
-                    <TableEditControllers
-                        setDefaultValues={setDefaultValues}
-                        sendUpdateData={sendUpdateData}
-                    />
-                )}
-            </div>
+            <td>
+                <>
+                    <div className="admin-product-controllers">
+                        {isEditing ? (
+                            <TableDefaultControllers
+                                id={product.id}
+                                type={'product'}
+                                selectIdEdit={selectIdEditProduct}
+                                showDeleteModal={showDeleteModal}
+                            />
+                        ) : (
+                            <TableEditControllers
+                                setDefaultValues={setDefaultValues}
+                                sendUpdateData={sendUpdateData}
+                            />
+                        )}
+                    </div>
+                </>
+            </td>
         </tr>
     );
 };

@@ -1,31 +1,47 @@
-import React, {useContext, useState} from 'react';
-import OrderTr from "./OrderTr";
+import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
+import TableLoader from "../TableLoader";
+import {Table} from "react-bootstrap";
+import OrdersList from "./OrdersList";
+import OrdersBlockHeader from "./OrdersBlockHeader";
+import {getAllOrders} from "../../../http/orderHttp";
 
-const OrdersTable = observer(({showDeleteModal}) => {
+const OrdersTable = ({showDeleteModal}) => {
 
     const {admin} = useContext(Context)
 
-    const [idEditOrder, setIdEditOrder] = useState(NaN)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const selectIdEditOrder = async (orderId) => {
-        await setIdEditOrder(orderId)
+    const getOrders = async () => {
+        await setIsLoading(true)
+        await getAllOrders()
+            .then(data => admin.setOrders(data))
+            .finally(() => setIsLoading(false))
+    }
+
+    useEffect(() => {
+        getOrders()
+    }, [admin.orders.length])
+
+    if (!admin.orders.length) {
+        return <div>No Data</div>
     }
 
     return (
-        <tbody>
-        {admin.orders.map((order) => (
-            <OrderTr
-                order={order}
-                showDeleteModal={showDeleteModal}
-                selectIdEditOrder={selectIdEditOrder}
-                isEditing={idEditOrder !== order.id}
-                key={order.id}
-            />
-        ) )}
-        </tbody>
-    );
-});
+        <>
+            {isLoading ? (<TableLoader/>) : (
+                <Table striped bordered hover size="sm">
+                    <OrdersBlockHeader/>
+                    <tbody>
+                    <OrdersList
+                        showDeleteModal={showDeleteModal}
+                    />
+                    </tbody>
+                </Table>
+            )}
+        </>
+    )
+};
 
 export default OrdersTable;

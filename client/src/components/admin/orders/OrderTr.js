@@ -167,22 +167,25 @@ const OrderTr = ({order, showDeleteModal, isEditing, selectIdEditOrder}) => {
                     />
                 </Form.Group>
             </td>
-
-            <div className="admin-order-controllers">
-                {isEditing ? (
-                   <TableDefaultControllers
-                       id={order.id}
-                       type={'order'}
-                       selectIdEdit={selectIdEditOrder}
-                       showDeleteModal={showDeleteModal}
-                   />
-                ) : (
-                    <TableEditControllers
-                        setDefaultValues={setDefaultValues}
-                        sendUpdateData={sendUpdateData}
-                    />
-                )}
-            </div>
+            <td>
+                <>
+                    <div className="admin-order-controllers">
+                        {isEditing ? (
+                           <TableDefaultControllers
+                               id={order.id}
+                               type={'order'}
+                               selectIdEdit={selectIdEditOrder}
+                               showDeleteModal={showDeleteModal}
+                           />
+                        ) : (
+                            <TableEditControllers
+                                setDefaultValues={setDefaultValues}
+                                sendUpdateData={sendUpdateData}
+                            />
+                        )}
+                    </div>
+                </>
+            </td>
         </tr>
     );
 };

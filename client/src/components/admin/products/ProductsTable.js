@@ -32,14 +32,14 @@ const ProductsTable = observer(({showDeleteModal}) => {
     return (
         <>
             {isLoading ? (<TableLoader/>) : (
-                    <Table striped bordered hover size="sm">
-                        <ProductsBlockHeader/>
-                        <tbody>
-                        <ProductsList
-                            showDeleteModal={showDeleteModal}
-                        />
-                        </tbody>
-                    </Table>
+                <Table striped bordered hover size="sm">
+                    <ProductsBlockHeader/>
+                    <tbody>
+                    <ProductsList
+                        showDeleteModal={showDeleteModal}
+                    />
+                    </tbody>
+                </Table>
             )}
         </>
     )
