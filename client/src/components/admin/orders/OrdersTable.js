@@ -1,13 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../../../index";
-import {observer} from "mobx-react-lite";
 import TableLoader from "../TableLoader";
 import {Table} from "react-bootstrap";
 import OrdersList from "./OrdersList";
 import OrdersBlockHeader from "./OrdersBlockHeader";
 import {getAllOrders} from "../../../http/orderHttp";
 
-const OrdersTable = ({showDeleteModal}) => {
+const OrdersTable = () => {
 
     const {admin} = useContext(Context)
 
@@ -34,9 +33,7 @@ const OrdersTable = ({showDeleteModal}) => {
                 <Table striped bordered hover size="sm">
                     <OrdersBlockHeader/>
                     <tbody>
-                    <OrdersList
-                        showDeleteModal={showDeleteModal}
-                    />
+                    <OrdersList/>
                     </tbody>
                 </Table>
             )}

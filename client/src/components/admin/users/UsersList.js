@@ -3,7 +3,7 @@ import {Context} from "../../../index";
 import UserTr from "./UserTr";
 
 
-const UsersList = ({showDeleteModal}) => {
+const UsersList = () => {
 
     const {admin} = useContext(Context)
 
@@ -19,7 +19,6 @@ const UsersList = ({showDeleteModal}) => {
                 admin.users.map((user) => (
                     <UserTr
                         user={user}
-                        showDeleteModal={showDeleteModal}
                         selectIdEditUser={selectIdEditUser}
                         isEditing={idEditUser !== user.id}
                         key={user.id}

@@ -7,7 +7,7 @@ import TableEditControllers from "../TableEditControllers";
 import {DELIVERY_TYPES} from "../../../constants";
 
 
-const OrderTr = ({order, showDeleteModal, isEditing, selectIdEditOrder}) => {
+const OrderTr = ({order, isEditing, selectIdEditOrder}) => {
 
     const [firstName, setFirstName] = useState(order.firstName)
     const [lastName, setLastName] = useState(order.lastName)
@@ -175,7 +175,6 @@ const OrderTr = ({order, showDeleteModal, isEditing, selectIdEditOrder}) => {
                                id={order.id}
                                type={'order'}
                                selectIdEdit={selectIdEditOrder}
-                               showDeleteModal={showDeleteModal}
                            />
                         ) : (
                             <TableEditControllers

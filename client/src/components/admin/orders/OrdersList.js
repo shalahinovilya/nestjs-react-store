@@ -3,7 +3,7 @@ import {Context} from "../../../index";
 import OrderTr from "./OrderTr";
 
 
-const OrdersList = ({showDeleteModal}) => {
+const OrdersList = () => {
 
     const {admin} = useContext(Context)
 
@@ -19,7 +19,6 @@ const OrdersList = ({showDeleteModal}) => {
                 admin.orders.map((order) => (
                         <OrderTr
                             order={order}
-                            showDeleteModal={showDeleteModal}
                             selectIdEditOrder={selectIdEditOrder}
                             isEditing={idEditOrder !== order.id}
                             key={order.id}

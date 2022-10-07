@@ -7,6 +7,7 @@ export class AdminStore {
         this._orders = []
         this._users = []
         this._products = []
+        this._currentItem = {}
         makeAutoObservable(this)
     }
 
@@ -22,6 +23,10 @@ export class AdminStore {
         this._products = products
     }
 
+    setCurrentItem (item) {
+        this._currentItem = item
+    }
+
     get orders () {
         return this._orders
     }
@@ -32,6 +37,10 @@ export class AdminStore {
 
     get products () {
         return this._products
+    }
+
+    get currentItem () {
+        return this._currentItem
     }
 
 }

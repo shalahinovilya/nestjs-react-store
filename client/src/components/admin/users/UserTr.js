@@ -7,7 +7,7 @@ import TableEditControllers from "../TableEditControllers";
 import {AVAILABLE_ROLES} from "../../../constants";
 
 
-const UserTr = ({user, showDeleteModal, isEditing, selectIdEditUser}) => {
+const UserTr = ({user, isEditing, selectIdEditUser}) => {
 
     const [email, setEmail] = useState(user.email)
     const [username, setUsername] = useState(user.username)
@@ -116,7 +116,6 @@ const UserTr = ({user, showDeleteModal, isEditing, selectIdEditUser}) => {
                                 id={user.id}
                                 type={'user'}
                                 selectIdEdit={selectIdEditUser}
-                                showDeleteModal={showDeleteModal}
                             />
                             ) : (
                             <TableEditControllers

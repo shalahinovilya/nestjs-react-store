@@ -1,6 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 
-const TableDefaultControllers = ({id, type, selectIdEdit, showDeleteModal}) => {
+
+const TableDefaultControllers = observer(({id, type, selectIdEdit}) => {
+
+    const {admin} = useContext(Context)
+
     return (
         <div className="admin-user-controllers">
             <div className="edit-item">
@@ -13,12 +19,12 @@ const TableDefaultControllers = ({id, type, selectIdEdit, showDeleteModal}) => {
             <div className="delete-item">
                 <i
                     className="fa-solid fa-trash"
-                    onClick={() => showDeleteModal({id, type})}
+                    onClick={() => admin.setCurrentItem({id, type})}
                 >
                 </i>
             </div>
         </div>
     );
-};
+});
 
 export default TableDefaultControllers;

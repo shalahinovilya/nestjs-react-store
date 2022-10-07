@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import {deleteOrder} from "../http/orderHttp";
 import {createCategory} from "../http/categoryHttp";
@@ -18,41 +18,37 @@ const AdminPage = observer(() => {
 
     const {admin} = useContext(Context)
 
-    const [currentItem, setCurrentItem] = useState({})
-    const [showDeleteItemModal, setShowDeleteItemModal] = useState(false)
+    const [showDeleteItemModal, setShowDeleteItemModal] = useState(true)
 
     const createCategoryHandler = async (category, categoryDescription) => {
         await createCategory({value: category, description: categoryDescription})
     }
 
-    const selectCurrentItem = async (item) => {
-        await setCurrentItem({})
-        await setCurrentItem(item)
-    }
-
     const deleteItemHandler = async () => {
-        if (currentItem.type === 'user') {
-            await setShowDeleteItemModal(false)
-            const res = await deleteUser(currentItem.id)
+        if (admin.currentItem.type === 'user') {
+            const res = await deleteUser(admin.currentItem.id)
             res.status === 200 ? admin.setUsers([]) : console.log(res)
+            admin.setCurrentItem({})
         }
-        else if (currentItem.type === 'order') {
-            await setShowDeleteItemModal(false)
-            const res = await deleteOrder(currentItem.id)
+        else if (admin.currentItem.type === 'order') {
+            const res = await deleteOrder(admin.currentItem.id)
             res.status === 200 ? admin.setOrders([]) : console.log(res)
+            admin.setCurrentItem({})
         }
-        else if (currentItem.type === 'product') {
-            await setShowDeleteItemModal(false)
-            const res = await deleteProduct(currentItem.id)
-            res.status === 200 ? admin.setProducts([]) : console.log(res)
+        else if (admin.currentItem.type === 'product') {
+            const res = await deleteProduct(admin.currentItem.id)
+            res.id ? await admin.setProducts([]) : console.log(res)
+            await admin.setCurrentItem({})
         }
     }
 
-    const deleteItemModalShow = async (item) => {
-        await selectCurrentItem(item)
+    const deleteItemModalShow = async () => {
         await setShowDeleteItemModal(!showDeleteItemModal)
     }
 
+    useEffect(() => {
+        deleteItemModalShow()
+    }, [admin.currentItem])
 
     return (
         <div className="admin-block">
@@ -64,27 +60,20 @@ const AdminPage = observer(() => {
                     <hr/>
                     <Col>
                         <div className="users-table-header">Users</div>
-                        <UsersTable
-                            showDeleteModal={deleteItemModalShow}
-                        />
+                        <UsersTable/>
                     </Col>
                     <Col>
                         <div className="orders-table-header">Orders</div>
-                        <OrdersTable
-                            showDeleteModal={deleteItemModalShow}
-                        />
+                        <OrdersTable/>
                     </Col>
                     <Col>
                         <div className="products-table-header">Products</div>
-                        <ProductsTable
-                            showDeleteModal={deleteItemModalShow}
-                        />
+                        <ProductsTable/>
                     </Col>
                 </Row>
             </Container>
             <DeleteItemModal
                 show={showDeleteItemModal}
-                deleteItemModalShow={deleteItemModalShow}
                 deleteItemHandler={deleteItemHandler}
             />
         </div>

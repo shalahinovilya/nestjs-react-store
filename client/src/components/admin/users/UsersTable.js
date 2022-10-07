@@ -7,7 +7,7 @@ import {Table} from "react-bootstrap";
 import UsersBlockHeader from "./UsersBlockHeader";
 import UsersList from "./UsersList";
 
-const UsersTable = observer(({showDeleteModal}) => {
+const UsersTable = () => {
 
     const {admin} = useContext(Context)
 
@@ -34,14 +34,12 @@ const UsersTable = observer(({showDeleteModal}) => {
                 <Table striped bordered hover size="sm">
                     <UsersBlockHeader/>
                     <tbody>
-                    <UsersList
-                        showDeleteModal={showDeleteModal}
-                    />
+                    <UsersList/>
                     </tbody>
                 </Table>
             )}
         </>
     );
-});
+};
 
 export default UsersTable;

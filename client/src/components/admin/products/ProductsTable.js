@@ -3,12 +3,11 @@ import TableLoader from "../TableLoader";
 import ProductsList from "./ProductsList";
 import {Table} from "react-bootstrap";
 import {getProductsForAdmin} from "../../../http/productHttp";
-import {observer} from "mobx-react-lite";
 import {Context} from "../../../index";
 import ProductsBlockHeader from "./ProductsBlockHeader";
 
 
-const ProductsTable = observer(({showDeleteModal}) => {
+const ProductsTable = () => {
 
     const {admin} = useContext(Context)
 
@@ -23,7 +22,8 @@ const ProductsTable = observer(({showDeleteModal}) => {
 
     useEffect(() => {
         getProducts()
-    }, [admin.products.length])
+    }, [admin.products.length]
+    )
 
     if (!admin.products.length) {
         return <div>No Data</div>
@@ -35,14 +35,12 @@ const ProductsTable = observer(({showDeleteModal}) => {
                 <Table striped bordered hover size="sm">
                     <ProductsBlockHeader/>
                     <tbody>
-                    <ProductsList
-                        showDeleteModal={showDeleteModal}
-                    />
+                    <ProductsList/>
                     </tbody>
                 </Table>
             )}
         </>
     )
-});
+};
 
 export default ProductsTable;

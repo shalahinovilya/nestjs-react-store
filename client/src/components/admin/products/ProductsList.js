@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {Context} from "../../../index";
 import ProductTr from "./ProductTr";
 
-const ProductsList = ({showDeleteModal}) => {
+const ProductsList = () => {
 
     const {admin} = useContext(Context)
 
@@ -18,7 +18,6 @@ const ProductsList = ({showDeleteModal}) => {
             admin.products.map((product) => (
                     <ProductTr
                         product={product}
-                        showDeleteModal={showDeleteModal}
                         selectIdEditProduct={selectIdEditProduct}
                         isEditing={idEditProduct !== product.id}
                         key={product.id}

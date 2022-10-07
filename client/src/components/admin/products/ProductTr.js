@@ -5,7 +5,7 @@ import TableEditControllers from "../TableEditControllers";
 import {findUpdateProductErrors} from "../../../utils/admin/ValidateUpdateProductData";
 import {updateProduct} from "../../../http/productHttp";
 
-const ProductTr = ({product, showDeleteModal, isEditing, selectIdEditProduct}) => {
+const ProductTr = ({product, isEditing, selectIdEditProduct}) => {
 
     const [title, setTitle] = useState(product?.title)
     const [description, setDescription] = useState(product?.description)
@@ -141,7 +141,6 @@ const ProductTr = ({product, showDeleteModal, isEditing, selectIdEditProduct}) =
                                 id={product.id}
                                 type={'product'}
                                 selectIdEdit={selectIdEditProduct}
-                                showDeleteModal={showDeleteModal}
                             />
                         ) : (
                             <TableEditControllers
