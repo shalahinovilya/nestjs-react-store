@@ -13,7 +13,7 @@ const NavBarComponent = observer(() => {
         <div className="navbar-block">
 
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand style={{marginLeft: 10}} href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand style={{marginLeft: 10}} href="/">My Shop</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse style={{marginRight: 10}} id="responsive-navbar-nav">
                     <Nav className="me-auto">

@@ -4,11 +4,10 @@ import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 import PaginationBasic from "../components/product/Pagination";
 import SideBar from "../components/utills/SideBar";
-import {getProducts} from "../http/productHttp";
-import {getAllCategories} from "../http/categoryHttp";
 import CatalogSettings from "../components/utills/CatalogSettings";
 import ProductList from "../components/product/ProductList";
-
+import {getProducts} from "../http/productHttp";
+import {getAllCategories} from "../http/categoryHttp";
 
 const ShopPage = observer(() => {
 

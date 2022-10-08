@@ -22,6 +22,7 @@ async function bootstrap() {
   app.useGlobalPipes(new CustomValidationPipe())
 
   await app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));
+
 }
 
 bootstrap();

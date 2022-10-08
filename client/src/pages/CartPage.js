@@ -2,13 +2,13 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Container, Row, Spinner} from "react-bootstrap";
 import {Context} from "../index";
 import {changeCartFinalPrice, getAllFromCartByUserId} from "../http/cartHttp";
+import {getProductsForCart} from "../http/productHttp";
 import CartProduct from "../components/cart/CartProduct";
+import CartProductsRowDesc from "../components/cart/CartProductsRowDesc";
 import {recalcCartFinalPrice} from "../utils/cart/RecalcCartFinalPrice";
 import {countTotalProducts} from "../utils/product/CountTotalProducts";
 import {Link} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import CartProductsRowDesc from "../components/cart/CartProductsRowDesc";
-import {getProductsForCart} from "../http/productHttp";
 
 const CartPage = observer(() => {
 
