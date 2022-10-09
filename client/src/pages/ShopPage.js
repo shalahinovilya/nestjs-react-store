@@ -16,7 +16,7 @@ const ShopPage = observer(() => {
 
     useEffect(() => {
         getAllCategories().then(data => product.setCategories(data))
-        getProducts(3, 0).then(data => {
+        getProducts(3, 0, null, product.sortOrderVars[product.selectedSortOrder] ).then(data => {
             product.setProducts(data?.rows)
             product.setTotalRecords(data?.count)
         })
