@@ -32,3 +32,7 @@
 .confirm-edit i:hover {
     color: #198754;
 }
+
+.admin-table-no-data {
+    font-size: 30px;
+}

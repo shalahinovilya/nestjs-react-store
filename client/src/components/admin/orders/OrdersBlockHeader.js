@@ -4,7 +4,7 @@ const OrdersBlockHeader = () => {
     return (
         <thead>
             <tr>
-                <th>
+                <th colSpan={1}>
                     order id
                 </th>
                 <th>

@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Button, Col, Image, Row, Spinner} from "react-bootstrap";
+import {Button, Col, Image, Row} from "react-bootstrap";
 import {changeCartProductQuantity, deleteFromCart} from "../../http/cartHttp";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";

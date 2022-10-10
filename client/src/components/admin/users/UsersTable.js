@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {observer} from "mobx-react-lite";
 import {Context} from "../../../index";
 import {getAllUsers} from "../../../http/userHttp";
 import TableLoader from "../TableLoader";
@@ -25,13 +24,13 @@ const UsersTable = () => {
     }, [admin.users.length])
 
     if (!admin.users.length) {
-        return <div>No Data</div>
+        return <div className="admin-table-no-data">No Data</div>
     }
 
     return (
         <>
             {isLoading ? (<TableLoader/>) : (
-                <Table striped bordered hover size="sm">
+                <Table responsive striped bordered hover size="sm">
                     <UsersBlockHeader/>
                     <tbody>
                     <UsersList/>

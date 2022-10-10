@@ -24,13 +24,13 @@ const OrdersTable = () => {
     }, [admin.orders.length])
 
     if (!admin.orders.length) {
-        return <div>No Data</div>
+        return <div className="admin-table-no-data">No Data</div>
     }
 
     return (
         <>
             {isLoading ? (<TableLoader/>) : (
-                <Table striped bordered hover size="sm">
+                <Table responsive striped bordered hover size="sm">
                     <OrdersBlockHeader/>
                     <tbody>
                     <OrdersList/>
