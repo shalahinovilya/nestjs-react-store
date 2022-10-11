@@ -23,7 +23,6 @@ const CatalogSettings = observer(() => {
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                         Sorting
                     </Dropdown.Toggle>
-
                     <Dropdown.Menu>
                         {Object.keys(product.sortOrderVars).map((key, index) =>
                             (<Dropdown.Item
