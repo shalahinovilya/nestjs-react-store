@@ -64,12 +64,12 @@ export const getProduct = async (productId) => {
     }
 }
 
-export const getProducts = async (limit, offset, categoryId, sortOrder) => {
+export const getProducts = async (limit, offset, categoryId, searchInput, sortOrder) => {
     try {
         const res = await axios({
             method: 'get',
             url: `/product/get-products/`,
-            params: {limit, offset, categoryId, sortOrder}
+            params: {limit, offset, categoryId, searchInput, sortOrder}
         })
         return res.data
     } catch (e) {

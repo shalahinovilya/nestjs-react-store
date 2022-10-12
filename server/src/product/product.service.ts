@@ -86,6 +86,7 @@ export class ProductService {
         const {limit, offset, categoryId, sortOrder, searchInput} = req.query
 
         if (searchInput) {
+
             return await this.productRepository.findAndCountAll( {
                 where: {title: {[Op.like]: `%${searchInput}%`}},
                 order: [sortOrder],

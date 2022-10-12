@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Form, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {logout} from "../../http/userHttp";
 import {observer} from "mobx-react-lite";
@@ -7,7 +7,13 @@ import {Context} from "../../index";
 
 const NavBarComponent = observer(() => {
 
-    const {user} = useContext(Context)
+    const {user, product} = useContext(Context)
+
+    const [search, setSearch] = useState('')
+
+    const setSearchHandler = () => {
+        product.setSearchInput(search)
+    }
 
     return (
         <div className="navbar-block">
@@ -29,9 +35,12 @@ const NavBarComponent = observer(() => {
                                 placeholder="Search"
                                 className="me-2"
                                 aria-label="Search"
+                                value={search}
+                                onChange={e => setSearch(e.target.value)}
                             />
                             <Button
                                 variant="outline-success"
+                                onClick={setSearchHandler}
                             >
                                 Search
                             </Button>
