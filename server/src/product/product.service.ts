@@ -85,23 +85,17 @@ export class ProductService {
     async getProducts (req) {
         const {limit, offset, categoryId, sortOrder, searchInput} = req.query
 
-        if (searchInput) {
+        const conditions = {}
 
-            return await this.productRepository.findAndCountAll( {
-                where: {title: {[Op.like]: `%${searchInput}%`}},
-                order: [sortOrder],
-                offset,
-                limit
-            })
+        if (searchInput) {
+            conditions['title'] = {[Op.like]: `%${searchInput}%`}
         }
 
         if (categoryId) {
-            return await this.productRepository.findAndCountAll({
-                order: [sortOrder],
-                where: {categoryId}, offset, limit}
-            )}
+            conditions['categoryId'] = categoryId
+        }
 
-        return await this.productRepository.findAndCountAll( {order: [sortOrder], offset, limit})
+        return await this.productRepository.findAndCountAll( {where: conditions, order: [sortOrder], offset, limit})
     }
 
     async getProductsForCart (idList, cartId) {
