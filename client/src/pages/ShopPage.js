@@ -16,20 +16,38 @@ const ShopPage = observer(() => {
 
     useEffect(() => {
         getAllCategories().then(data => product.setCategories(data))
-        getProducts(3, 0, null, product.sortOrderVars[product.selectedSortOrder] ).then(data => {
+        getProducts(
+            3,
+            0,
+            null,
+            product.searchInput,
+            product.selectedPricing,
+            product.sortOrderVars[product.selectedSortOrder])
+            .then(data => {
             product.setProducts(data?.rows)
             product.setTotalRecords(data?.count)
         })
     }, [])
 
     useEffect(() => {
-        getProducts(product.limit, product.offset, product.selectedCategory.id, product.searchInput, product.sortOrderVars[product.selectedSortOrder])
+        getProducts(
+            product.limit,
+            product.offset,
+            product.selectedCategory.id,
+            product.searchInput,
+            product.selectedPricing,
+            product.sortOrderVars[product.selectedSortOrder])
             .then(data => {
                 product.setProducts(data.rows)
                 product.setTotalRecords(data.count)
                 setLoading(false)
             })
-    }, [product.page, product.selectedCategory, product.selectedSortOrder, product.searchInput])
+    }, [
+        product.page,
+        product.selectedCategory,
+        product.selectedSortOrder,
+        product.selectedPricing,
+        product.searchInput])
 
     if (loading) {
         return (

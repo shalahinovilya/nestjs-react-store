@@ -15,7 +15,8 @@ export class ProductStore {
             'From expensive to cheap': ['price', 'DESC'],
         }
         this._selectedSortOrder = 'From new to old'
-        this._searchString = ''
+        this._searchInput = ''
+        this._selectedPricing = {minPrice: 5, maxPrice: 10000000}
         this._limit = 8
         this._offset = 0
         this._totalRecords = 0
@@ -56,8 +57,12 @@ export class ProductStore {
         this._selectedSortOrder = selectedSortOrder
     }
 
-    setSearchInput (searchString) {
-        this._searchString = searchString
+    setSearchInput (searchInput) {
+        this._searchInput = searchInput
+    }
+
+    setSelectedPricing (pricing) {
+        this._selectedPricing = pricing
     }
 
     setComments (comments) {
@@ -102,7 +107,11 @@ export class ProductStore {
     }
 
     get searchInput () {
-        return this._searchString
+        return this._searchInput
+    }
+
+    get selectedPricing () {
+        return this._selectedPricing
     }
 
     get sortOrderVars () {

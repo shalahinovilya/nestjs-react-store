@@ -83,9 +83,11 @@ export class ProductService {
 
 
     async getProducts (req) {
-        const {limit, offset, categoryId, sortOrder, searchInput} = req.query
+        let {limit, offset, categoryId, sortOrder, pricing, searchInput} = req.query
 
         const conditions = {}
+
+       pricing = JSON.parse(pricing)
 
         if (searchInput) {
             conditions['title'] = {[Op.like]: `%${searchInput}%`}
@@ -95,7 +97,13 @@ export class ProductService {
             conditions['categoryId'] = categoryId
         }
 
-        return await this.productRepository.findAndCountAll( {where: conditions, order: [sortOrder], offset, limit})
+        conditions['price'] = {[Op.between]: [pricing.minPrice, pricing.maxPrice]}
+
+        return await this.productRepository.findAndCountAll({where:
+            conditions,
+            order: [sortOrder],
+            offset,
+            limit})
     }
 
     async getProductsForCart (idList, cartId) {
