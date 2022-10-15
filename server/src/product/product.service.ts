@@ -87,7 +87,7 @@ export class ProductService {
 
         const conditions = {}
 
-       pricing = JSON.parse(pricing)
+       pricing = await JSON.parse(pricing)
 
         if (searchInput) {
             conditions['title'] = {[Op.like]: `%${searchInput}%`}
@@ -99,11 +99,16 @@ export class ProductService {
 
         conditions['price'] = {[Op.between]: [pricing.minPrice, pricing.maxPrice]}
 
-        return await this.productRepository.findAndCountAll({where:
+        const minPrice: number = await this.productRepository.min('price')
+        const maxPrice = await this.productRepository.max('price')
+
+        let data =  await this.productRepository.findAndCountAll({where:
             conditions,
             order: [sortOrder],
             offset,
             limit})
+
+        return {...data, minPrice, maxPrice}
     }
 
     async getProductsForCart (idList, cartId) {

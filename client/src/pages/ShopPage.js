@@ -23,13 +23,15 @@ const ShopPage = observer(() => {
             product.searchInput,
             product.selectedPricing,
             product.sortOrderVars[product.selectedSortOrder])
-            .then(data => {
-            product.setProducts(data?.rows)
-            product.setTotalRecords(data?.count)
+            .then(async data => {
+            await product.setProducts(data?.rows)
+            await product.setTotalRecords(data?.count)
+            await product.setSelectedPricing({minPrice: data.minPrice, maxPrice: data.maxPrice})
         })
     }, [])
 
     useEffect(() => {
+        setLoading(true)
         getProducts(
             product.limit,
             product.offset,
@@ -37,16 +39,16 @@ const ShopPage = observer(() => {
             product.searchInput,
             product.selectedPricing,
             product.sortOrderVars[product.selectedSortOrder])
-            .then(data => {
-                product.setProducts(data.rows)
-                product.setTotalRecords(data.count)
-                setLoading(false)
+            .then(async data => {
+                await product.setProducts(data.rows)
+                await product.setTotalRecords(data.count)
+                await setLoading(false)
             })
     }, [
         product.page,
         product.selectedCategory,
         product.selectedSortOrder,
-        product.selectedPricing,
+        JSON.stringify(product.selectedPricing),
         product.searchInput])
 
     if (loading) {
