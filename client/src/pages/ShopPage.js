@@ -8,6 +8,7 @@ import CatalogSettings from "../components/utills/CatalogSettings";
 import ProductList from "../components/product/ProductList";
 import {getProducts} from "../http/productHttp";
 import {getAllCategories} from "../http/categoryHttp";
+import {findMinMaxPrice} from "../utils/product/findMinMaxPrice";
 
 const ShopPage = observer(() => {
 
@@ -26,7 +27,7 @@ const ShopPage = observer(() => {
             .then(async data => {
             await product.setProducts(data?.rows)
             await product.setTotalRecords(data?.count)
-            await product.setSelectedPricing({minPrice: data.minPrice, maxPrice: data.maxPrice})
+            await product.setSelectedPricing(await findMinMaxPrice(data.rows))
         })
     }, [])
 

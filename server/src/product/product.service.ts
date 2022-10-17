@@ -99,16 +99,13 @@ export class ProductService {
 
         conditions['price'] = {[Op.between]: [pricing.minPrice, pricing.maxPrice]}
 
-        const minPrice: number = await this.productRepository.min('price')
-        const maxPrice = await this.productRepository.max('price')
-
         let data =  await this.productRepository.findAndCountAll({where:
             conditions,
             order: [sortOrder],
             offset,
             limit})
 
-        return {...data, minPrice, maxPrice}
+        return data
     }
 
     async getProductsForCart (idList, cartId) {
