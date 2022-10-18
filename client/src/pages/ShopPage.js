@@ -55,7 +55,7 @@ const ShopPage = observer(() => {
     if (loading) {
         return (
             <div className="loading-block">
-                <Spinner className="loading-spinner" animation="grow" variant="primary"/>
+                <Spinner className="loading-spinner" animation="border" variant="primary"/>
             </div>
         )
     }

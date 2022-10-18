@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Card, Col, Container} from "react-bootstrap";
+import {Card, Container} from "react-bootstrap";
 import {useState} from "react";
 import {useContext} from "react";
 import {Context} from "../index";
