@@ -7,7 +7,9 @@ async function bootstrap() {
 
   const PORT = process.env.PORT || 4999
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn'],
+  });
 
   const config = new DocumentBuilder()
       .setTitle('Shop API')
