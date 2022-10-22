@@ -2,7 +2,6 @@ import axios from "axios";
 
 
 export const createProduct = async (productCreateData) => {
-
     try {
         const res = await axios({
             method: 'post',

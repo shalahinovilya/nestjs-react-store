@@ -11,6 +11,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn'],
+    cors: true,
   });
 
   app.use(helmet({

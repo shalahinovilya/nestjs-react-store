@@ -103,6 +103,6 @@ export const checkAuth = async () => {
         localStorage.setItem('token', res.data.token)
         return {token: res.data.token, ...jwtDecode(res.data.token)}
     } catch (e) {
-        console.log(e)
+        console.error(e)
     }
 }
