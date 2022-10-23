@@ -12,7 +12,7 @@ export class ProductService {
     constructor(
         @Inject('PRODUCT_REPOSITORY')
         private productRepository: typeof Product,
-        private fileService: FileService
+        private fileService: FileService,
     ) {}
 
 

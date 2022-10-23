@@ -21,6 +21,8 @@ const CartPage = observer(() => {
 
         getAllFromCartByUserId(user.user.userId).then(async data => {
 
+            if (data.count < 1) return;
+
             await cart.setCartTotalProductsCount(countTotalProducts(data.rows))
 
             await getProductsForCart(data.rows.reduce(

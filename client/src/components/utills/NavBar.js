@@ -3,16 +3,19 @@ import {Button, Form, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {logout} from "../../http/userHttp";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
+import {useNavigate} from "react-router-dom";
 
 
 const NavBarComponent = observer(() => {
 
     const {user, product} = useContext(Context)
+    const navigate = useNavigate()
 
     const [search, setSearch] = useState('')
 
-    const setSearchHandler = () => {
-        product.setSearchInput(search)
+    const setSearchHandler = async () => {
+        await navigate('/')
+        await product.setSearchInput(search)
     }
 
     return (
