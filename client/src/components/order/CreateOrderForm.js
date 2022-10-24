@@ -90,7 +90,6 @@ const CreateOrderForm = ({validated, errors, finalPrice, sendCreateData}) => {
             </Form.Group>
 
             <Form.Select aria-label="Select Delivery Type" onChange={e => setDeliveryType(e.target.value)}>
-                <Form.Label>Delivery Type</Form.Label>
                 {DELIVERY_TYPES.map((type, index) => (
                     <option key={index.toString()} value={type}>{type}</option>
                 ))}
