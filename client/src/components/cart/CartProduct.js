@@ -14,7 +14,6 @@ const product = observer(({product}) => {
 
     const deleteProductFromCart = async () => {
         await deleteFromCart(product.cartProduct[0].id).then(() => cart.setCartTotalProductsCount(0))
-
     }
 
     const increaseQty = async () => {

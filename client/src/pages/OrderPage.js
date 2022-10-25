@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Container} from "react-bootstrap";
+import {Card, Container, Spinner} from "react-bootstrap";
 import {useState} from "react";
 import {useContext} from "react";
 import {Context} from "../index";
@@ -24,6 +24,16 @@ const OrderPage = observer(() => {
     const [finalPrice, setFinalPrice] = useState(0)
     const [errors, setErrors] = useState({})
     const [validated, setValidated] = useState(false)
+    const [loading, setLoading] = useState(true)
+
+    const getData = async () => {
+        await setLoading(true)
+        await getAllFromCartByUserId(user.user.userId).then(data => {
+            setFinalPrice(recalcCartFinalPrice(data.rows))
+            setProducts(data.rows)
+        })
+        await setLoading(false)
+    }
 
     const sendCreateData = async (firstName, lastName, phone, address, comment, deliveryType) => {
 
@@ -54,11 +64,16 @@ const OrderPage = observer(() => {
     }
 
     useEffect(() => {
-        getAllFromCartByUserId(user.user.userId).then(data => {
-            setFinalPrice(recalcCartFinalPrice(data.rows))
-            setProducts(data.rows)
-        })
+        getData()
     }, [])
+
+    if (loading) {
+        return (
+            <div className="loading-block">
+                <Spinner className="loading-spinner" animation="border" variant="primary"/>
+            </div>
+        )
+    }
 
     if (!products.length) return <div className="cart-data-info">your cart is empty</div>
 
