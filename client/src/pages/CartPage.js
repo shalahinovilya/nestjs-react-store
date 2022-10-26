@@ -43,7 +43,7 @@ const CartPage = observer(() => {
         )
     }
 
-    if (!cart?.cartProducts?.length) {
+    if (!cart?.cartTotalProductsCount) {
         return <div className="cart-data-info">Your cart is empty</div>
     }
 
