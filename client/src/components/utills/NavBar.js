@@ -59,7 +59,7 @@ const NavBarComponent = observer(() => {
                         <Nav.Link
                             href="/cart/"
                         >
-                            Cart
+                            <i className="fa-solid fa-cart-shopping"></i>
                         </Nav.Link>
 
                         {user.isAuth ?
