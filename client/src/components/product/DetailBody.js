@@ -8,7 +8,7 @@ import AddToCartToast from "./AddToCartToast";
 
 const DetailBody = ({currentProduct, openDeleteModalHandler}) => {
 
-    const {user} = useContext(Context)
+    const {user, cart} = useContext(Context)
 
     const [show, setShow] = useState(false)
 
@@ -19,6 +19,7 @@ const DetailBody = ({currentProduct, openDeleteModalHandler}) => {
 
     const addToCartHandler = async () => {
         await addToCart(currentProduct.id, currentProduct.price, user.user.userId)
+        await cart.setCartTotalProductsCount(-1)
         await addToCartShowHandler()
     }
 

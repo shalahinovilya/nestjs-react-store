@@ -78,3 +78,15 @@ export const changeCartFinalPrice = async (userId, finalPrice) => {
         console.log(e)
     }
 }
+
+export const getCartTotalCount = async (userId) => {
+    try {
+        const res = await axios({
+            method: 'get',
+            url: `/cart/get-cart-total-count/${userId}/`,
+        })
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
+}

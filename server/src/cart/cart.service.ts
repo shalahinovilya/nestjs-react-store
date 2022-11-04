@@ -1,4 +1,4 @@
-import {Inject, Injectable} from "@nestjs/common";
+import {Inject, Injectable, Param} from "@nestjs/common";
 import {Cart} from "./cart.entity";
 import {CartProductService} from "../cart-product/cart-product.service";
 
@@ -55,6 +55,11 @@ export class CartService {
         const cart = await this.getOrCreateCart(userId)
         await cart.update({finalPrice}, {where: {id: cart.id}})
         return cart
+    }
+
+    async getCartTotalCount (userId) {
+        const cart = await this.getOrCreateCart(userId)
+        return await this.cartProductService.cartProductTotalCount(cart.id)
     }
 
 }

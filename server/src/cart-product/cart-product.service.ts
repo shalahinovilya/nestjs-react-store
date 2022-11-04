@@ -42,4 +42,9 @@ export class CartProductService {
         return await cartProduct.save()
     }
 
+    async cartProductTotalCount(cartId) {
+        const cartProducts = await this.cartProductProvider.findAll({where: {cartId}})
+        return cartProducts.reduce((total, el) => total + el.quantity, 0)
+    }
+
 }

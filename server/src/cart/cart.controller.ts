@@ -173,4 +173,9 @@ export class CartController {
         return await this.cartService.changeCartFinalPrice(userId, finalPrice)
     }
 
+    @Get('get-cart-total-count/:userId')
+    async getCartTotalCount (@Param('userId') userId) {
+        return await this.cartService.getCartTotalCount(userId)
+    }
+
 }
