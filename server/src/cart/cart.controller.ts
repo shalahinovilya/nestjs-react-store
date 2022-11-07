@@ -174,6 +174,15 @@ export class CartController {
     }
 
     @Get('get-cart-total-count/:userId')
+    @ApiResponse({
+        status: 200,
+        description: 'cart total count',
+        type: Number
+    })
+    @ApiResponse({
+        status: 400,
+        description: 'Bad request'
+    })
     async getCartTotalCount (@Param('userId') userId) {
         return await this.cartService.getCartTotalCount(userId)
     }
