@@ -5,6 +5,5 @@ export async function findMinMaxPrice (data) {
         arr.push(object.price)
     }
 
-
     return {maxPrice: Math.max(...arr), minPrice:  Math.min(...arr)}
 }

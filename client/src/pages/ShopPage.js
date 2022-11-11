@@ -18,8 +18,8 @@ const ShopPage = observer(() => {
     useEffect(() => {
         getAllCategories().then(data => product.setCategories(data))
         getProducts(
-            3,
-            0,
+            product.limit,
+            product.offset,
             null,
             product.searchInput,
             product.selectedPricing,
