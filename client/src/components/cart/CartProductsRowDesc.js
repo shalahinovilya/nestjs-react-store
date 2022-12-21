@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Col, Row} from "react-bootstrap";
 
-const CartProductsRowDesc = () => {
+const CartProductsRowDesc = memo(() => {
     return (
         <div>
             <Row md={6}>
@@ -33,6 +33,6 @@ const CartProductsRowDesc = () => {
             </Row>
         </div>
     );
-};
+});
 
 export default CartProductsRowDesc;
